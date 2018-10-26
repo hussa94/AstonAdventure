@@ -4,7 +4,7 @@ Aston Adventure is group 17's submission for the CS4780 - Team Project Computer 
 This project is a game aimed at university marketing teams who wish to introduce prospective university students to their university. This project can be played on the web application on the internet or can be downloaded as a desktip application.
 
 ## Built With
-* [LibGDX](https://libgdx.badlogicgames.com/documentation/) - The game framework used
+* [LibGDX](https://libgdx.badlogicgames.com/documentation/) - The game development framework used
 
 ## Team Members
 * Jodie Ashford <ashfojsm@aston.ac.uk>
