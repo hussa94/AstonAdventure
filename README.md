@@ -7,12 +7,12 @@ This project is a game aimed at university marketing teams who wish to introduce
 * [LibGDX](https://libgdx.badlogicgames.com/documentation/) - The web framework used
 
 ## Team Members
-* "Jodie Ashford" <rabonem@aston.ac.uk>
-* "Marin Capranov" <rabonem@aston.ac.uk>
-* "Christian Grubisic" <rabonem@aston.ac.uk>
-* "Abdullah Hussain" <rabonem@aston.ac.uk>
-* "Jardel Kasai" <rabonem@aston.ac.uk>
-* "Lucy Mulgrew" <rabonem@aston.ac.uk>
-* "Martin Rabone" <rabonem@aston.ac.uk>
-* "Jodie Thomas" <rabonem@aston.ac.uk>
-* "Sarah Yusufali" <rabonem@aston.ac.uk>
+* Jodie Ashford <ashfojsm@aston.ac.uk>
+* Marin Capranov <capranom@aston.ac.uk>
+* Christian Grubisic <grubisic@aston.ac.uk>
+* Abdullah Hussain <hussaa81@aston.ac.uk>
+* Jardel Kasai <kasaij@aston.ac.uk>
+* Lucy Mulgrew <mulgrewl@aston.ac.uk>
+* Martin Rabone <rabonem@aston.ac.uk>
+* Jodie Thomas <thomaj11@aston.ac.uk>
+* Sarah Yusufali <yusufals@aston.ac.uk>
