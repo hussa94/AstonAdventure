@@ -1,12 +1,11 @@
 package Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import uk.ac.aston.team17.AstonAdventure;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import uk.ac.aston.team17.AstonAdventure;
 
 
 public class MenuScreen implements Screen {
@@ -21,8 +20,8 @@ public class MenuScreen implements Screen {
 
 public MenuScreen(AstonAdventure game){
     this.game = game;
-    background = new Texture("menu-flat.png");
-   playButton = new Texture("button.png");
+    background = new Texture("core/assets/menu-flat.png");
+   playButton = new Texture("core/assets/button.png");
    clickPlayButton = new Sprite(playButton);
 
 
