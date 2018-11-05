@@ -20,8 +20,8 @@ public class MenuScreen implements Screen {
 
 public MenuScreen(AstonAdventure game){
     this.game = game;
-    background = new Texture("core/assets/menu-flat.png");
-   playButton = new Texture("core/assets/button.png");
+    background = new Texture("menu-flat.png");
+   playButton = new Texture("button.png");
    clickPlayButton = new Sprite(playButton);
 
 
