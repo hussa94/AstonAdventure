@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
             x -= SPEED*Gdx.graphics.getDeltaTime();
         }
         batch.end();
-
+//
     }
 
     @Override
