@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import entities.FemalePlayer;
 import entities.Player;
 import uk.ac.aston.team17.AstonAdventure;
 
@@ -20,9 +21,9 @@ public class GameScreen implements Screen {
 
 
     public GameScreen() {
-        femalePlayer = new Player(0,0);
+        femalePlayer = new FemalePlayer(0, 0);
         this.game = game;
-        texture = new Texture("core/assets/badlogic.jpg");
+        texture = new Texture("badlogic.jpg");
 
         batch = new SpriteBatch();
     }
@@ -38,21 +39,22 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(texture, x, y);
+        
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            texture = new Texture("core/assets/Sprites/Characters/walk_up_f.png");
+            texture = new Texture("Sprites/Characters/walk_up_f.png");
             y += SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            texture = new Texture("core/assets/Sprites/Characters/walk_down_f.png");
+            texture = new Texture("Sprites/Characters/walk_down_f.png");
             y -= SPEED * Gdx.graphics.getDeltaTime();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            texture = new Texture("core/assets/Sprites/Characters/walk_right_f.png");
-            x += SPEED*Gdx.graphics.getDeltaTime();
-         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            texture = new Texture("core/assets/Sprites/Characters/walk_left_f.png");
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            texture = new Texture("Sprites/Characters/walk_right_f.png");
+            x += SPEED * Gdx.graphics.getDeltaTime();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            texture = new Texture("Sprites/Characters/walk_left_f.png");
 //            femalePlayer.movementLeft(delta);
-            x -= SPEED*Gdx.graphics.getDeltaTime();
-        }else {
-        texture = new Texture("core/assets/Sprites/Characters/walk_down_f.png");
+            x -= SPEED * Gdx.graphics.getDeltaTime();
+        } else {
+            texture = new Texture("Sprites/Characters/walk_down_f.png");
         }
         batch.end();
 //
