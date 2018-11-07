@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import uk.ac.aston.team17.AstonAdventure;
@@ -16,12 +17,11 @@ public class GameScreen implements Screen {
     TextureAtlas textureAtlas;
     SpriteBatch batch;
     Texture texture;
-//    Player femalePlayer;
     float x, y,elapsedTime, frameDuration;
 
-    public static final float SPEED = 100;
+    OrthographicCamera camera;
 
-
+    public static float SPEED = 100;
 
     public GameScreen() {
         x=50;
@@ -38,7 +38,13 @@ public class GameScreen implements Screen {
         this.game = game;
         texture = new Texture("badlogic.jpg");
 
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
 
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false,w,h);
+        camera.position.set(x,y,0);
+        camera.update();
     }
 
     public void renderBackground() {
@@ -63,22 +69,27 @@ public class GameScreen implements Screen {
             animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("up/up"));
 
             y += SPEED * Gdx.graphics.getDeltaTime();
+            camera.position.y += SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("down/down"));
 
             y -= SPEED * Gdx.graphics.getDeltaTime();
+            camera.position.y -= SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("right/right"));
 
             x += SPEED * Gdx.graphics.getDeltaTime();
+            camera.position.x += SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("left/left"));
 
             x -= SPEED * Gdx.graphics.getDeltaTime();
+            camera.position.x -= SPEED * Gdx.graphics.getDeltaTime();
         } else {
             animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("standing/standing"));
-
         }
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         batch.end();
 //
     }
