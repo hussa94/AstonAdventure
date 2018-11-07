@@ -11,12 +11,12 @@ public class Inventory {
         HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_Empty.png");
     }
 
-    public void checkHUDStatus(Items objects) {
+    public void checkHUDStatus(Items items) {
 
-        boolean backpackPick = objects.backpackPick;
-        boolean bookPick = objects.bookPick;
-        boolean coffeePick = objects.coffeePick;
-        boolean shoesPick = objects.shoesPick;
+        boolean backpackPick = items.backpackPick;
+        boolean bookPick = items.bookPick;
+        boolean coffeePick = items.coffeePick;
+        boolean shoesPick = items.shoesPick;
 
         if(!backpackPick && !bookPick && !coffeePick && !shoesPick) {
             HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_Empty.png");

@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import entities.Inventory;
+import entities.Items;
 import uk.ac.aston.team17.AstonAdventure;
 
 public class GameScreen implements Screen {
@@ -16,27 +18,26 @@ public class GameScreen implements Screen {
     TextureAtlas textureAtlas;
     SpriteBatch batch;
     Texture texture;
-//    Player femalePlayer;
+    Items items = new Items();
+    Inventory inventory = new Inventory();
     float x, y,elapsedTime, frameDuration;
 
-    public static final float SPEED = 100;
-
-
+    public static float SPEED = 100;
 
     public GameScreen() {
         x=50;
         y=50;
         frameDuration = 1/5f;
         batch = new SpriteBatch();
-        backgroundTexture = new Texture("landscape.png");
+        backgroundTexture = new Texture("core/assets/landscape.png");
         backgroundSprite =new Sprite(backgroundTexture);
         //Loads the TextureAtlas .atlas file
-        textureAtlas = new TextureAtlas("femaleCh.atlas");
+        textureAtlas = new TextureAtlas("core/assets/femaleCh.atlas");
         //Find the regions by name and add all frames for that ot animation object
         animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("standing/standing"));
         //        femalePlayer = new FemalePlayer(0, 0);
         this.game = game;
-        texture = new Texture("badlogic.jpg");
+        texture = new Texture("core/assets/badlogic.jpg");
 
 
     }
@@ -57,6 +58,21 @@ public class GameScreen implements Screen {
         batch.begin();
         renderBackground();
         elapsedTime += Gdx.graphics.getDeltaTime();
+
+        if(!items.backpackPick) {
+            batch.draw(items.backpack, items.xBackpack, items.yBackpack);
+        }
+        if(!items.bookPick) {
+            batch.draw(items.book, items.xBook, items.yBook);
+        }
+        if(!items.coffeePick) {
+            batch.draw(items.coffee, items.xCoffee, items.yCoffee);
+        }
+        if(!items.shoesPick) {
+            batch.draw(items.shoes, items.xShoes, items.yShoes);
+        }
+
+        batch.draw(inventory.HUD, inventory.xHUD, inventory.yHUD);
         batch.draw(animation.getKeyFrame(elapsedTime,true),x ,y);
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -79,8 +95,14 @@ public class GameScreen implements Screen {
             animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("standing/standing"));
 
         }
+
+        items.hasPlayerPickedBackpack(x, y);
+        items.hasPlayerPickedBook(x, y);
+        items.hasPlayerPickedCoffee(x, y);
+        items.hasPlayerPickedShoes(x, y);
+        inventory.checkHUDStatus(items);
+
         batch.end();
-//
     }
 
     @Override
