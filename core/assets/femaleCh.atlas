@@ -1,0 +1,110 @@
+femaleCh.png
+size: 96, 468
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+down/down
+  rotate: false
+  xy: 1, 317
+  size: 46, 74
+  orig: 48, 96
+  offset: 0, 11
+  index: 1
+down/down
+  rotate: false
+  xy: 49, 317
+  size: 46, 74
+  orig: 48, 96
+  offset: 0, 11
+  index: 2
+down/down
+  rotate: false
+  xy: 1, 393
+  size: 46, 74
+  orig: 48, 96
+  offset: 0, 11
+  index: 3
+left/left
+  rotate: false
+  xy: 1, 1
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 1
+left/left
+  rotate: false
+  xy: 49, 1
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 2
+left/left
+  rotate: false
+  xy: 1, 80
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 3
+right/right
+  rotate: false
+  xy: 49, 80
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 1
+right/right
+  rotate: false
+  xy: 1, 159
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 2
+right/right
+  rotate: false
+  xy: 49, 159
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 3
+standing/standing
+  rotate: false
+  xy: 1, 317
+  size: 46, 74
+  orig: 48, 96
+  offset: 0, 11
+  index: 1
+standing/standing
+  rotate: false
+  xy: 1, 317
+  size: 46, 74
+  orig: 48, 96
+  offset: 0, 11
+  index: 2
+standing/standing
+  rotate: false
+  xy: 1, 317
+  size: 46, 74
+  orig: 48, 96
+  offset: 0, 11
+  index: 3
+up/up
+  rotate: false
+  xy: 49, 393
+  size: 46, 74
+  orig: 48, 96
+  offset: 0, 11
+  index: 1
+up/up
+  rotate: false
+  xy: 1, 238
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 2
+up/up
+  rotate: false
+  xy: 49, 238
+  size: 46, 77
+  orig: 48, 96
+  offset: 0, 8
+  index: 3
