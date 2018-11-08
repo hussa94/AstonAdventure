@@ -26,10 +26,10 @@ public class Items {
 
     public Items() {
 
-        backpack = new Texture("core/assets/Sprites/Objects/Backpack/Backpack_object_spritesheet_resize.png");
-        shoes = new Texture("core/assets/Sprites/Objects/Trainers/Trainers_object_spritesheet_resized.png");
-        book = new Texture("core/assets/Sprites/Objects/Book/Book_object_spritesheet_resized.png");
-        coffee = new Texture("core/assets/Sprites/Objects/Mug/Mug_object_spritesheet_resized.png");
+        backpack = new Texture("Sprites/Objects/Backpack/Backpack_object_spritesheet_resize.png");
+        shoes = new Texture("Sprites/Objects/Trainers/Trainers_object_spritesheet_resized.png");
+        book = new Texture("Sprites/Objects/Book/Book_object_spritesheet_resized.png");
+        coffee = new Texture("Sprites/Objects/Mug/Mug_object_spritesheet_resized.png");
 
     }
 

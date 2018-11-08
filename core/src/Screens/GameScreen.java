@@ -32,16 +32,16 @@ public class GameScreen implements Screen {
         y=50;
         frameDuration = 1/5f;
         batch = new SpriteBatch();
-        backgroundTexture = new Texture("core/assets/landscape.png");
+        backgroundTexture = new Texture("landscape.png");
         backgroundSprite =new Sprite(backgroundTexture);
         //Loads the TextureAtlas .atlas file
-        textureAtlas = new TextureAtlas("core/assets/characters.atlas");
+        textureAtlas = new TextureAtlas("characters.atlas");
 //       textureAtlas = new TextureAtlas("core/assets/femaleCh.atlas");
         //Find the regions by name and add all frames for that ot animation object
         animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/standing"));
 
         this.game = game;
-        texture = new Texture("core/assets/badlogic.jpg");
+        texture = new Texture("badlogic.jpg");
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();

@@ -8,7 +8,7 @@ public class Inventory {
     public final float xHUD = 380, yHUD = 410;
 
     public Inventory() {
-        HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_Empty.png");
+        HUD = new Texture("Sprites/Objects/Inventory/ItemBar_Empty.png");
     }
 
     public void checkHUDStatus(Items items) {
@@ -19,52 +19,52 @@ public class Inventory {
         boolean shoesPick = items.shoesPick;
 
         if(!backpackPick && !bookPick && !coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_Empty.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_Empty.png");
         }
         else if (backpackPick && !bookPick && !coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BackOnly.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BackOnly.png");
         }
         else if (!backpackPick && bookPick && !coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BookOnly.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BookOnly.png");
         }
         else if (backpackPick && bookPick && !coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BackBook.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BackBook.png");
         }
         else if (!backpackPick && !bookPick && coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_CoffeeOnly.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_CoffeeOnly.png");
         }
         else if (backpackPick && !bookPick && coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BackCoffee.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BackCoffee.png");
         }
         else if (!backpackPick && bookPick && coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BookCoffee.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BookCoffee.png");
         }
         else if (backpackPick && bookPick && coffeePick && !shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BackBookCoffee.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BackBookCoffee.png");
         }
         else if (!backpackPick && !bookPick && !coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_ShoesOnly.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_ShoesOnly.png");
         }
         else if (backpackPick && !bookPick && !coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BackShoes.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BackShoes.png");
         }
         else if (!backpackPick && bookPick && !coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BookShoes.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BookShoes.png");
         }
         else if (backpackPick && bookPick && !coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BackBookShoes.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BackBookShoes.png");
         }
         else if (!backpackPick && !bookPick && coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_CoffeeShoes.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_CoffeeShoes.png");
         }
         else if (backpackPick && !bookPick && coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BackCoffeeShoes.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BackCoffeeShoes.png");
         }
         else if (!backpackPick && bookPick && coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_BookCoffeeShoes.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_BookCoffeeShoes.png");
         }
         else if (backpackPick && bookPick && coffeePick && shoesPick) {
-            HUD = new Texture("core/assets/Sprites/Objects/Inventory/ItemBar_All.png");
+            HUD = new Texture("Sprites/Objects/Inventory/ItemBar_All.png");
         }
     }
 
