@@ -12,43 +12,43 @@ import entities.Items;
 import uk.ac.aston.team17.AstonAdventure;
 
 public class GameScreen implements Screen {
-    public static Texture backgroundTexture;
-    public static Sprite backgroundSprite;
-    AstonAdventure game;
-    Animation<TextureRegion> animation;
-    TextureAtlas textureAtlas;
-    SpriteBatch batch;
-    Texture texture;
-    Items items = new Items();
-    Inventory inventory = new Inventory();
-    float x, y,elapsedTime, frameDuration;
+    private static Texture backgroundTexture;
+    private static Sprite backgroundSprite;
+    private AstonAdventure game;
+    private Animation<TextureRegion> animation;
+    private TextureAtlas textureAtlas;
+    private SpriteBatch batch;
 
-    OrthographicCamera camera;
+    private Items items = new Items();
+    private Inventory inventory = new Inventory();
+    private float x, y, elapsedTime, frameDuration;
+
+    private OrthographicCamera camera;
 
     public static float SPEED = 100;
 
     public GameScreen() {
-        x=50;
-        y=50;
-        frameDuration = 1/5f;
+        x = 50;
+        y = 50;
+        frameDuration = 1 / 5f;
+
         batch = new SpriteBatch();
         backgroundTexture = new Texture("landscape.png");
-        backgroundSprite =new Sprite(backgroundTexture);
+        backgroundSprite = new Sprite(backgroundTexture);
         //Loads the TextureAtlas .atlas file
         textureAtlas = new TextureAtlas("characters.atlas");
 //       textureAtlas = new TextureAtlas("core/assets/femaleCh.atlas");
         //Find the regions by name and add all frames for that ot animation object
-        animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/standing"));
+        animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/standing"));
 
         this.game = game;
-        texture = new Texture("badlogic.jpg");
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,w,h);
-        camera.position.set(x,y,0);
+        camera.setToOrtho(false, w, h);
+        camera.position.set(x, y, 0);
         camera.update();
     }
 
@@ -68,46 +68,51 @@ public class GameScreen implements Screen {
         batch.begin();
         renderBackground();
         elapsedTime += Gdx.graphics.getDeltaTime();
+        if (SPEED == 200) {
+            frameDuration = 1 / 10f;
+        } else {
+            frameDuration = 1 / 5f;
+        }
 
-        if(!items.backpackPick) {
+        if (!items.backpackPick) {
             batch.draw(items.backpack, items.xBackpack, items.yBackpack);
         }
-        if(!items.bookPick) {
+        if (!items.bookPick) {
             batch.draw(items.book, items.xBook, items.yBook);
         }
-        if(!items.coffeePick) {
+        if (!items.coffeePick) {
             batch.draw(items.coffee, items.xCoffee, items.yCoffee);
         }
-        if(!items.shoesPick) {
+        if (!items.shoesPick) {
             batch.draw(items.shoes, items.xShoes, items.yShoes);
         }
 
         //Todo: change so that HUD is always in corner
         //batch.draw(inventory.HUD, inventory.xHUD, inventory.yHUD);
-        batch.draw(animation.getKeyFrame(elapsedTime,true),x ,y);
+        batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/up"));
+            animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/up"));
 
             y += SPEED * Gdx.graphics.getDeltaTime();
             camera.position.y += SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/down"));
+            animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/down"));
 
             y -= SPEED * Gdx.graphics.getDeltaTime();
             camera.position.y -= SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/right"));
+            animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/right"));
 
             x += SPEED * Gdx.graphics.getDeltaTime();
             camera.position.x += SPEED * Gdx.graphics.getDeltaTime();
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/left"));
+            animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/left"));
 
             x -= SPEED * Gdx.graphics.getDeltaTime();
             camera.position.x -= SPEED * Gdx.graphics.getDeltaTime();
         } else {
-            animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/standing"));
+            animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/standing"));
         }
         camera.update();
         batch.setProjectionMatrix(camera.combined);
