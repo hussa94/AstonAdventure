@@ -35,7 +35,8 @@ public class GameScreen implements Screen {
         backgroundTexture = new Texture("core/assets/landscape.png");
         backgroundSprite =new Sprite(backgroundTexture);
         //Loads the TextureAtlas .atlas file
-        textureAtlas = new TextureAtlas("core/assets/femaleCh.atlas");
+        textureAtlas = new TextureAtlas("core/assets/characters.atlas");
+//       textureAtlas = new TextureAtlas("core/assets/femaleCh.atlas");
         //Find the regions by name and add all frames for that ot animation object
         animation = new Animation<TextureRegion>(frameDuration,textureAtlas.findRegions("female/standing"));
 
@@ -81,7 +82,8 @@ public class GameScreen implements Screen {
             batch.draw(items.shoes, items.xShoes, items.yShoes);
         }
 
-        batch.draw(inventory.HUD, inventory.xHUD, inventory.yHUD);
+        //Todo: change so that HUD is always in corner
+        //batch.draw(inventory.HUD, inventory.xHUD, inventory.yHUD);
         batch.draw(animation.getKeyFrame(elapsedTime,true),x ,y);
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
