@@ -28,8 +28,8 @@ public class GameScreen implements Screen {
     public static float SPEED = 100;
 
     public GameScreen() {
-        x = 50;
-        y = 50;
+        x = 400;
+        y = 400;
         frameDuration = 1 / 5f;
 
         batch = new SpriteBatch();
