@@ -22,6 +22,8 @@ public class Items {
     public boolean coffeePick = false;
     public boolean shoesPick = false;
 
+    Soundmanager Sm = new Soundmanager();
+
     public Items() {
 
         backpack = new Texture("Sprites/Objects/Backpack/Backpack_object_spritesheet_resize.png");
@@ -35,6 +37,8 @@ public class Items {
         if (((xBackpack - 10) < xPlayer && xPlayer < (xBackpack + 10)) || ((yBackpack - 10) < yPlayer && yPlayer < (yBackpack + 10))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 backpackPick = true;
+                Sm.soundFx();
+
             }
         }
     }
@@ -43,6 +47,7 @@ public class Items {
         if (((xBook - 20) < xPlayer && xPlayer < (xBook + 20)) || ((yBook - 20) < yPlayer && yPlayer < (yBook + 20))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 bookPick = true;
+                Sm.soundFx();
             }
         }
     }
@@ -51,6 +56,7 @@ public class Items {
         if (((xCoffee - 10) < xPlayer && xPlayer < (xCoffee + 10)) || ((yCoffee - 10) < yPlayer && yPlayer < (yCoffee + 10))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 coffeePick = true;
+                Sm.soundFx();
             }
         }
     }
@@ -60,6 +66,7 @@ public class Items {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 GameScreen.SPEED = 200;
                 shoesPick = true;
+                Sm.soundFx();
             }
         }
     }

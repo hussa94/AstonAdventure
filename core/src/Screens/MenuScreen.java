@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import entities.Soundmanager;
 import uk.ac.aston.team17.AstonAdventure;
 
 
@@ -15,6 +16,7 @@ public class MenuScreen implements Screen {
     private static final int BACKGROUND_HEIGHT = 500;
     private static final int PLAY_BUTTON_HEIGHT = 100;
     private static final int PLAY_BUTTON_WIDTH = 300;
+    Soundmanager Sm = new Soundmanager();
 
 public MenuScreen(AstonAdventure game){
     this.game = game;
@@ -40,7 +42,7 @@ public MenuScreen(AstonAdventure game){
 
         if (Gdx.input.justTouched()) {
             game.setScreen(new GameScreen());
-
+            Sm.create();
         }
 
 
