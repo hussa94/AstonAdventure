@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
         //Find the regions by name and add all frames for that ot animation object
         animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/standing"));
 
-        this.game = game;
+       // this.game = game;
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
