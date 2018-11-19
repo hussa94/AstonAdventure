@@ -23,6 +23,9 @@ public class GameScreen implements Screen {
     private Inventory inventory = new Inventory();
     private float x, y, elapsedTime, frameDuration;
 
+//    private static final int BACKGROUND_WIDTH = 1920;
+//    private static final int BACKGROUND_HEIGHT = 1080;
+
     private OrthographicCamera camera;
 
     public static float SPEED = 100;
@@ -47,13 +50,14 @@ public class GameScreen implements Screen {
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
+        camera.setToOrtho(false, w,h);
         camera.position.set(x, y, 0);
         camera.update();
     }
 
     public void renderBackground() {
         backgroundSprite.draw(batch);
+
     }
 
     @Override
@@ -117,6 +121,9 @@ public class GameScreen implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
+
+
+
         items.hasPlayerPickedBackpack(x, y);
         items.hasPlayerPickedBook(x, y);
         items.hasPlayerPickedCoffee(x, y);
@@ -128,7 +135,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
