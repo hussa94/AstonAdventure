@@ -23,13 +23,16 @@ public class GameScreen implements Screen {
     private Inventory inventory = new Inventory();
     private float x, y, elapsedTime, frameDuration;
 
+//    private static final int BACKGROUND_WIDTH = 1920;
+//    private static final int BACKGROUND_HEIGHT = 1080;
+
     private OrthographicCamera camera;
 
     public static float SPEED = 100;
 
     public GameScreen() {
-        x = 50;
-        y = 50;
+        x = 400;
+        y = 400;
         frameDuration = 1 / 5f;
 
         batch = new SpriteBatch();
@@ -47,13 +50,14 @@ public class GameScreen implements Screen {
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
+        camera.setToOrtho(false, w,h);
         camera.position.set(x, y, 0);
         camera.update();
     }
 
     public void renderBackground() {
         backgroundSprite.draw(batch);
+
     }
 
     @Override
@@ -91,22 +95,22 @@ public class GameScreen implements Screen {
         //batch.draw(inventory.HUD, inventory.xHUD, inventory.yHUD);
         batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)|| Gdx.input.isKeyPressed(Input.Keys.W)) {
             animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/up"));
 
             y += SPEED * Gdx.graphics.getDeltaTime();
             camera.position.y += SPEED * Gdx.graphics.getDeltaTime();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
             animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/down"));
 
             y -= SPEED * Gdx.graphics.getDeltaTime();
             camera.position.y -= SPEED * Gdx.graphics.getDeltaTime();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/right"));
 
             x += SPEED * Gdx.graphics.getDeltaTime();
             camera.position.x += SPEED * Gdx.graphics.getDeltaTime();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/left"));
 
             x -= SPEED * Gdx.graphics.getDeltaTime();
@@ -116,6 +120,9 @@ public class GameScreen implements Screen {
         }
         camera.update();
         batch.setProjectionMatrix(camera.combined);
+
+
+
 
         items.hasPlayerPickedBackpack(x, y);
         items.hasPlayerPickedBook(x, y);
@@ -128,7 +135,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
