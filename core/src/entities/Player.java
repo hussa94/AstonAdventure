@@ -1,23 +1,35 @@
 package entities;
 
 import Screens.GameScreen;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player {
+public abstract class Player implements Movement{
 
     private Vector2 position, velocity;
     protected Texture walkUp, walkLeft, walkRight, walkDown, standStill;
-    protected Animation leftAnimation, rightAnimation, upAnimation, downAnimation, stillAnimation;
+    //protected Animation leftAnimation, rightAnimation, upAnimation, downAnimation, stillAnimation;
 
-    public Player(int x, int y) {
+    GameScreen gameScreen;
+
+    Animation<TextureRegion> animation;
+
+    TextureAtlas textureAtlas;
+
+    public Player(float x, float y) {
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
+
+        //TODO: Sort out this method to create a new Screen
+        //gameScreen = new GameScreen();
+
+        textureAtlas = new TextureAtlas("characters.atlas");
     }
 
-    public void movementLeft(float dt) {
+    /*public void movementLeft(float dt) {
         leftAnimation.update(dt);
         position.x = GameScreen.SPEED * Gdx.graphics.getDeltaTime();
     }
@@ -30,7 +42,7 @@ public class Player {
 
     public TextureRegion getTexture() {
         return stillAnimation.getFrame();
-    }
+    }*/
 
 
 }

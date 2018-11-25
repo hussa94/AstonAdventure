@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import entities.Inventory;
 import entities.Items;
+import entities.Player;
 import uk.ac.aston.team17.AstonAdventure;
 
 public class GameScreen implements Screen {
@@ -27,6 +28,9 @@ public class GameScreen implements Screen {
 //    private static final int BACKGROUND_HEIGHT = 1080;
 
     private OrthographicCamera camera;
+
+    //TODO: Add player object to GameScreen to allow calling of movement methods in render() method
+    private Player player;
 
     public static float SPEED = 100;
 
@@ -121,9 +125,6 @@ public class GameScreen implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-
-
-
         items.hasPlayerPickedBackpack(x, y);
         items.hasPlayerPickedBook(x, y);
         items.hasPlayerPickedCoffee(x, y);
@@ -156,5 +157,9 @@ public class GameScreen implements Screen {
     public void dispose() {
         batch.dispose();
 
+    }
+
+    public float getFrameDuration(){
+        return this.frameDuration;
     }
 }

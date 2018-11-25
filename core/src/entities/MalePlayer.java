@@ -1,15 +1,16 @@
 package entities;
 
+import Screens.GameScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class MalePlayer extends Player {
+public class MalePlayer extends Player implements Movement {
 
 
     public MalePlayer(int x, int y) {
         super(x, y);
 
-        //TODO: Add Male Character Walk-Up Sprite png file
+        /*//TODO: Add Male Character Walk-Up Sprite png file
         walkUp = new Texture("Sprites/Characters/Male/Walk Up/female_character_walk_up_spritesheet.png");
         upAnimation = new Animation(new TextureRegion(walkUp), 3, 0.5f);
 
@@ -27,6 +28,26 @@ public class MalePlayer extends Player {
 
         //TODO: Add Male Character Walk-Down Sprite png file
         standStill = new Texture("Sprites/Characters/Female/Walk Down/female_character_walk_down_spritesheet.png");
-        stillAnimation = new Animation(new TextureRegion(standStill), 3, 0.5f);
+        stillAnimation = new Animation(new TextureRegion(standStill), 3, 0.5f);*/
+    }
+
+    @Override
+    public void moveUp(GameScreen gameScreen) {
+
+    }
+
+    @Override
+    public void moveDown(GameScreen gameScreen) {
+
+    }
+
+    @Override
+    public void moveLeft(GameScreen gameScreen) {
+
+    }
+
+    @Override
+    public void moveRight(GameScreen gameScreen) {
+
     }
 }

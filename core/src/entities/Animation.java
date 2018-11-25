@@ -1,5 +1,6 @@
 package entities;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
@@ -21,6 +22,9 @@ public class Animation {
         this.frameCount = frameCount;
         maxFrameTime = cycleTime / frameCount;
         frame = 0;
+    }
+
+    public Animation(float frameDuration, Array<TextureAtlas.AtlasRegion> regions) {
     }
 
     public void update(float dt){
