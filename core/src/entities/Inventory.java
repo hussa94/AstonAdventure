@@ -5,10 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 public class Inventory {
 
     public Texture HUD;
-    public final float xHUD = 380, yHUD = 410;
+    public float xHUD, yHUD;
 
     public Inventory() {
         HUD = new Texture("Sprites/Objects/Inventory/ItemBar_Empty.png");
+    }
+
+    public void setInventoryPositiion(float x, float y){
+        xHUD = x;
+        yHUD = y;
     }
 
     public void checkHUDStatus(Items items) {

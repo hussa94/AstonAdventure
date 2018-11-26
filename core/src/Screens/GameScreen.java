@@ -20,8 +20,8 @@ public class GameScreen implements Screen {
     private TextureAtlas textureAtlas;
     private SpriteBatch batch;
 
-    private Items items = new Items();
-    private Inventory inventory = new Inventory();
+    private Items items;
+    private Inventory inventory;
     private float x, y, elapsedTime, frameDuration;
 
 //    private static final int BACKGROUND_WIDTH = 1920;
@@ -57,6 +57,18 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, w,h);
         camera.position.set(x, y, 0);
         camera.update();
+
+        //Set items and their co-ordinates
+        items = new Items();
+        items.setBackpackCoordinates(200, 350);
+        items.setBookCoordinates(550, 150);
+        items.setCoffeeCoordinates(300, 0);
+        items.setShoesCoordinates(50, 100);
+
+        //Set Inventory and its position
+        inventory = new Inventory();
+        inventory.setInventoryPositiion(60, 170);
+
     }
 
     public void renderBackground() {
@@ -73,6 +85,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         batch.begin();
         renderBackground();
         elapsedTime += Gdx.graphics.getDeltaTime();
@@ -82,6 +95,8 @@ public class GameScreen implements Screen {
             frameDuration = 1 / 5f;
         }
 
+
+        //Draw items if they have not been picked up
         if (!items.backpackPick) {
             batch.draw(items.backpack, items.xBackpack, items.yBackpack);
         }
@@ -95,10 +110,11 @@ public class GameScreen implements Screen {
             batch.draw(items.shoes, items.xShoes, items.yShoes);
         }
 
-        //Todo: change so that HUD is always in corner
-        //batch.draw(inventory.HUD, inventory.xHUD, inventory.yHUD);
-        batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
+        //Draw inventory relative to players position
+        batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
 
+        //TODO: Move logic to player class. Use render method only for drawing textures
+        batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
         if (Gdx.input.isKeyPressed(Input.Keys.UP)|| Gdx.input.isKeyPressed(Input.Keys.W)) {
             animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/up"));
 
@@ -122,9 +138,13 @@ public class GameScreen implements Screen {
         } else {
             animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/standing"));
         }
+
+
+
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
+        //Check status of items
         items.hasPlayerPickedBackpack(x, y);
         items.hasPlayerPickedBook(x, y);
         items.hasPlayerPickedCoffee(x, y);
@@ -132,6 +152,7 @@ public class GameScreen implements Screen {
         inventory.checkHUDStatus(items);
 
         batch.end();
+
     }
 
     @Override
