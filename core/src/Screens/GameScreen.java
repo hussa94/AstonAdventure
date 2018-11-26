@@ -11,12 +11,10 @@ import entities.FemalePlayer;
 import entities.Inventory;
 import entities.Items;
 import entities.Player;
-import uk.ac.aston.team17.AstonAdventure;
 
 public class GameScreen implements Screen {
     private static Texture backgroundTexture;
     private static Sprite backgroundSprite;
-    private AstonAdventure game;
     private Animation<TextureRegion> animation;
     private TextureAtlas textureAtlas;
     private SpriteBatch batch;
@@ -48,16 +46,13 @@ public class GameScreen implements Screen {
         //Find the regions by name and add all frames for that ot animation object
         animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/standing"));
 
-        player = new FemalePlayer(x,y);
-
-
-        // this.game = game;
+        player = new FemalePlayer(x, y);
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w,h);
+        camera.setToOrtho(false, w, h);
         camera.position.set(x, y, 0);
         camera.update();
 
@@ -116,7 +111,7 @@ public class GameScreen implements Screen {
         batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
         batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)|| Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
             animation = player.moveUp();
 
             y += SPEED * Gdx.graphics.getDeltaTime();
@@ -139,8 +134,6 @@ public class GameScreen implements Screen {
         } else {
             animation = player.standStill();
         }
-
-
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -181,7 +174,7 @@ public class GameScreen implements Screen {
 
     }
 
-    public static float getFrameDuration(){
+    public static float getFrameDuration() {
         return GameScreen.frameDuration;
     }
 }

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MalePlayer extends Player implements Movement {
 
-
     public MalePlayer(float x, float y) {
         super(x, y);
 
@@ -38,7 +37,7 @@ public class MalePlayer extends Player implements Movement {
     }
 
     @Override
-    public Animation<TextureRegion> standStill(){
+    public Animation<TextureRegion> standStill() {
         animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("male/standing"));
         return animation;
     }

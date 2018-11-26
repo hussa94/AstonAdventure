@@ -9,7 +9,7 @@ import uk.ac.aston.team17.AstonAdventure;
 
 
 public class MenuScreen implements Screen {
-    private  AstonAdventure game;
+    private AstonAdventure game;
     private Texture playButton;
     private Texture background;
     private static final int BACKGROUND_WIDTH = 650;
@@ -18,14 +18,12 @@ public class MenuScreen implements Screen {
     private static final int PLAY_BUTTON_WIDTH = 300;
     Soundmanager Sm = new Soundmanager();
 
-public MenuScreen(AstonAdventure game){
-    this.game = game;
-    background = new Texture("menu-flat.png");
-   playButton = new Texture("button.png");
+    public MenuScreen(AstonAdventure game) {
+        this.game = game;
+        background = new Texture("menu-flat.png");
+        playButton = new Texture("button.png");
 
-
-
-}
+    }
 
     @Override
     public void show() {
@@ -37,18 +35,16 @@ public MenuScreen(AstonAdventure game){
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        game.batch.draw(background, 0 , 0,BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
-        game.batch.draw(playButton, 175 , 20, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+        game.batch.draw(background, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+        game.batch.draw(playButton, 175, 20, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 
         if (Gdx.input.justTouched()) {
             game.setScreen(new GameScreen());
             Sm.create();
         }
 
-
         game.batch.end();
-        }
-
+    }
 
 
     @Override
