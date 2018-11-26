@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class MalePlayer extends Player implements Movement {
 
 
-    public MalePlayer(int x, int y) {
+    public MalePlayer(float x, float y) {
         super(x, y);
 
         animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("male/standing"));
