@@ -113,7 +113,7 @@ public class GameScreen implements Screen {
         }
 
         //Draw inventory relative to players position
-        //batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
+        batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
         batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)|| Gdx.input.isKeyPressed(Input.Keys.W)) {
