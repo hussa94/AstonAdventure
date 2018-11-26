@@ -5,16 +5,22 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import entities.FemalePlayer;
 import entities.Inventory;
 import entities.Items;
 import entities.Player;
 
 public class GameScreen implements Screen {
-    private static Texture backgroundTexture;
-    private static Sprite backgroundSprite;
+    private TiledMap tiledMap;
+    private TiledMapRenderer mapRenderer;
     private Animation<TextureRegion> animation;
     private TextureAtlas textureAtlas;
     private SpriteBatch batch;
@@ -39,8 +45,6 @@ public class GameScreen implements Screen {
         frameDuration = 1 / 5f;
 
         batch = new SpriteBatch();
-        backgroundTexture = new Texture("landscape.png");
-        backgroundSprite = new Sprite(backgroundTexture);
         //Loads the TextureAtlas .atlas file
         textureAtlas = new TextureAtlas("characters.atlas");
         //Find the regions by name and add all frames for that ot animation object
@@ -51,6 +55,8 @@ public class GameScreen implements Screen {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
+        tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
+        mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.position.set(x, y, 0);
@@ -68,10 +74,6 @@ public class GameScreen implements Screen {
         inventory.setInventoryPositiion(60, 170);
     }
 
-    public void renderBackground() {
-        backgroundSprite.draw(batch);
-
-    }
 
     @Override
     public void show() {
@@ -80,11 +82,16 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 1, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //Camera is set to view TiledMap from TMX file
+        //TiledMapRender renders the map
+        mapRenderer.setView(camera);
+        mapRenderer.render();
+
         batch.begin();
-        renderBackground();
+
         elapsedTime += Gdx.graphics.getDeltaTime();
         if (SPEED == 200) {
             frameDuration = 1 / 10f;
@@ -136,6 +143,8 @@ public class GameScreen implements Screen {
         }
 
         camera.update();
+
+
         batch.setProjectionMatrix(camera.combined);
 
         //Check status of items
