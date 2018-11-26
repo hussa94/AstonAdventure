@@ -12,15 +12,15 @@ public class Items {
     public Texture coffee;
     public Texture shoes;
 
-    public float xBackpack = 200, yBackpack = 350;
-    public float xBook = 550, yBook = 150;
-    public float xCoffee = 300, yCoffee = 0;
-    public float xShoes = 50, yShoes = 100;
+    public float xBackpack, yBackpack;
+    public float xBook, yBook;
+    public float xCoffee, yCoffee;
+    public float xShoes, yShoes;
 
-    public boolean backpackPick = false;
-    public boolean bookPick = false;
-    public boolean coffeePick = false;
-    public boolean shoesPick = false;
+    public boolean backpackPick;
+    public boolean bookPick;
+    public boolean coffeePick;
+    public boolean shoesPick;
 
     Soundmanager Sm = new Soundmanager();
 
@@ -31,6 +31,26 @@ public class Items {
         book = new Texture("Sprites/Objects/Book/Book_object_spritesheet_resized.png");
         coffee = new Texture("Sprites/Objects/Mug/Mug_object_spritesheet_resized.png");
 
+    }
+
+    public void setBackpackCoordinates(float x, float y) {
+        xBackpack = x;
+        yBackpack = y;
+    }
+
+    public void setBookCoordinates(float x, float y) {
+        xBook = x;
+        yBook = y;
+    }
+
+    public void setCoffeeCoordinates(float x, float y) {
+        xCoffee = x;
+        yCoffee = y;
+    }
+
+    public void setShoesCoordinates(float x, float y) {
+        xShoes = x;
+        yShoes = y;
     }
 
     public void hasPlayerPickedBackpack(float xPlayer, float yPlayer) {
