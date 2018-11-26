@@ -10,8 +10,7 @@ import uk.ac.aston.team17.AstonAdventure;
 
 import java.awt.*;
 
-
-public class MenuScreen implements Screen, Input.TextInputListener {
+public class MenuScreen implements Screen {
     private  AstonAdventure game;
     private Texture playButton;
     private Texture background;
