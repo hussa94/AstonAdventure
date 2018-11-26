@@ -1,12 +1,13 @@
 package uk.ac.aston.team17;
 
 import Screens.MenuScreen;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AstonAdventure extends Game {
 	public SpriteBatch batch;
-	//public Texture img;
+
 	
 	@Override
 	public void create () {
@@ -25,4 +26,7 @@ public class AstonAdventure extends Game {
 //		batch.dispose();
 		//img.dispose();
 	}
-}
+
+
+    }
+

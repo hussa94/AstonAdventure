@@ -1,14 +1,17 @@
 package Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import entities.Soundmanager;
 import uk.ac.aston.team17.AstonAdventure;
 
+import java.awt.*;
 
-public class MenuScreen implements Screen {
+
+public class MenuScreen implements Screen, Input.TextInputListener {
     private  AstonAdventure game;
     private Texture playButton;
     private Texture background;
@@ -16,13 +19,16 @@ public class MenuScreen implements Screen {
     private static final int BACKGROUND_HEIGHT = 500;
     private static final int PLAY_BUTTON_HEIGHT = 100;
     private static final int PLAY_BUTTON_WIDTH = 300;
-    Soundmanager Sm = new Soundmanager();
+    private Soundmanager Sm;
+    private TextField nameInput;
+    private String text;
 
 public MenuScreen(AstonAdventure game){
     this.game = game;
     background = new Texture("menu-flat.png");
    playButton = new Texture("button.png");
-
+    Sm = new Soundmanager();
+    nameInput = new TextField();
 
 
 }
@@ -30,26 +36,47 @@ public MenuScreen(AstonAdventure game){
     @Override
     public void show() {
 
-    }
+        }
+
+
+
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        game.batch.draw(background, 0 , 0,BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
-        game.batch.draw(playButton, 175 , 20, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+        game.batch.draw(background, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+        game.batch.draw(playButton, 175, 20, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 
-        if (Gdx.input.justTouched()) {
-            game.setScreen(new GameScreen());
-            Sm.create();
+//
+
+        Sm.create();
+
+
+        if ((Gdx.input.getX() > 175) && (Gdx.input.getX() < 300) && ((Gdx.input.getY() > 380) && (Gdx.input.getY() < 480))) {
+            if (Gdx.input.isTouched()) {
+                // Gdx.input.getTextInput(this, "Title", "Insert name", "");
+                //  Gdx.app.log("Text", text);
+                //System.out.println(text);
+                game.setScreen(new GameScreen());
+            }
         }
 
-
-        game.batch.end();
-        }
+            game.batch.end();
 
 
+    }
+
+
+    public void input(String text){
+        this.text = text;
+
+    }
+    public void canceled() {
+        text = "canceled";
+
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -73,6 +100,9 @@ public MenuScreen(AstonAdventure game){
 
     @Override
     public void dispose() {
+        background.dispose();
+        playButton.dispose();
+
 
     }
 }
