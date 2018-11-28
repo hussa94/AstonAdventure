@@ -10,12 +10,12 @@ import uk.ac.aston.team17.AstonAdventure;
 
 import java.awt.*;
 
-public class MenuScreen implements Screen {
+public class MenuScreen implements Screen, Input.TextInputListener {
     private  AstonAdventure game;
     private Texture playButton;
     private Texture background;
     private static final int BACKGROUND_WIDTH = 650;
-    private static final int BACKGROUND_HEIGHT = 500;
+    private static final int BACKGROUND_HEIGHT = 480;
     private static final int PLAY_BUTTON_HEIGHT = 100;
     private static final int PLAY_BUTTON_WIDTH = 300;
     private Soundmanager Sm;
@@ -24,7 +24,7 @@ public class MenuScreen implements Screen {
 
 public MenuScreen(AstonAdventure game){
     this.game = game;
-    background = new Texture("menu-flat.png");
+    background = new Texture("new-large-welcome.png");
    playButton = new Texture("button.png");
     Sm = new Soundmanager();
     nameInput = new TextField();
@@ -50,30 +50,31 @@ public MenuScreen(AstonAdventure game){
 
 //
 
-        Sm.create();
+       Sm.create();
 
 
-        if ((Gdx.input.getX() > 175) && (Gdx.input.getX() < 300) && ((Gdx.input.getY() > 380) && (Gdx.input.getY() < 480))) {
-            if (Gdx.input.isTouched()) {
-                // Gdx.input.getTextInput(this, "Title", "Insert name", "");
-                //  Gdx.app.log("Text", text);
-                //System.out.println(text);
+       if ((Gdx.input.getX() > 175) && (Gdx.input.getX() < 475) && ((Gdx.input.getY() > 360) && (Gdx.input.getY() < 460))) {
+        if (Gdx.input.isTouched()) {
+                //    Gdx.input.getTextInput(this, "Title", "Insert name", "");
+                //    Gdx.app.log("Text", text);
+
                 game.setScreen(new GameScreen());
             }
-        }
 
+       }
             game.batch.end();
 
 
-    }
+
+}
 
 
     public void input(String text){
-        this.text = text;
+        //this.text = text;
 
     }
     public void canceled() {
-        text = "canceled";
+       // text = "canceled";
 
     }
 
