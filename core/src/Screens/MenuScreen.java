@@ -24,7 +24,7 @@ public class MenuScreen implements Screen, Input.TextInputListener {
 
 public MenuScreen(AstonAdventure game){
     this.game = game;
-    background = new Texture("new-large-welcome.png");
+    background = new Texture("newLargeWelcome.png");
    playButton = new Texture("button.png");
     Sm = new Soundmanager();
     nameInput = new TextField();
