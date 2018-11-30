@@ -53,41 +53,48 @@ public class Items {
         yShoes = y;
     }
 
-    public void hasPlayerPickedBackpack(float xPlayer, float yPlayer) {
-        if (((xBackpack - 10) < xPlayer && xPlayer < (xBackpack + 10)) || ((yBackpack - 10) < yPlayer && yPlayer < (yBackpack + 10))) {
+    public boolean hasPlayerPickedBackpack(float xPlayer, float yPlayer) {
+        if (((xBackpack - 5) < xPlayer && xPlayer < (xBackpack + 5)) || ((yBackpack - 5) < yPlayer && yPlayer < (yBackpack + 5))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 backpackPick = true;
                 Sm.soundFx();
-
+                return true;
             }
         }
+        return false;
     }
 
-    public void hasPlayerPickedBook(float xPlayer, float yPlayer) {
-        if (((xBook - 20) < xPlayer && xPlayer < (xBook + 20)) || ((yBook - 20) < yPlayer && yPlayer < (yBook + 20))) {
+    public boolean hasPlayerPickedBook(float xPlayer, float yPlayer) {
+        if (((xBook - 5) < xPlayer && xPlayer < (xBook + 5)) || ((yBook - 5) < yPlayer && yPlayer < (yBook + 5))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 bookPick = true;
                 Sm.soundFx();
+                return true;
             }
         }
+        return false;
     }
 
-    public void hasPlayerPickedCoffee(float xPlayer, float yPlayer) {
-        if (((xCoffee - 10) < xPlayer && xPlayer < (xCoffee + 10)) || ((yCoffee - 10) < yPlayer && yPlayer < (yCoffee + 10))) {
+    public boolean hasPlayerPickedCoffee(float xPlayer, float yPlayer) {
+        if (((xCoffee - 5) < xPlayer && xPlayer < (xCoffee + 5)) || ((yCoffee - 5) < yPlayer && yPlayer < (yCoffee + 5))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 coffeePick = true;
                 Sm.soundFx();
+                return true;
             }
         }
+        return false;
     }
 
-    public void hasPlayerPickedShoes(float xPlayer, float yPlayer) {
-        if (((xShoes - 10) < xPlayer && xPlayer < (xShoes + 15)) || ((yShoes - 10) < yPlayer && yPlayer < (yShoes + 15))) {
+    public boolean hasPlayerPickedShoes(float xPlayer, float yPlayer) {
+        if (((xShoes - 5) < xPlayer && xPlayer < (xShoes + 5)) || ((yShoes - 5) < yPlayer && yPlayer < (yShoes + 5))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 GameScreen.SPEED = 200;
                 shoesPick = true;
                 Sm.soundFx();
+                return true;
             }
         }
+        return false;
     }
 }

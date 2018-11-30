@@ -18,6 +18,8 @@ import entities.Inventory;
 import entities.Items;
 import entities.Player;
 
+import static java.lang.Thread.sleep;
+
 public class GameScreen implements Screen {
     private TiledMap tiledMap;
     private TiledMapRenderer mapRenderer;
@@ -29,6 +31,8 @@ public class GameScreen implements Screen {
     private Inventory inventory;
     private float x, y, elapsedTime;
     private static float frameDuration;
+
+    private boolean drawcheck;
 
 //    private static final int BACKGROUND_WIDTH = 1920;
 //    private static final int BACKGROUND_HEIGHT = 1080;
@@ -57,6 +61,7 @@ public class GameScreen implements Screen {
 
         tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.position.set(x, y, 0);
@@ -99,7 +104,6 @@ public class GameScreen implements Screen {
             frameDuration = 1 / 5f;
         }
 
-
         //Draw items if they have not been picked up
         if (!items.backpackPick) {
             batch.draw(items.backpack, items.xBackpack, items.yBackpack);
@@ -116,7 +120,10 @@ public class GameScreen implements Screen {
 
         //Draw inventory relative to players position
         batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
-        batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
             animation = player.moveUp();
@@ -148,10 +155,31 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
 
         //Check status of items
-        items.hasPlayerPickedBackpack(x, y);
-        items.hasPlayerPickedBook(x, y);
-        items.hasPlayerPickedCoffee(x, y);
-        items.hasPlayerPickedShoes(x, y);
+            if (items.hasPlayerPickedBackpack(x, y)) {
+                for (int i = 0; i < 100000; i++) {
+                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+                }
+            }
+
+            if (items.hasPlayerPickedBook(x, y)) {
+                for (int i = 0; i < 100000; i++) {
+                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+                }
+            }
+
+            if (items.hasPlayerPickedCoffee(x, y)) {
+                for (int i = 0; i < 100000; i++) {
+                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+                }
+            }
+
+            if (items.hasPlayerPickedShoes(x, y)) {
+                for (int i = 0; i < 100000; i++) {
+                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+                }
+            }
+
+
         inventory.checkHUDStatus(items);
 
         batch.end();
