@@ -23,6 +23,8 @@ public abstract class Player implements Movement {
         textureAtlas = new TextureAtlas("characters.atlas");
     }
 
+
+
     /*public void movementLeft(float dt) {
         leftAnimation.update(dt);
         position.x = GameScreen.SPEED * Gdx.graphics.getDeltaTime();

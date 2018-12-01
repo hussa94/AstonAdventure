@@ -30,6 +30,10 @@ public class GameScreen implements Screen {
     private Items items;
     private Inventory inventory;
     private float x, y, elapsedTime;
+    private final float x_min = 400;
+    private final float x_max = 3700;
+    private final float y_min = 300;
+    private final float y_max = 1800;
     private static float frameDuration;
 
     private boolean drawcheck;
@@ -69,10 +73,10 @@ public class GameScreen implements Screen {
 
         //Set items and their co-ordinates
         items = new Items();
-        items.setBackpackCoordinates(200, 350);
-        items.setBookCoordinates(550, 150);
-        items.setCoffeeCoordinates(300, 0);
-        items.setShoesCoordinates(50, 100);
+        items.setBackpackCoordinates(500, 550);
+        items.setBookCoordinates(600, 450);
+        items.setCoffeeCoordinates(1800, 1200);
+        items.setShoesCoordinates(1000, 1000);
 
         //Set Inventory and its position
         inventory = new Inventory();
@@ -125,22 +129,26 @@ public class GameScreen implements Screen {
             batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if ((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))
+            && y < y_max){
             animation = player.moveUp();
 
             y += SPEED * Gdx.graphics.getDeltaTime();
             camera.position.y += SPEED * Gdx.graphics.getDeltaTime();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
+        } else if ((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))
+            && y > y_min) {
             animation = player.moveDown();
 
             y -= SPEED * Gdx.graphics.getDeltaTime();
             camera.position.y -= SPEED * Gdx.graphics.getDeltaTime();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+        } else if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
+            && x < x_max) {
             animation = player.moveRight();
 
             x += SPEED * Gdx.graphics.getDeltaTime();
             camera.position.x += SPEED * Gdx.graphics.getDeltaTime();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+        } else if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
+            && x > x_min) {
             animation = player.moveLeft();
 
             x -= SPEED * Gdx.graphics.getDeltaTime();
