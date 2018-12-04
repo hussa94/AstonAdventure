@@ -1,0 +1,75 @@
+
+Inventory Full.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Inventory Full 02
+  rotate: false
+  xy: 1, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 03
+  rotate: false
+  xy: 83, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 04
+  rotate: false
+  xy: 165, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 05
+  rotate: false
+  xy: 247, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 06
+  rotate: false
+  xy: 329, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 07
+  rotate: false
+  xy: 411, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 08
+  rotate: false
+  xy: 493, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 09
+  rotate: false
+  xy: 575, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 10
+  rotate: false
+  xy: 657, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Inventory Full 11
+  rotate: false
+  xy: 739, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1

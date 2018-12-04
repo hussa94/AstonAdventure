@@ -1,0 +1,82 @@
+
+Inventory Empty.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Empty_Inventory 01
+  rotate: false
+  xy: 1, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 02
+  rotate: false
+  xy: 83, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 03
+  rotate: false
+  xy: 165, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 04
+  rotate: false
+  xy: 247, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 05
+  rotate: false
+  xy: 329, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 06
+  rotate: false
+  xy: 411, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 07
+  rotate: false
+  xy: 493, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 08
+  rotate: false
+  xy: 575, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 09
+  rotate: false
+  xy: 657, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 10
+  rotate: false
+  xy: 739, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
+Empty_Inventory 11
+  rotate: false
+  xy: 821, 1
+  size: 80, 300
+  orig: 80, 300
+  offset: 0, 0
+  index: -1
