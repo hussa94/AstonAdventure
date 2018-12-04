@@ -13,74 +13,88 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import entities.FemalePlayer;
-import entities.Inventory;
-import entities.Items;
-import entities.Player;
+import entities.*;
 
 import static java.lang.Thread.sleep;
 
 public class GameScreen implements Screen {
+    // *Background: [Width - 1920 pixels] [Height - 1080 pixels]*
+
+    //Map
     private TiledMap tiledMap;
     private TiledMapRenderer mapRenderer;
-    private Animation<TextureRegion> animation;
-    private TextureAtlas textureAtlas;
-    private SpriteBatch batch;
 
-    private Items items;
-    private Inventory inventory;
-    private float x, y, elapsedTime;
-    private final float x_min = 400;
-    private final float x_max = 3700;
-    private final float y_min = 300;
-    private final float y_max = 1800;
+    //Player Textures Animation
+    private Animation<TextureRegion> character;
+    private TextureAtlas textureAtlasCharacter;
     private static float frameDuration;
 
-    private boolean drawcheck;
+    //Sprites
+    private SpriteBatch batch;
 
-//    private static final int BACKGROUND_WIDTH = 1920;
-//    private static final int BACKGROUND_HEIGHT = 1080;
-
-    private OrthographicCamera camera;
-
+    //Classes / Objects
     private Player player;
+    private Items items;
+    private Inventory inventory;
+    private Text text;
 
-    public static float SPEED = 100;
+    //Character
+    private float x, y, elapsedTime, elapsedTimeInventory;
+    public static float speed;
+
+    //Camera
+    private OrthographicCamera camera;
+    private final float xMinCamera;
+    private final float xMaxCamera;
+    private final float yMinCamera;
+    private final float yMaxCamera;
+
+
 
     public GameScreen() {
         x = 400;
         y = 400;
-        frameDuration = 1 / 5f;
 
+        //Crate new Sprite Batch to use
         batch = new SpriteBatch();
-        //Loads the TextureAtlas .atlas file
-        textureAtlas = new TextureAtlas("characters.atlas");
-        //Find the regions by name and add all frames for that ot animation object
-        animation = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("female/standing"));
 
-        player = new FemalePlayer(x, y);
-
+        //Set up Map
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-
         tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
+        //Set Camera and its position
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.position.set(x, y, 0);
         camera.update();
+        xMinCamera = 400;
+        xMaxCamera = 3700;
+        yMinCamera = 300;
+        yMaxCamera = 1800;
+
+        //Set Player and their position, speed and textures
+        player = new FemalePlayer(x, y);
+        frameDuration = 1 / 5f;
+        speed = 100;
+
+        textureAtlasCharacter = new TextureAtlas("characters.atlas");
+        character = new Animation<TextureRegion>(frameDuration, textureAtlasCharacter.findRegions("female/standing"));
 
         //Set items and their co-ordinates
         items = new Items();
         items.setBackpackCoordinates(500, 550);
-        items.setBookCoordinates(600, 450);
-        items.setCoffeeCoordinates(1800, 1200);
+        items.setCoffeeCoordinates(1100, 1100);
         items.setShoesCoordinates(1000, 1000);
 
         //Set Inventory and its position
         inventory = new Inventory();
-        inventory.setInventoryPositiion(60, 170);
+        inventory.setInventoryPositiion(240, -60);
+
+        //Set Text Box and its position
+        text = new Text();
+        text.setTextPositiion(310, 230);
     }
 
 
@@ -91,6 +105,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        //
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -99,10 +114,15 @@ public class GameScreen implements Screen {
         mapRenderer.setView(camera);
         mapRenderer.render();
 
+        //Begin sprite batch
         batch.begin();
 
+        //Recalculate elapsed time
         elapsedTime += Gdx.graphics.getDeltaTime();
-        if (SPEED == 200) {
+        elapsedTimeInventory += Gdx.graphics.getDeltaTime();
+
+        //Set frame rate based on player speed
+        if (speed == 200) {
             frameDuration = 1 / 10f;
         } else {
             frameDuration = 1 / 5f;
@@ -112,9 +132,6 @@ public class GameScreen implements Screen {
         if (!items.backpackPick) {
             batch.draw(items.backpack, items.xBackpack, items.yBackpack);
         }
-        if (!items.bookPick) {
-            batch.draw(items.book, items.xBook, items.yBook);
-        }
         if (!items.coffeePick) {
             batch.draw(items.coffee, items.xCoffee, items.yCoffee);
         }
@@ -122,76 +139,96 @@ public class GameScreen implements Screen {
             batch.draw(items.shoes, items.xShoes, items.yShoes);
         }
 
-        //Draw inventory relative to players position
-        batch.draw(animation.getKeyFrame(elapsedTime, true), x, y);
+        //Draw character animation
+        batch.draw(character.getKeyFrame(elapsedTime, true), x, y);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-            batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+        //Draw text box relative to player position
+        if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+            batch.draw(text.textBox.getKeyFrame(elapsedTime, true), (camera.position.x - text.xTextBox), (camera.position.y - text.yTextBox));
         }
 
-        if ((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))
-            && y < y_max){
-            animation = player.moveUp();
-
-            y += SPEED * Gdx.graphics.getDeltaTime();
-            camera.position.y += SPEED * Gdx.graphics.getDeltaTime();
-        } else if ((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))
-            && y > y_min) {
-            animation = player.moveDown();
-
-            y -= SPEED * Gdx.graphics.getDeltaTime();
-            camera.position.y -= SPEED * Gdx.graphics.getDeltaTime();
-        } else if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
-            && x < x_max) {
-            animation = player.moveRight();
-
-            x += SPEED * Gdx.graphics.getDeltaTime();
-            camera.position.x += SPEED * Gdx.graphics.getDeltaTime();
-        } else if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
-            && x > x_min) {
-            animation = player.moveLeft();
-
-            x -= SPEED * Gdx.graphics.getDeltaTime();
-            camera.position.x -= SPEED * Gdx.graphics.getDeltaTime();
-        } else {
-            animation = player.standStill();
+        //Draw inventory relative to players position - if the I key is pressed, or an item has been recently picked up
+        if ((Gdx.input.isKeyPressed(Input.Keys.I) && items.backpackPick) || (items.recentPick) )  {
+            inventory.beginDrawingInventory();
         }
+        else {
+            inventory.endDrawingInventory();
+            elapsedTimeInventory = 0;
+        }
+        if (inventory.drawInventory) {
+            if (!inventory.HUDAnimated.isAnimationFinished(elapsedTimeInventory)) {
 
-        camera.update();
-
-
-        batch.setProjectionMatrix(camera.combined);
-
-        //Check status of items
-            if (items.hasPlayerPickedBackpack(x, y)) {
-                for (int i = 0; i < 100000; i++) {
-                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
-                }
+                batch.draw(inventory.HUDAnimated.getKeyFrame(elapsedTimeInventory, true), (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD));
+            }
+            else {
+                batch.draw(inventory.HUDStill, (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD) );
             }
 
-            if (items.hasPlayerPickedBook(x, y)) {
-                for (int i = 0; i < 100000; i++) {
-                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+            if(items.recentPick && elapsedTimeInventory > 2) {
+                items.setItemNotRecentlyPicked();
+            }
+        }
+
+        //Read inputs to determine movement of character
+        if ((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))
+            && y < yMaxCamera){
+            character = player.moveUp();
+            y += speed * Gdx.graphics.getDeltaTime();
+            camera.position.y += speed * Gdx.graphics.getDeltaTime();
+
+        } else if ((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))
+            && y > yMinCamera) {
+            character = player.moveDown();
+            y -= speed * Gdx.graphics.getDeltaTime();
+            camera.position.y -= speed * Gdx.graphics.getDeltaTime();
+
+        } else if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
+            && x < xMaxCamera) {
+            character = player.moveRight();
+            x += speed * Gdx.graphics.getDeltaTime();
+            camera.position.x += speed * Gdx.graphics.getDeltaTime();
+
+        } else if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
+            && x > xMinCamera) {
+            character = player.moveLeft();
+            x -= speed * Gdx.graphics.getDeltaTime();
+            camera.position.x -= speed * Gdx.graphics.getDeltaTime();
+
+        } else {
+            character = player.standStill();
+        }
+
+        //Update the position of the camera
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+
+        //Check status of items - Display inventory once upon picking up a new object
+            if (items.hasPlayerPickedBackpack(x, y)) {
+                if(items.displayBackpack < 1) {
+                    items.setItemRecentlyPicked();
+                    items.displayBackpack ++;
                 }
             }
 
             if (items.hasPlayerPickedCoffee(x, y)) {
-                for (int i = 0; i < 100000; i++) {
-                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+                if(items.displayCoffee < 1) {
+                    items.setItemRecentlyPicked();
+                    items.displayCoffee++;
                 }
             }
 
             if (items.hasPlayerPickedShoes(x, y)) {
-                for (int i = 0; i < 100000; i++) {
-                    batch.draw(inventory.HUD, (camera.position.x + inventory.xHUD), camera.position.y + inventory.yHUD);
+                if(items.displayShoes < 1) {
+                    items.setItemRecentlyPicked();
+                    items.displayShoes ++;
                 }
             }
 
-
+        //Check status of inventory
         inventory.checkHUDStatus(items);
 
+        //End sprite batch
         batch.end();
-
     }
 
     @Override
