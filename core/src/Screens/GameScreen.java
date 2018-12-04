@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
     private Text text;
 
     //Character
-    private float x, y, elapsedTime, elapsedTimeInventory;
+    private float x, y, elapsedTime, elapsedTimeInventory, elapsedTimeText;
     public static float speed;
 
     //Camera
@@ -94,7 +94,8 @@ public class GameScreen implements Screen {
 
         //Set Text Box and its position
         text = new Text();
-        text.setTextPositiion(310, 230);
+        text.setTextPositiion(110, 230);
+        text.setSylviaPosition(310, 230);
     }
 
 
@@ -120,6 +121,7 @@ public class GameScreen implements Screen {
         //Recalculate elapsed time
         elapsedTime += Gdx.graphics.getDeltaTime();
         elapsedTimeInventory += Gdx.graphics.getDeltaTime();
+        elapsedTimeText += Gdx.graphics.getDeltaTime();
 
         //Set frame rate based on player speed
         if (speed == 200) {
@@ -143,12 +145,21 @@ public class GameScreen implements Screen {
         batch.draw(character.getKeyFrame(elapsedTime, true), x, y);
 
         //Draw text box relative to player position
-        if (Gdx.input.isKeyPressed(Input.Keys.P)) {
-            batch.draw(text.textBox.getKeyFrame(elapsedTime, true), (camera.position.x - text.xTextBox), (camera.position.y - text.yTextBox));
+        text.nextTextBox(elapsedTimeText, items.backpackPick, items.shoesPick);
+
+        if (text.textInterrupt) {
+            text.setCurrentTextBox();
+            batch.draw(text.sylvia,(camera.position.x - text.xSylvia), (camera.position.y - text.ySylvia));
+            batch.draw(text.textBox.getKeyFrame(elapsedTimeText, true), (camera.position.x - text.xTextBox), (camera.position.y - text.yTextBox));
+            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                text.removeTextInterrupt();
+                text.currentSpeech ++;
+                elapsedTimeText = 0;
+            }
         }
 
         //Draw inventory relative to players position - if the I key is pressed, or an item has been recently picked up
-        if ((Gdx.input.isKeyPressed(Input.Keys.I) && items.backpackPick) || (items.recentPick) )  {
+        if (((Gdx.input.isKeyPressed(Input.Keys.I) && items.backpackPick) || (items.recentPick)) && !text.textInterrupt)  {
             inventory.beginDrawingInventory();
         }
         else {
@@ -170,26 +181,22 @@ public class GameScreen implements Screen {
         }
 
         //Read inputs to determine movement of character
-        if ((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))
-            && y < yMaxCamera){
+        if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && y < yMaxCamera) && !text.textInterrupt) {
             character = player.moveUp();
             y += speed * Gdx.graphics.getDeltaTime();
             camera.position.y += speed * Gdx.graphics.getDeltaTime();
 
-        } else if ((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))
-            && y > yMinCamera) {
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) && y > yMinCamera) && !text.textInterrupt) {
             character = player.moveDown();
             y -= speed * Gdx.graphics.getDeltaTime();
             camera.position.y -= speed * Gdx.graphics.getDeltaTime();
 
-        } else if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
-            && x < xMaxCamera) {
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && x < xMaxCamera) && !text.textInterrupt) {
             character = player.moveRight();
             x += speed * Gdx.graphics.getDeltaTime();
             camera.position.x += speed * Gdx.graphics.getDeltaTime();
 
-        } else if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
-            && x > xMinCamera) {
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && x > xMinCamera) && !text.textInterrupt) {
             character = player.moveLeft();
             x -= speed * Gdx.graphics.getDeltaTime();
             camera.position.x -= speed * Gdx.graphics.getDeltaTime();
@@ -208,6 +215,7 @@ public class GameScreen implements Screen {
                     items.setItemRecentlyPicked();
                     items.displayBackpack ++;
                 }
+                elapsedTimeText = 0;
             }
 
             if (items.hasPlayerPickedCoffee(x, y)) {
@@ -215,6 +223,7 @@ public class GameScreen implements Screen {
                     items.setItemRecentlyPicked();
                     items.displayCoffee++;
                 }
+                elapsedTimeText = 0;
             }
 
             if (items.hasPlayerPickedShoes(x, y)) {
@@ -222,6 +231,7 @@ public class GameScreen implements Screen {
                     items.setItemRecentlyPicked();
                     items.displayShoes ++;
                 }
+                elapsedTimeText = 0;
             }
 
         //Check status of inventory
