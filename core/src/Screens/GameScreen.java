@@ -145,7 +145,7 @@ public class GameScreen implements Screen {
         batch.draw(character.getKeyFrame(elapsedTime, true), x, y);
 
         //Draw text box relative to player position
-        text.nextTextBox(elapsedTimeText, items.backpackPick, items.shoesPick);
+        text.nextTextBox(elapsedTimeText, items.backpackPick, items.shoesPick, items.coffeePick);
 
         if (text.textInterrupt) {
             text.setCurrentTextBox();

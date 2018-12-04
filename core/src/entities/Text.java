@@ -44,9 +44,13 @@ public class Text {
             textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 4/Text 4.atlas");
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
+        if (currentSpeech == 5) {
+            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 5/Text 5.atlas");
+            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+        }
     }
 
-    public void nextTextBox(float elapsedTimeText, boolean backpackPick, boolean shoesPick) {
+    public void nextTextBox(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
         if (elapsedTimeText > 3 && currentSpeech == 2) {
             setTextInterrupt();
         }
@@ -54,6 +58,9 @@ public class Text {
             setTextInterrupt();
         }
         else if (elapsedTimeText > 3 && currentSpeech == 4 && backpackPick && shoesPick) {
+            setTextInterrupt();
+        }
+        else if (elapsedTimeText > 3 && currentSpeech == 5 && backpackPick && shoesPick && coffeePick) {
             setTextInterrupt();
         }
     }
