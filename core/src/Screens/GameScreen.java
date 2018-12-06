@@ -16,8 +16,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import entities.*;
 import uk.ac.aston.team17.AstonAdventure;
 
-import static java.lang.Thread.sleep;
-import static sun.misc.Version.println;
 
 public class GameScreen implements Screen {
     // *Background: [Width - 1920 pixels] [Height - 1080 pixels]*
