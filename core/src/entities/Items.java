@@ -51,7 +51,7 @@ public class Items {
     }
 
     public boolean hasPlayerPickedBackpack(float xPlayer, float yPlayer) {
-        if (((xBackpack - 5) < xPlayer && xPlayer < (xBackpack + 5)) || ((yBackpack - 5) < yPlayer && yPlayer < (yBackpack + 5))) {
+        if (((xBackpack - 10) < xPlayer && xPlayer < (xBackpack + 10)) && ((yBackpack - 10) < yPlayer && yPlayer < (yBackpack + 10))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 backpackPick = true;
                 Sm.soundFx();
@@ -62,7 +62,7 @@ public class Items {
     }
 
     public boolean hasPlayerPickedCoffee(float xPlayer, float yPlayer) {
-        if (((xCoffee - 5) < xPlayer && xPlayer < (xCoffee + 5)) || ((yCoffee - 5) < yPlayer && yPlayer < (yCoffee + 5))) {
+        if (((xCoffee - 10) < xPlayer && xPlayer < (xCoffee + 10)) && ((yCoffee - 10) < yPlayer && yPlayer < (yCoffee + 10))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 coffeePick = true;
                 Sm.soundFx();
@@ -73,7 +73,7 @@ public class Items {
     }
 
     public boolean hasPlayerPickedShoes(float xPlayer, float yPlayer) {
-        if (((xShoes - 5) < xPlayer && xPlayer < (xShoes + 5)) || ((yShoes - 5) < yPlayer && yPlayer < (yShoes + 5))) {
+        if (((xShoes - 10) < xPlayer && xPlayer < (xShoes + 10)) && ((yShoes - 10) < yPlayer && yPlayer < (yShoes + 10))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 GameScreen.speed = 200;
                 shoesPick = true;

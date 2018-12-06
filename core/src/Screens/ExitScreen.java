@@ -50,6 +50,7 @@ public class ExitScreen implements Screen{
 
         if(Gdx.input.isTouched()){
 
+
                 if ((Gdx.input.getX() > 240) && (Gdx.input.getX() < 420) && ((Gdx.input.getY() > 380) && (Gdx.input.getY() < 500))) {
 
 
@@ -59,10 +60,11 @@ public class ExitScreen implements Screen{
                 }
 
 
-               if (((Gdx.input.getX() > 180) && (Gdx.input.getX() < 330)) && ((Gdx.input.getY() > 450 )));
+               else if ((Gdx.input.getX() > 180) && (Gdx.input.getX() < 480) && (Gdx.input.getY() > 210) && ((Gdx.input.getY() < 325))) {
 
 
-               Gdx.net.openURI("https://www2.aston.ac.uk/");
+                    Gdx.net.openURI("https://www2.aston.ac.uk/");
+                }
             }
 
 

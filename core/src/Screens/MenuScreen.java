@@ -11,7 +11,7 @@ import uk.ac.aston.team17.AstonAdventure;
 import java.awt.*;
 
 public class MenuScreen implements Screen, Input.TextInputListener {
-    private  AstonAdventure game;
+    private AstonAdventure game;
     private Texture playButton;
     private Texture background;
     private static final int BACKGROUND_WIDTH = 650;
@@ -38,8 +38,6 @@ public MenuScreen(AstonAdventure game){
         }
 
 
-
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -58,7 +56,7 @@ public MenuScreen(AstonAdventure game){
                 //    Gdx.input.getTextInput(this, "Title", "Insert name", "");
                 //    Gdx.app.log("Text", text);
 
-                game.setScreen(new GameScreen());
+                game.setScreen(new GameScreen(game));
             }
 
        }

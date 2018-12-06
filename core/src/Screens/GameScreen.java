@@ -14,11 +14,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import entities.*;
+import uk.ac.aston.team17.AstonAdventure;
 
 import static java.lang.Thread.sleep;
+import static sun.misc.Version.println;
 
 public class GameScreen implements Screen {
     // *Background: [Width - 1920 pixels] [Height - 1080 pixels]*
+
+    private AstonAdventure game;
 
     //Map
     private TiledMap tiledMap;
@@ -51,7 +55,9 @@ public class GameScreen implements Screen {
 
 
 
-    public GameScreen() {
+    public GameScreen(AstonAdventure game) {
+        this.game = game;
+
         x = 400;
         y = 400;
 
@@ -237,8 +243,32 @@ public class GameScreen implements Screen {
         //Check status of inventory
         inventory.checkHUDStatus(items);
 
+        //Check if level has ended
+        checkLevelProgress();
+
         //End sprite batch
         batch.end();
+    }
+
+    public void checkLevelProgress() {
+        if(text.currentSpeech == 6) {
+            if (checkPlayerExit()) {
+                game.setScreen(new ExitScreen());
+            }
+        }
+    }
+
+    public boolean checkPlayerExit() {
+        float xEntrance = 1369;
+        float yEntrance = 1719;
+
+        if (((xEntrance-20) < x && x < (xEntrance + 20)) && ((yEntrance-20) < y && y < (yEntrance + 20))) {
+            if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+                return true;
+            }
+        }
+
+            return false;
     }
 
     @Override
