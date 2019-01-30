@@ -1,6 +1,6 @@
 package entities;
 
-import Screens.GameScreen;
+import Screens.LevelOne;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -75,7 +75,7 @@ public class Items {
     public boolean hasPlayerPickedShoes(float xPlayer, float yPlayer) {
         if (((xShoes - 10) < xPlayer && xPlayer < (xShoes + 10)) && ((yShoes - 10) < yPlayer && yPlayer < (yShoes + 10))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-                GameScreen.speed = 200;
+                LevelOne.speed = 200;
                 shoesPick = true;
                 Sm.soundFx();
                 return true;

@@ -1,6 +1,6 @@
 package entities;
 
-import Screens.GameScreen;
+import Screens.LevelOne;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,7 +10,7 @@ public abstract class Player implements Movement {
 
     private Vector2 position, velocity;
 
-    GameScreen gameScreen;
+    LevelOne gameScreen;
 
     Animation<TextureRegion> animation;
 
@@ -20,14 +20,14 @@ public abstract class Player implements Movement {
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
 
-        textureAtlas = new TextureAtlas("characters.atlas");
+        textureAtlas = new TextureAtlas("Sprites/Characters/characters.atlas");
     }
 
 
 
     /*public void movementLeft(float dt) {
         leftAnimation.update(dt);
-        position.x = GameScreen.SPEED * Gdx.graphics.getDeltaTime();
+        position.x = LevelOne.SPEED * Gdx.graphics.getDeltaTime();
     }
 
     public void update(float dt) {

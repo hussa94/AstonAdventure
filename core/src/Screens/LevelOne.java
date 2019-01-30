@@ -17,10 +17,14 @@ import entities.*;
 import uk.ac.aston.team17.AstonAdventure;
 
 
-public class GameScreen implements Screen {
+public class LevelOne implements Screen {
     // *Background: [Width - 1920 pixels] [Height - 1080 pixels]*
 
     private AstonAdventure game;
+
+    //Sounds
+    private Soundmanager Sm;
+
 
     //Map
     private TiledMap tiledMap;
@@ -53,7 +57,7 @@ public class GameScreen implements Screen {
 
 
 
-    public GameScreen(AstonAdventure game) {
+    public LevelOne(AstonAdventure game) {
         this.game = game;
 
         x = 400;
@@ -83,7 +87,7 @@ public class GameScreen implements Screen {
         frameDuration = 1 / 5f;
         speed = 100;
 
-        textureAtlasCharacter = new TextureAtlas("characters.atlas");
+        textureAtlasCharacter = new TextureAtlas("Sprites/Characters/characters.atlas");
         character = new Animation<TextureRegion>(frameDuration, textureAtlasCharacter.findRegions("female/standing"));
 
         //Set items and their co-ordinates
@@ -100,6 +104,9 @@ public class GameScreen implements Screen {
         text = new Text();
         text.setTextPositiion(110, 230);
         text.setSylviaPosition(310, 230);
+
+        Sm = new Soundmanager();
+        Sm.dispose();
     }
 
 
@@ -113,6 +120,10 @@ public class GameScreen implements Screen {
         //
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        if (!Sm.background.isPlaying()) {
+           // Sm.levelOne();
+        }
 
         //Camera is set to view TiledMap from TMX file
         //TiledMapRender renders the map
@@ -295,6 +306,6 @@ public class GameScreen implements Screen {
     }
 
     public static float getFrameDuration() {
-        return GameScreen.frameDuration;
+        return LevelOne.frameDuration;
     }
 }

@@ -1,6 +1,5 @@
 package entities;
 
-import Screens.GameScreen;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

@@ -1,8 +1,9 @@
 package uk.ac.aston.team17;
 
-import Screens.MenuScreen;
+import Screens.MainMenu;
 
 
+import Screens.Startup;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,7 +14,7 @@ public class AstonAdventure extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		this.setScreen(new MenuScreen(this));
+		this.setScreen(new Startup(this));
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package entities;
 
-import Screens.GameScreen;
+import Screens.LevelOne;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,9 +14,9 @@ public class FemalePlayer extends Player implements Movement {
     public FemalePlayer(float x, float y) {
         super(x, y);
 
-        textureAtlas = new TextureAtlas("characters.atlas");
+        textureAtlas = new TextureAtlas("Sprites/Characters/characters.atlas");
 
-        animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("female/standing"));
+        animation = new Animation<TextureRegion>(LevelOne.getFrameDuration(), textureAtlas.findRegions("female/standing"));
 
         /*walkUp = new Texture("Sprites/Characters/Female/Walk Up/female_character_walk_up_spritesheet.png");
         upAnimation = new Animation(new TextureRegion(walkUp), 3, 0.5f);
@@ -37,31 +37,31 @@ public class FemalePlayer extends Player implements Movement {
 
     @Override
     public Animation<TextureRegion> moveUp() {
-        animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("female/up"));
+        animation = new Animation<TextureRegion>(LevelOne.getFrameDuration(), textureAtlas.findRegions("female/up"));
         return animation;
     }
 
     @Override
     public Animation<TextureRegion> moveDown() {
-        animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("female/down"));
+        animation = new Animation<TextureRegion>(LevelOne.getFrameDuration(), textureAtlas.findRegions("female/down"));
         return animation;
     }
 
     @Override
     public Animation<TextureRegion> moveLeft() {
-        animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("female/left"));
+        animation = new Animation<TextureRegion>(LevelOne.getFrameDuration(), textureAtlas.findRegions("female/left"));
         return animation;
     }
 
     @Override
     public Animation<TextureRegion> moveRight() {
-        animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("female/right"));
+        animation = new Animation<TextureRegion>(LevelOne.getFrameDuration(), textureAtlas.findRegions("female/right"));
         return animation;
     }
 
     @Override
     public Animation<TextureRegion> standStill(){
-        animation = new Animation<TextureRegion>(GameScreen.getFrameDuration(), textureAtlas.findRegions("female/standing"));
+        animation = new Animation<TextureRegion>(LevelOne.getFrameDuration(), textureAtlas.findRegions("female/standing"));
         return animation;
     }
 
