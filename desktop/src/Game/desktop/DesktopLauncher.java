@@ -1,8 +1,8 @@
-package uk.ac.aston.team17.desktop;
+package Game.desktop;
 
+import Game.AstonAdventure;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import uk.ac.aston.team17.AstonAdventure;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

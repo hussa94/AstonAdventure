@@ -13,8 +13,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import entities.*;
-import uk.ac.aston.team17.AstonAdventure;
+import Entities.*;
+import Game.AstonAdventure;
 
 
 public class LevelOne implements Screen {
@@ -117,7 +117,7 @@ public class LevelOne implements Screen {
 
     @Override
     public void render(float delta) {
-        //
+        //Setup
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

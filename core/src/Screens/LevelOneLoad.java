@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import entities.Soundmanager;
-import uk.ac.aston.team17.AstonAdventure;
+import Entities.Soundmanager;
+import Game.AstonAdventure;
 
 public class LevelOneLoad implements Screen {
 

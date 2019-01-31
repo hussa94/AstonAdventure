@@ -1,9 +1,9 @@
-package uk.ac.aston.team17.client;
+package Game.client;
 
+import Game.AstonAdventure;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import uk.ac.aston.team17.AstonAdventure;
 
 public class HtmlLauncher extends GwtApplication {
 

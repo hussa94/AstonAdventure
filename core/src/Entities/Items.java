@@ -1,4 +1,4 @@
-package entities;
+package Entities;
 
 import Screens.LevelOne;
 import com.badlogic.gdx.Gdx;

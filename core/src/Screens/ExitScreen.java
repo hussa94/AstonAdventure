@@ -5,8 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import entities.Soundmanager;
-import uk.ac.aston.team17.AstonAdventure;
+import Entities.Soundmanager;
+import Game.AstonAdventure;
 
 public class ExitScreen implements Screen{
 
