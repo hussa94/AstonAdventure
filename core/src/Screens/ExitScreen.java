@@ -28,9 +28,9 @@ public class ExitScreen implements Screen{
     public ExitScreen() {
         this.game = game;
         batch = new SpriteBatch();
-        background = new Texture("AstonExit.png");
-        exitButton = new Texture("ExitButton.png");
-        moreButton = new Texture("FindOutButton.png");
+        background = new Texture("Screens/Exit/AstonExit.png");
+        exitButton = new Texture("Screens/Exit/ExitButton.png");
+        moreButton = new Texture("Screens/Exit/FindOutButton.png");
 
     }
 
