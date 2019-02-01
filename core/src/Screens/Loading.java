@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import Entities.Soundmanager;
 import Game.AstonAdventure;
 
-public class LevelOneLoad implements Screen {
+public class Loading implements Screen {
 
     private AstonAdventure game;
     private Texture background;
@@ -16,7 +16,7 @@ public class LevelOneLoad implements Screen {
     private Soundmanager Sm;
     private float elapsedTime;
 
-    public LevelOneLoad(AstonAdventure game) {
+    public Loading(AstonAdventure game) {
         this.game = game;
         background = new Texture("Screens/Loading/Level1INTRO.png");
         Sm = new Soundmanager();

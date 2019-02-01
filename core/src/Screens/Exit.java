@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import Entities.Soundmanager;
 import Game.AstonAdventure;
 
-public class ExitScreen implements Screen{
+public class Exit implements Screen{
 
     private  AstonAdventure game;
     private Texture exitButton;
@@ -25,7 +25,7 @@ public class ExitScreen implements Screen{
     private SpriteBatch batch;
 
 
-    public ExitScreen() {
+    public Exit() {
         this.game = game;
         batch = new SpriteBatch();
         background = new Texture("AstonExit.png");
@@ -56,7 +56,7 @@ public class ExitScreen implements Screen{
 
                        Gdx.app.exit();
 
-                    //game.setScreen(new ExitScreen());
+                    //game.setScreen(new Exit());
                 }
 
 

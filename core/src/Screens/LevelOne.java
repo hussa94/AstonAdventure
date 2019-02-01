@@ -262,7 +262,7 @@ public class LevelOne implements Screen {
     public void checkLevelProgress() {
         if(text.currentSpeech == 6) {
             if (checkPlayerExit()) {
-                game.setScreen(new ExitScreen());
+                game.setScreen(new Exit());
             }
         }
     }

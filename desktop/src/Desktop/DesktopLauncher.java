@@ -1,4 +1,4 @@
-package Game.desktop;
+package Desktop;
 
 import Game.AstonAdventure;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
