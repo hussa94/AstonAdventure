@@ -47,7 +47,7 @@ public class AstonAdventure extends Game {
 	//Unused
 	@Override
 	public void render () {
-		super.render();
+		//super.render(6);
 
 	}
 

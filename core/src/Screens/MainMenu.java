@@ -162,7 +162,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         if (select.equalsIgnoreCase("gameSelect")) {
 
             if (!Sm.isSoundPlaying()) {
-                game.setScreen(new Loading(game));
+                game.setScreen(new LevelOneLoad(game));
             }
         }
 
