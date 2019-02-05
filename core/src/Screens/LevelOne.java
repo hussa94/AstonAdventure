@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,15 +15,17 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import Entities.*;
 import Game.AstonAdventure;
 
-
+/**
+ * The class LevelOne is used to play the first level (Enrolment) of the video game, with
+ * the user learning basic controls and finding the university.
+ */
 public class LevelOne implements Screen {
-    // *Background: [Width - 1920 pixels] [Height - 1080 pixels]*
 
+    //Game
     private AstonAdventure game;
 
     //Sounds
-    private Soundmanager Sm;
-
+    private SoundManager Sm;
 
     //Map
     private TiledMap tiledMap;
@@ -34,9 +35,6 @@ public class LevelOne implements Screen {
     private Animation<TextureRegion> character;
     private TextureAtlas textureAtlasCharacter;
     private static float frameDuration;
-
-    //Sprites
-    private SpriteBatch batch;
 
     //Classes / Objects
     private Player player;
@@ -55,16 +53,17 @@ public class LevelOne implements Screen {
     private final float yMinCamera;
     private final float yMaxCamera;
 
-
-
+    /**
+     * The Constructor for LevelOne initialises the map and player textures, camera,
+     * items, inventory and sounds. Stores the game object.
+     * @param game The game object.
+     */
     public LevelOne(AstonAdventure game) {
+
         this.game = game;
 
         x = 400;
         y = 400;
-
-        //Crate new Sprite Batch to use
-        batch = new SpriteBatch();
 
         //Set up Map
         float w = Gdx.graphics.getWidth();
@@ -105,24 +104,26 @@ public class LevelOne implements Screen {
         text.setTextPositiion(110, 230);
         text.setSylviaPosition(310, 230);
 
-        Sm = new Soundmanager();
+        //Sounds
+        Sm = new SoundManager();
         Sm.dispose();
     }
 
-
-    @Override
-    public void show() {
-
-    }
-
+    /**
+     * The render method is used to display the levels background and player, moving the camera such that
+     * the player is centralised. It also allows for items to be displayed, picked up and stored.
+     * @param delta Elapsed Time.
+     */
     @Override
     public void render(float delta) {
+
         //Setup
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //Background sounds
         if (!Sm.background.isPlaying()) {
-           // Sm.levelOne();
+            Sm.levelOne();
         }
 
         //Camera is set to view TiledMap from TMX file
@@ -131,7 +132,7 @@ public class LevelOne implements Screen {
         mapRenderer.render();
 
         //Begin sprite batch
-        batch.begin();
+        game.batch.begin();
 
         //Recalculate elapsed time
         elapsedTime += Gdx.graphics.getDeltaTime();
@@ -147,25 +148,25 @@ public class LevelOne implements Screen {
 
         //Draw items if they have not been picked up
         if (!items.backpackPick) {
-            batch.draw(items.backpack, items.xBackpack, items.yBackpack);
+            game.batch.draw(items.backpack, items.xBackpack, items.yBackpack);
         }
         if (!items.coffeePick) {
-            batch.draw(items.coffee, items.xCoffee, items.yCoffee);
+            game.batch.draw(items.coffee, items.xCoffee, items.yCoffee);
         }
         if (!items.shoesPick) {
-            batch.draw(items.shoes, items.xShoes, items.yShoes);
+            game.batch.draw(items.shoes, items.xShoes, items.yShoes);
         }
 
         //Draw character animation
-        batch.draw(character.getKeyFrame(elapsedTime, true), x, y);
+        game.batch.draw(character.getKeyFrame(elapsedTime, true), x, y);
 
         //Draw text box relative to player position
         text.nextTextBox(elapsedTimeText, items.backpackPick, items.shoesPick, items.coffeePick);
 
         if (text.textInterrupt) {
             text.setCurrentTextBox();
-            batch.draw(text.sylvia,(camera.position.x - text.xSylvia), (camera.position.y - text.ySylvia));
-            batch.draw(text.textBox.getKeyFrame(elapsedTimeText, true), (camera.position.x - text.xTextBox), (camera.position.y - text.yTextBox));
+            game.batch.draw(text.sylvia,(camera.position.x - text.xSylvia), (camera.position.y - text.ySylvia));
+            game.batch.draw(text.textBox.getKeyFrame(elapsedTimeText, true), (camera.position.x - text.xTextBox), (camera.position.y - text.yTextBox));
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 text.removeTextInterrupt();
                 text.currentSpeech ++;
@@ -184,10 +185,10 @@ public class LevelOne implements Screen {
         if (inventory.drawInventory) {
             if (!inventory.HUDAnimated.isAnimationFinished(elapsedTimeInventory)) {
 
-                batch.draw(inventory.HUDAnimated.getKeyFrame(elapsedTimeInventory, true), (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD));
+                game.batch.draw(inventory.HUDAnimated.getKeyFrame(elapsedTimeInventory, true), (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD));
             }
             else {
-                batch.draw(inventory.HUDStill, (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD) );
+                game.batch.draw(inventory.HUDStill, (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD) );
             }
 
             if(items.recentPick && elapsedTimeInventory > 2) {
@@ -222,7 +223,7 @@ public class LevelOne implements Screen {
 
         //Update the position of the camera
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
+        game.batch.setProjectionMatrix(camera.combined);
 
         //Check status of items - Display inventory once upon picking up a new object
             if (items.hasPlayerPickedBackpack(x, y)) {
@@ -256,17 +257,24 @@ public class LevelOne implements Screen {
         checkLevelProgress();
 
         //End sprite batch
-        batch.end();
+        game.batch.end();
     }
 
+    /**
+     * Method used to determine if the level has finished.
+     */
     public void checkLevelProgress() {
         if(text.currentSpeech == 6) {
             if (checkPlayerExit()) {
-                game.setScreen(new ExitScreen());
+                game.setScreen(new ExitScreen(game));
             }
         }
     }
 
+    /**
+     * Method used to check if the player has exited to the main building.
+     * @return True if the player has exited.
+     */
     public boolean checkPlayerExit() {
         float xEntrance = 1369;
         float yEntrance = 1719;
@@ -280,10 +288,27 @@ public class LevelOne implements Screen {
             return false;
     }
 
+    /**
+     * Getter for the frame durations of animations.
+     * @return Frame duration.
+     */
+    public static float getFrameDuration() {
+
+        return LevelOne.frameDuration;
+    }
+
+    //Unused
+    @Override
+    public void show() {
+
+    }
+
+    //Unused
     @Override
     public void resize(int width, int height) {
     }
 
+    //Unused
     @Override
     public void pause() {
 
@@ -294,18 +319,16 @@ public class LevelOne implements Screen {
 
     }
 
+    //Unused
     @Override
     public void hide() {
 
     }
 
+    //Unused
     @Override
     public void dispose() {
-        batch.dispose();
 
-    }
-
-    public static float getFrameDuration() {
-        return LevelOne.frameDuration;
+        game.batch.dispose();
     }
 }

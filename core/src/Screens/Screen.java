@@ -1,5 +1,8 @@
 package Screens;
 
+/**
+ * Interface to be used for all screens used in the game.
+ */
 public interface Screen {
      void show();
      void render();

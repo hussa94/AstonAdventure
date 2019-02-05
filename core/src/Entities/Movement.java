@@ -3,6 +3,9 @@ package Entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * Interface used to define player movement
+ */
 public interface Movement {
 
     public abstract Animation<TextureRegion> moveUp();
