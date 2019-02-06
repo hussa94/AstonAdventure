@@ -1,5 +1,8 @@
 package Entities;
 
+import Game.AstonAdventure;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,8 +18,12 @@ public class Text {
     public float xSylvia, ySylvia;
     public float xTextBox, yTextBox;
 
+    AstonAdventure game;
+
     //Animation frame duration
     private float frameDuration = 1/2f;
+
+    private float elapsedTime;
 
     //Text boxes
     public Animation<TextureRegion> textBox;
@@ -31,7 +38,8 @@ public class Text {
     /**
      * The constructor initialises all of the textures and text box animations used in the game.
      */
-    public Text() {
+    public Text(AstonAdventure game) {
+        this.game = game;
        textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Text 1.atlas");
        textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
        textInterrupt = true;
@@ -84,6 +92,28 @@ public class Text {
         else if (elapsedTimeText > 3 && currentSpeech == 5 && backpackPick && shoesPick && coffeePick) {
             setTextInterrupt();
         }
+    }
+
+    public void drawTextBox(Items items, Camera camera) {
+
+        elapsedTime += Gdx.graphics.getDeltaTime();
+
+        nextTextBox(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
+
+        if (textInterrupt) {
+            setCurrentTextBox();
+            game.batch.draw(sylvia,(camera.getX() - xSylvia), (camera.getY() - ySylvia));
+            game.batch.draw(textBox.getKeyFrame(elapsedTime, true), (camera.getX() - xTextBox), (camera.getY() - yTextBox));
+            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                removeTextInterrupt();
+                currentSpeech ++;
+                resetElapsedTime();
+            }
+        }
+    }
+
+    public void resetElapsedTime() {
+        elapsedTime = 0;
     }
 
     /**

@@ -60,17 +60,17 @@ public class LevelOne implements Screen {
         player = new Player(game.getSelectedCharacter(), game);
 
         //Set items and their co-ordinates
-        items = new Items();
+        items = new Items(game);
         items.setBackpackCoordinates(500, 550);
         items.setCoffeeCoordinates(1100, 1100);
         items.setShoesCoordinates(1000, 1000);
 
         //Set Inventory and its position
-        inventory = new Inventory();
-        inventory.setInventoryPositiion(240, -60);
+        inventory = new Inventory(game);
+
 
         //Set Text Box and its position
-        text = new Text();
+        text = new Text(game);
         text.setTextPositiion(110, 230);
         text.setSylviaPosition(310, 230);
 
@@ -91,6 +91,9 @@ public class LevelOne implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //Recalculate elapsed time
+        elapsedTime += Gdx.graphics.getDeltaTime();
+
         //Background sounds
         if (!Sm.background.isPlaying()) {
             Sm.levelOne();
@@ -102,93 +105,26 @@ public class LevelOne implements Screen {
         //Begin sprite batch
         game.batch.begin();
 
-        //Recalculate elapsed time
-        elapsedTime += Gdx.graphics.getDeltaTime();
-        elapsedTimeInventory += Gdx.graphics.getDeltaTime();
-        elapsedTimeText += Gdx.graphics.getDeltaTime();
-
-        //Draw items if they have not been picked up
-        if (!items.backpackPick) {
-            game.batch.draw(items.backpack, items.xBackpack, items.yBackpack);
-        }
-        if (!items.coffeePick) {
-            game.batch.draw(items.coffee, items.xCoffee, items.yCoffee);
-        }
-        if (!items.shoesPick) {
-            game.batch.draw(items.shoes, items.xShoes, items.yShoes);
-        }
+        items.drawItems();
 
         //Draw text box relative to player position
-        text.nextTextBox(elapsedTimeText, items.backpackPick, items.shoesPick, items.coffeePick);
+        text.drawTextBox(items, camera);
 
-        if (text.textInterrupt) {
-            text.setCurrentTextBox();
-            game.batch.draw(text.sylvia,(camera.getX() - text.xSylvia), (camera.getY() - text.ySylvia));
-            game.batch.draw(text.textBox.getKeyFrame(elapsedTimeText, true), (camera.getX() - text.xTextBox), (camera.getY() - text.yTextBox));
-            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-                text.removeTextInterrupt();
-                text.currentSpeech ++;
-                elapsedTimeText = 0;
-            }
-        }
-
-        //Draw inventory relative to players position - if the I key is pressed, or an item has been recently picked up
-        if (((Gdx.input.isKeyPressed(Input.Keys.I) && items.backpackPick) || (items.recentPick)) && !text.textInterrupt)  {
-            inventory.beginDrawingInventory();
-        }
-        else {
-            inventory.endDrawingInventory();
-            elapsedTimeInventory = 0;
-        }
-        if (inventory.drawInventory) {
-            if (!inventory.HUDAnimated.isAnimationFinished(elapsedTimeInventory)) {
-
-                game.batch.draw(inventory.HUDAnimated.getKeyFrame(elapsedTimeInventory, true), (camera.getX() + inventory.xHUD), (camera.getY() + inventory.yHUD));
-            }
-            else {
-                game.batch.draw(inventory.HUDStill, (camera.getX() + inventory.xHUD), (camera.getY() + inventory.yHUD) );
-            }
-
-            if(items.recentPick && elapsedTimeInventory > 2) {
-                items.setItemNotRecentlyPicked();
-            }
-        }
+        inventory.drawInventory(items, camera);
 
         //Draw character animation and calculate movement
         player.movement();
-        player.drawCharacter(elapsedTime);
 
         //Update the camera position relative to player co-ordinates
         camera.update(player);
 
-        //Check status of items - Display inventory once upon picking up a new object
-            if (items.hasPlayerPickedBackpack(player.getX(), player.getY())) {
-                if(items.displayBackpack < 1) {
-                    items.setItemRecentlyPicked();
-                    items.displayBackpack ++;
-                }
-                elapsedTimeText = 0;
-            }
 
-            if (items.hasPlayerPickedCoffee(player.getX(), player.getY())) {
-                if(items.displayCoffee < 1) {
-                    items.setItemRecentlyPicked();
-                    items.displayCoffee++;
-                }
-                elapsedTimeText = 0;
-            }
-
-            if (items.hasPlayerPickedShoes(player.getX(), player.getY())) {
-                if(items.displayShoes < 1) {
-                    items.setItemRecentlyPicked();
-                    player.incrreaseSpeed();
-                    items.displayShoes ++;
-                }
-                elapsedTimeText = 0;
-            }
+        player.drawCharacter(elapsedTime);
 
         //Check status of inventory
         inventory.checkHUDStatus(items);
+
+        items.itemStatus(text, player);
 
         //Check if level has ended
         checkLevelProgress();

@@ -1,5 +1,8 @@
 package Entities;
 
+import Game.AstonAdventure;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -20,10 +23,44 @@ public class Inventory {
     //Animation frame duration
     private float frameDuration = 1 / 50f;
 
+    private float elapsedTime = 0;
+
+    AstonAdventure game;
+
     //Textures and animations
     public Animation<TextureRegion> HUDAnimated;
     private TextureAtlas textureAtlasHUD;
     public Texture HUDStill;
+
+    public Inventory(AstonAdventure game) {
+        setInventoryPositiion(240, -60);
+        this.game = game;
+    }
+
+    public void drawInventory(Items items, Camera camera) {
+        elapsedTime += Gdx.graphics.getDeltaTime();
+
+        if (((Gdx.input.isKeyPressed(Input.Keys.I) && items.backpackPick) || (items.recentPick))) {
+            beginDrawingInventory();
+        } else {
+            endDrawingInventory();
+            elapsedTime = 0;
+        }
+
+        if (drawInventory) {
+            if (!HUDAnimated.isAnimationFinished(elapsedTime)) {
+
+                game.batch.draw(HUDAnimated.getKeyFrame(elapsedTime, true), (camera.getX() + xHUD), (camera.getY() + yHUD));
+            } else {
+                game.batch.draw(HUDStill, (camera.getX() + xHUD), (camera.getY() + yHUD));
+            }
+        }
+
+        if(items.recentPick && elapsedTime > 2) {
+            items.setItemNotRecentlyPicked();
+        }
+
+    }
 
     /**
      * Method used to set the position of the inventory
