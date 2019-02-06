@@ -1,11 +1,11 @@
 package Screens;
 
+import Entities.Sounds;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import Entities.SoundManager;
 import Game.AstonAdventure;
 
 /**
@@ -28,7 +28,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
     private static final int CHARACTER_HEIGHT = 480;
 
     //Sounds
-    private SoundManager Sm;
+    private Sounds Sm;
 
     //Screen / Button selectors
     private String select = "null";
@@ -50,7 +50,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         this.game = game;
         background = new Texture("Screens/MainMenu/MainMenu.png");
         character = new Texture("Screens/MainMenu/FemaleCharacterSelect.png");
-        Sm = new SoundManager();
+        Sm = new Sounds();
 
 
     }

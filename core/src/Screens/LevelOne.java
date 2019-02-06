@@ -4,14 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import Entities.*;
 import Game.AstonAdventure;
 
@@ -25,69 +17,47 @@ public class LevelOne implements Screen {
     private AstonAdventure game;
 
     //Sounds
-    private SoundManager Sm;
+    private Sounds Sm;
 
     //Map
-    private TiledMap tiledMap;
-    private TiledMapRenderer mapRenderer;
+    private Map map;
 
-    //Player Textures Animation
-    private Animation<TextureRegion> character;
-    private TextureAtlas textureAtlasCharacter;
-    private static float frameDuration;
-
-    //Classes / Objects
+    //Player / Character
     private Player player;
+
+    //Items / Pickups
     private Items items;
+
+    //Inventory
     private Inventory inventory;
+
+    //Text Boxes / Mentor
     private Text text;
 
-    //Character
-    private float x, y, elapsedTime, elapsedTimeInventory, elapsedTimeText;
-    public static float speed;
-
     //Camera
-    private OrthographicCamera camera;
-    private final float xMinCamera;
-    private final float xMaxCamera;
-    private final float yMinCamera;
-    private final float yMaxCamera;
+    private Camera camera;
+
+    //Character
+    private float elapsedTime, elapsedTimeInventory, elapsedTimeText;
 
     /**
      * The Constructor for LevelOne initialises the map and player textures, camera,
      * items, inventory and sounds. Stores the game object.
      * @param game The game object.
      */
-    public LevelOne(AstonAdventure game) {
+    LevelOne(AstonAdventure game) {
 
+        //Store game object
         this.game = game;
 
-        x = 400;
-        y = 400;
+        //Set up map
+        map = new Map(1);
 
-        //Set up Map
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-        tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
-        mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        //Set up camera
+        camera = new Camera(map.getWidth(), map.getHeight(), game);
 
-        //Set Camera and its position
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
-        camera.position.set(x, y, 0);
-        camera.update();
-        xMinCamera = 400;
-        xMaxCamera = 3700;
-        yMinCamera = 300;
-        yMaxCamera = 1800;
-
-        //Set Player and their position, speed and textures
-        player = new FemalePlayer(x, y);
-        frameDuration = 1 / 5f;
-        speed = 100;
-
-        textureAtlasCharacter = new TextureAtlas("Sprites/Characters/characters.atlas");
-        character = new Animation<TextureRegion>(frameDuration, textureAtlasCharacter.findRegions("female/standing"));
+        //Set player / character
+        player = new Player(game.getSelectedCharacter(), game);
 
         //Set items and their co-ordinates
         items = new Items();
@@ -104,8 +74,8 @@ public class LevelOne implements Screen {
         text.setTextPositiion(110, 230);
         text.setSylviaPosition(310, 230);
 
-        //Sounds
-        Sm = new SoundManager();
+        //Set up sounds
+        Sm = new Sounds();
         Sm.dispose();
     }
 
@@ -126,10 +96,8 @@ public class LevelOne implements Screen {
             Sm.levelOne();
         }
 
-        //Camera is set to view TiledMap from TMX file
-        //TiledMapRender renders the map
-        mapRenderer.setView(camera);
-        mapRenderer.render();
+        //Set view of camera
+        camera.viewMap(map.getMapRenderer());
 
         //Begin sprite batch
         game.batch.begin();
@@ -138,13 +106,6 @@ public class LevelOne implements Screen {
         elapsedTime += Gdx.graphics.getDeltaTime();
         elapsedTimeInventory += Gdx.graphics.getDeltaTime();
         elapsedTimeText += Gdx.graphics.getDeltaTime();
-
-        //Set frame rate based on player speed
-        if (speed == 200) {
-            frameDuration = 1 / 10f;
-        } else {
-            frameDuration = 1 / 5f;
-        }
 
         //Draw items if they have not been picked up
         if (!items.backpackPick) {
@@ -157,16 +118,13 @@ public class LevelOne implements Screen {
             game.batch.draw(items.shoes, items.xShoes, items.yShoes);
         }
 
-        //Draw character animation
-        game.batch.draw(character.getKeyFrame(elapsedTime, true), x, y);
-
         //Draw text box relative to player position
         text.nextTextBox(elapsedTimeText, items.backpackPick, items.shoesPick, items.coffeePick);
 
         if (text.textInterrupt) {
             text.setCurrentTextBox();
-            game.batch.draw(text.sylvia,(camera.position.x - text.xSylvia), (camera.position.y - text.ySylvia));
-            game.batch.draw(text.textBox.getKeyFrame(elapsedTimeText, true), (camera.position.x - text.xTextBox), (camera.position.y - text.yTextBox));
+            game.batch.draw(text.sylvia,(camera.getX() - text.xSylvia), (camera.getY() - text.ySylvia));
+            game.batch.draw(text.textBox.getKeyFrame(elapsedTimeText, true), (camera.getX() - text.xTextBox), (camera.getY() - text.yTextBox));
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 text.removeTextInterrupt();
                 text.currentSpeech ++;
@@ -185,10 +143,10 @@ public class LevelOne implements Screen {
         if (inventory.drawInventory) {
             if (!inventory.HUDAnimated.isAnimationFinished(elapsedTimeInventory)) {
 
-                game.batch.draw(inventory.HUDAnimated.getKeyFrame(elapsedTimeInventory, true), (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD));
+                game.batch.draw(inventory.HUDAnimated.getKeyFrame(elapsedTimeInventory, true), (camera.getX() + inventory.xHUD), (camera.getY() + inventory.yHUD));
             }
             else {
-                game.batch.draw(inventory.HUDStill, (camera.position.x + inventory.xHUD), (camera.position.y + inventory.yHUD) );
+                game.batch.draw(inventory.HUDStill, (camera.getX() + inventory.xHUD), (camera.getY() + inventory.yHUD) );
             }
 
             if(items.recentPick && elapsedTimeInventory > 2) {
@@ -196,37 +154,15 @@ public class LevelOne implements Screen {
             }
         }
 
-        //Read inputs to determine movement of character
-        if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && y < yMaxCamera) && !text.textInterrupt) {
-            character = player.moveUp();
-            y += speed * Gdx.graphics.getDeltaTime();
-            camera.position.y += speed * Gdx.graphics.getDeltaTime();
+        //Draw character animation and calculate movement
+        player.movement();
+        player.drawCharacter(elapsedTime);
 
-        } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) && y > yMinCamera) && !text.textInterrupt) {
-            character = player.moveDown();
-            y -= speed * Gdx.graphics.getDeltaTime();
-            camera.position.y -= speed * Gdx.graphics.getDeltaTime();
-
-        } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && x < xMaxCamera) && !text.textInterrupt) {
-            character = player.moveRight();
-            x += speed * Gdx.graphics.getDeltaTime();
-            camera.position.x += speed * Gdx.graphics.getDeltaTime();
-
-        } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && x > xMinCamera) && !text.textInterrupt) {
-            character = player.moveLeft();
-            x -= speed * Gdx.graphics.getDeltaTime();
-            camera.position.x -= speed * Gdx.graphics.getDeltaTime();
-
-        } else {
-            character = player.standStill();
-        }
-
-        //Update the position of the camera
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        //Update the camera position relative to player co-ordinates
+        camera.update(player);
 
         //Check status of items - Display inventory once upon picking up a new object
-            if (items.hasPlayerPickedBackpack(x, y)) {
+            if (items.hasPlayerPickedBackpack(player.getX(), player.getY())) {
                 if(items.displayBackpack < 1) {
                     items.setItemRecentlyPicked();
                     items.displayBackpack ++;
@@ -234,7 +170,7 @@ public class LevelOne implements Screen {
                 elapsedTimeText = 0;
             }
 
-            if (items.hasPlayerPickedCoffee(x, y)) {
+            if (items.hasPlayerPickedCoffee(player.getX(), player.getY())) {
                 if(items.displayCoffee < 1) {
                     items.setItemRecentlyPicked();
                     items.displayCoffee++;
@@ -242,9 +178,10 @@ public class LevelOne implements Screen {
                 elapsedTimeText = 0;
             }
 
-            if (items.hasPlayerPickedShoes(x, y)) {
+            if (items.hasPlayerPickedShoes(player.getX(), player.getY())) {
                 if(items.displayShoes < 1) {
                     items.setItemRecentlyPicked();
+                    player.incrreaseSpeed();
                     items.displayShoes ++;
                 }
                 elapsedTimeText = 0;
@@ -263,7 +200,7 @@ public class LevelOne implements Screen {
     /**
      * Method used to determine if the level has finished.
      */
-    public void checkLevelProgress() {
+    private void checkLevelProgress() {
         if(text.currentSpeech == 6) {
             if (checkPlayerExit()) {
                 game.setScreen(new ExitScreen(game));
@@ -275,26 +212,15 @@ public class LevelOne implements Screen {
      * Method used to check if the player has exited to the main building.
      * @return True if the player has exited.
      */
-    public boolean checkPlayerExit() {
+    private boolean checkPlayerExit() {
         float xEntrance = 1369;
         float yEntrance = 1719;
 
-        if (((xEntrance-20) < x && x < (xEntrance + 20)) && ((yEntrance-20) < y && y < (yEntrance + 20))) {
-            if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-                return true;
-            }
+        if (((xEntrance-20) < player.getX() && player.getX() < (xEntrance + 20)) && ((yEntrance-20) < player.getY() && player.getY() < (yEntrance + 20))) {
+            return Gdx.input.isKeyPressed(Input.Keys.E);
         }
 
-            return false;
-    }
-
-    /**
-     * Getter for the frame durations of animations.
-     * @return Frame duration.
-     */
-    public static float getFrameDuration() {
-
-        return LevelOne.frameDuration;
+        return false;
     }
 
     //Unused

@@ -44,6 +44,10 @@ public class AstonAdventure extends Game {
 		selectedCharacter = characters.get(character);
 	}
 
+	public String getSelectedCharacter() {
+		return  selectedCharacter;
+	}
+
 	//Unused
 	@Override
 	public void render () {

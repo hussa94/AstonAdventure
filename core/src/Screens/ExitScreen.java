@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import Entities.SoundManager;
+import Entities.Sounds;
 import Game.AstonAdventure;
 
 /**
@@ -31,7 +31,7 @@ public class ExitScreen implements Screen{
     private static final int MORE_BUTTON_WIDTH = 300;
 
     //Sounds
-    private SoundManager Sm;
+    private Sounds Sm;
 
     /**
      * Constructor for ExitScreen. Initialises the background and button textures and sounds.

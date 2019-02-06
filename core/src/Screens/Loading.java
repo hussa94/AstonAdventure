@@ -1,10 +1,10 @@
 package Screens;
 
+import Entities.Sounds;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import Entities.SoundManager;
 import Game.AstonAdventure;
 
 /**
@@ -22,7 +22,7 @@ public class Loading implements Screen {
     private static final int BACKGROUND_HEIGHT = 480;
 
     //Sounds
-    private SoundManager Sm;
+    private Sounds Sm;
 
     //Timer
     private float elapsedTime;
@@ -37,7 +37,7 @@ public class Loading implements Screen {
 
         this.game = game;
         background = new Texture("Screens/Loading/Level1INTRO.png");
-        Sm = new SoundManager();
+        Sm = new Sounds();
     }
 
     /**

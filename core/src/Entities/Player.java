@@ -1,44 +1,146 @@
 package Entities;
 
+import Game.AstonAdventure;
 import Screens.LevelOne;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 
-public abstract class Player implements Movement {
+public class Player {
 
-    private Vector2 position, velocity;
+    Animation<TextureRegion> characterAnimation;
 
-    LevelOne gameScreen;
+    TextureAtlas characterAtlas;
 
-    Animation<TextureRegion> animation;
+    float x, y;
 
-    TextureAtlas textureAtlas;
+    String selectedCharacter;
 
-    public Player(float x, float y) {
-        position = new Vector2(x, y);
-        velocity = new Vector2(0, 0);
+    //SpriteBatch batch = new SpriteBatch();
 
-        textureAtlas = new TextureAtlas("Sprites/Characters/characters.atlas");
+    AstonAdventure game;
+
+    private float frameDuration;
+
+    public float speed;
+
+    public Player(String selectedCharacter, AstonAdventure game) {
+
+        frameDuration = 1 / 5f;
+
+        this.game = game;
+
+        x = 400;
+        y = 400;
+
+        characterAtlas = new TextureAtlas("Sprites/Characters/characters.atlas");
+
+        this.selectedCharacter = selectedCharacter;
+
+        characterAnimation = new Animation<TextureRegion>(frameDuration);
+
+        speed = 100;
+    }
+
+    public void drawCharacter(float elapsedTime) {
+        game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x, y);
+    }
+
+    public void movement() {
+
+        //Set frame rate based on player speed
+        if (speed == 200) {
+            frameDuration = 1 / 10f;
+        } else {
+            frameDuration = 1 / 5f;
+        }
+
+        if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)))) {
+            moveUp();
+            y += speed * Gdx.graphics.getDeltaTime();
+
+
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))))  {
+            moveDown();
+            y -= speed * Gdx.graphics.getDeltaTime();
+
+
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)))) {
+            moveRight();
+            x += speed * Gdx.graphics.getDeltaTime();
+
+
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))))  {
+            moveLeft();
+            x -= speed * Gdx.graphics.getDeltaTime();
+
+
+        } else {
+            standStill();
+        }
+    }
+
+    private void moveUp() {
+        if (selectedCharacter.equalsIgnoreCase("female")) {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/up"));
+        }
+        else {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/up"));
+        }
     }
 
 
-
-    /*public void movementLeft(float dt) {
-        leftAnimation.update(dt);
-        position.x = LevelOne.SPEED * Gdx.graphics.getDeltaTime();
+    private void moveDown() {
+        if (selectedCharacter.equalsIgnoreCase("female")) {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/down"));
+        }
+        else {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/down"));
+        }
     }
 
-    public void update(float dt) {
-        stillAnimation.update(dt);
-        velocity.add(0, 0);
-        velocity.scl(dt);
+
+    private void moveLeft() {
+        if (selectedCharacter.equalsIgnoreCase("female")) {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/left"));
+        }
+        else {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/left"));
+        }
+
     }
 
-    public TextureRegion getTexture() {
-        return stillAnimation.getFrame();
-    }*/
+    private void moveRight() {
+            if (selectedCharacter.equalsIgnoreCase("female")) {
+                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/right"));
+            }
+            else {
+                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/right"));
+            }
+    }
 
+    private void standStill(){
+            if (selectedCharacter.equalsIgnoreCase("female")) {
+                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/standing"));
+            }
+            else {
+                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/standing"));
+            }
+    }
 
+    public void incrreaseSpeed() {
+        speed = 200;
+
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
 }

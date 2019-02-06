@@ -5,10 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
 /**
- * The SoundManager class is used to manage all of the background music and sound effects used during
+ * The Sounds class is used to manage all of the background music and sound effects used during
  * the game.
  */
-public class SoundManager extends ApplicationAdapter {
+public class Sounds extends ApplicationAdapter {
 
     //Sounds
     public static Music background;

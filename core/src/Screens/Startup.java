@@ -1,10 +1,10 @@
 package Screens;
 
+import Entities.Sounds;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import Entities.SoundManager;
 import Game.AstonAdventure;
 
 /**
@@ -22,7 +22,7 @@ public class Startup implements Screen {
     private static final int BACKGROUND_HEIGHT = 480;
 
     //Sounds
-    private SoundManager Sm;
+    private Sounds Sm;
 
     //Timer
     private float elapsedTime;
@@ -35,7 +35,7 @@ public class Startup implements Screen {
     public Startup(AstonAdventure game) {
         this.game = game;
         background = new Texture("Screens/Startup/INTRO.png");
-        Sm = new SoundManager();
+        Sm = new Sounds();
     }
 
     /**
