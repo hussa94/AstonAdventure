@@ -38,7 +38,7 @@ public class LevelOne implements Screen {
     private Camera camera;
 
     //Character
-    private float elapsedTime, elapsedTimeInventory, elapsedTimeText;
+    private float elapsedTime;
 
     /**
      * The Constructor for LevelOne initialises the map and player textures, camera,
@@ -68,7 +68,6 @@ public class LevelOne implements Screen {
         //Set Inventory and its position
         inventory = new Inventory(game);
 
-
         //Set Text Box and its position
         text = new Text(game);
         text.setTextPositiion(110, 230);
@@ -95,7 +94,7 @@ public class LevelOne implements Screen {
         elapsedTime += Gdx.graphics.getDeltaTime();
 
         //Background sounds
-        if (!Sm.background.isPlaying()) {
+        if (!Sm.isMusicPlaying()) {
             Sm.levelOne();
         }
 
@@ -107,23 +106,29 @@ public class LevelOne implements Screen {
 
         items.drawItems();
 
-        //Draw text box relative to player position
-        text.drawTextBox(items, camera);
-
-        inventory.drawInventory(items, camera);
-
         //Draw character animation and calculate movement
-        player.movement();
+        if (!text.getTextInterrupt()) {
+            player.movement();
+            player.drawCharacter(elapsedTime);
+        }
+        else {
+            player.standStill();
+            player.drawCharacter(elapsedTime);
+        }
 
         //Update the camera position relative to player co-ordinates
         camera.update(player);
 
+        //Draw text box relative to player position
+        text.drawTextBox(items, camera);
 
-        player.drawCharacter(elapsedTime);
+        //Draw the inventory in top right corner
+        inventory.drawInventory(items, camera);
 
         //Check status of inventory
         inventory.checkHUDStatus(items);
 
+        //Check which items have been picked
         items.itemStatus(text, player);
 
         //Check if level has ended
@@ -168,6 +173,7 @@ public class LevelOne implements Screen {
     //Unused
     @Override
     public void resize(int width, int height) {
+
     }
 
     //Unused

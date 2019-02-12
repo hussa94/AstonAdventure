@@ -6,14 +6,24 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+/**
+ * The class map contains all data pertaining to the maps used in each level. It is used
+ * to set and render the background map in each level.
+ */
 public class Map {
 
+    //Map
     private TiledMap tiledMap;
     private TiledMapRenderer mapRenderer;
 
+    //Dimensions
     float width;
     float height;
 
+    /**
+     * Constructor used to set the map for a specific level.
+      * @param level The level to be played.
+     */
     public Map(int level) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
@@ -29,26 +39,47 @@ public class Map {
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
 
+    /**
+     * Set map to level one.
+     */
     private void levelOne() {
         tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
     }
 
+    /**
+     * Set map to level two.
+     */
     private void levelTwo() {
         tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
     }
 
+    /**
+     * Set map to level three.
+     */
     private void levelThree() {
         tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
     }
 
+    /**
+     * Getter method for the width of the map.
+     * @return Width.
+     */
     public float getWidth() {
         return width;
     }
 
+    /**
+     * Getter method for the height of the map.
+     * @return Weight.
+     */
     public float getHeight() {
         return height;
     }
 
+    /**
+     * Getter method for the map renderer.
+     * @return mapRenderer.
+     */
     public TiledMapRenderer getMapRenderer() {
         return mapRenderer;
     }

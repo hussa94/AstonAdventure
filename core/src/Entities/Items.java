@@ -10,31 +10,32 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Items {
 
-    AstonAdventure game;
+    //Game object
+    private AstonAdventure game;
 
     //Textures
-    public Texture backpack;
-    public Texture coffee;
-    public Texture shoes;
+    private Texture backpack;
+    private Texture coffee;
+    private Texture shoes;
 
     //Co-ordinates
-    public float xBackpack, yBackpack;
-    public float xCoffee, yCoffee;
-    public float xShoes, yShoes;
+    private float xBackpack, yBackpack;
+    private float xCoffee, yCoffee;
+    private float xShoes, yShoes;
 
     //Picking indicators
-    public boolean backpackPick;
-    public boolean coffeePick;
-    public boolean shoesPick;
-    public boolean recentPick;
+    boolean backpackPick;
+    boolean coffeePick;
+    boolean shoesPick;
+    boolean recentPick;
 
     //Picking indicators
-    public int displayBackpack;
-    public int displayCoffee;
-    public int displayShoes;
+    private int displayBackpack;
+    private int displayCoffee;
+    private int displayShoes;
 
     //Sounds
-    Sounds Sm = new Sounds();
+    private Sounds Sm = new Sounds();
 
 
     /**
@@ -171,7 +172,7 @@ public class Items {
         if (hasPlayerPickedShoes(player.getX(), player.getY())) {
             if(displayShoes < 1) {
                 setItemRecentlyPicked();
-                player.incrreaseSpeed();
+                player.increaseSpeed();
                 displayShoes ++;
             }
             text.resetElapsedTime();

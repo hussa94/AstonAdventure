@@ -15,28 +15,40 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Inventory {
 
     //Co-ordinates
-    public float xHUD, yHUD;
+    private float xHUD, yHUD;
 
     //Backpack check
-    public boolean drawInventory;
+    private boolean drawInventory;
 
     //Animation frame duration
     private float frameDuration = 1 / 50f;
 
+    //Timer
     private float elapsedTime = 0;
 
+    //Game Object
     AstonAdventure game;
 
     //Textures and animations
-    public Animation<TextureRegion> HUDAnimated;
+    private Animation<TextureRegion> HUDAnimated;
     private TextureAtlas textureAtlasHUD;
-    public Texture HUDStill;
+    private Texture HUDStill;
 
+    /**
+     * Constructor used to set up the position of the inventory (Top right corner).
+     * @param game
+     */
     public Inventory(AstonAdventure game) {
         setInventoryPositiion(240, -60);
         this.game = game;
     }
 
+    /**
+     * Method to draw the animation and still frame of the inventory, either when 'I' is pressed, or an
+     * item is picked.
+     * @param items The items that have been picked.
+     * @param camera The camera used in the game.
+     */
     public void drawInventory(Items items, Camera camera) {
         elapsedTime += Gdx.graphics.getDeltaTime();
 

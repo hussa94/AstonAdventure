@@ -18,6 +18,7 @@ public class Text {
     public float xSylvia, ySylvia;
     public float xTextBox, yTextBox;
 
+    //Game Object
     AstonAdventure game;
 
     //Animation frame duration
@@ -110,6 +111,14 @@ public class Text {
                 resetElapsedTime();
             }
         }
+    }
+
+    /**
+     * Method to return a bool indicating whether or not a text box is on screen
+     * @return textInterrupt
+     */
+    public boolean getTextInterrupt() {
+        return textInterrupt;
     }
 
     public void resetElapsedTime() {
