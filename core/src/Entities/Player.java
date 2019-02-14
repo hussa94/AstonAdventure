@@ -63,7 +63,7 @@ public class Player {
         y = 400;
 
         //Sprite sheet for character
-        characterAtlas = new TextureAtlas("Sprites/Characters/characters.atlas");
+        characterAtlas = new TextureAtlas("Sprites/Characters/Players/characters.atlas");
 
         //Set character selection
         this.selectedCharacter = selectedCharacter;
@@ -194,7 +194,7 @@ public class Player {
     }
 
     /**
-     * Method used to increse the speed of the character
+     * Method used to increase the speed of the character
      */
     public void increaseSpeed() {
 

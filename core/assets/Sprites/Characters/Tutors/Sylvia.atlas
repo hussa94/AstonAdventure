@@ -1,0 +1,96 @@
+Sylvia.png
+size: 46, 882
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Down
+  rotate: false
+  xy: 1, 667
+  size: 43, 70
+  orig: 45, 90
+  offset: 0, 10
+  index: -1
+Down
+  rotate: false
+  xy: 1, 739
+  size: 43, 70
+  orig: 45, 90
+  offset: 0, 10
+  index: -1
+Down
+  rotate: false
+  xy: 1, 224
+  size: 44, 70
+  orig: 45, 90
+  offset: 0, 10
+  index: -1
+Left
+  rotate: false
+  xy: 1, 371
+  size: 43, 72
+  orig: 45, 90
+  offset: 0, 8
+  index: -1
+Left
+  rotate: false
+  xy: 1, 445
+  size: 43, 72
+  orig: 45, 90
+  offset: 0, 8
+  index: -1
+Left
+  rotate: false
+  xy: 1, 76
+  size: 44, 72
+  orig: 45, 90
+  offset: 0, 8
+  index: -1
+Right
+  rotate: false
+  xy: 1, 519
+  size: 43, 72
+  orig: 45, 90
+  offset: 0, 8
+  index: -1
+Right
+  rotate: false
+  xy: 1, 593
+  size: 43, 72
+  orig: 45, 90
+  offset: 0, 8
+  index: -1
+Right
+  rotate: false
+  xy: 1, 150
+  size: 44, 72
+  orig: 45, 90
+  offset: 0, 8
+  index: -1
+Stand
+  rotate: false
+  xy: 1, 667
+  size: 43, 70
+  orig: 45, 90
+  offset: 0, 10
+  index: -1
+Up
+  rotate: false
+  xy: 1, 811
+  size: 43, 70
+  orig: 45, 90
+  offset: 0, 10
+  index: -1
+Up
+  rotate: false
+  xy: 1, 296
+  size: 43, 73
+  orig: 45, 90
+  offset: 0, 7
+  index: -1
+Up
+  rotate: false
+  xy: 1, 1
+  size: 44, 73
+  orig: 45, 90
+  offset: 0, 7
+  index: -1

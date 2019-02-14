@@ -108,7 +108,7 @@ public class LevelOne implements Screen {
         //Begin sprite batch
         game.batch.begin();
 
-        npc.drawNpcs(elapsedTime);
+        npc.drawNPCs(elapsedTime);
 
         items.drawItems();
 

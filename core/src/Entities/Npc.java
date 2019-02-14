@@ -2,7 +2,6 @@ package Entities;
 
 import Game.AstonAdventure;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,29 +9,36 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * The class Npc is used to add random moving non player characters into levels. It is also used to
+ * display the tutoe characters.
+ */
 public class Npc {
 
+    //Textures / Animations
     com.badlogic.gdx.graphics.g2d.Animation<TextureRegion> characterAnimation;
-
     TextureAtlas characterAtlas;
+    private float frameDuration;
 
-    private HashMap<Integer, String> npcs = new HashMap<Integer, String>();
+    //NPC information
+    private HashMap<Integer, String> NPCs = new HashMap<Integer, String>();
     private float[] x;
     private float[] y;
     private String lastDirection[];
 
+    //Game Object
     AstonAdventure game;
 
+    //Randomise
     Random random = new Random();
 
-    private int numberOfCharacters;
+    //NPC timer before changing direction
+    private int timeSinceLastDirectionChange = 0;
 
-    private int randomTimer = 0;
+    //Number of NPCs in the level
+    private int numberOfNPCs;
 
-    private int numberOfNpcs;
-
-    private float frameDuration;
-
+    //NPC speed
     private float speed;
 
     //Player restrictions
@@ -41,64 +47,83 @@ public class Npc {
     private int yMinPlayer;
     private int yMaxPlayer;
 
-    public Npc(AstonAdventure game, int numberOfNpcs) {
+    /**
+     * The constructor is used to initialise the NPCs and set their co-ordinates and character profile.
+     * @param game The game object.
+     * @param numberOfNPCs The number of NPCs to display.
+     */
+    public Npc(AstonAdventure game, int numberOfNPCs) {
 
-        //Boundaries for the player to walk
+        //Boundaries for the NPCs to walk
         xMinPlayer = 80;
         xMaxPlayer = 3970;
         yMinPlayer = 158;
         yMaxPlayer = 1960;
 
-        numberOfCharacters = 2;
+        //Set number of NPCs in level
+        this.numberOfNPCs = numberOfNPCs;
 
-        this.numberOfNpcs = numberOfNpcs;
-
-        lastDirection = new String[numberOfNpcs];
-
+        //Set frame duration
         frameDuration = 1 / 5f;
 
+        //Assign game object
         this.game = game;
 
-        characterAtlas = new TextureAtlas("Sprites/Characters/characters.atlas");
-
+        //Set textures / animations
+        characterAtlas = new TextureAtlas("Sprites/Characters/Players/characters.atlas");
         characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration);
 
+        //Set player speed
         speed = 50;
 
-         x = new float[numberOfNpcs];
-         y = new float[numberOfNpcs];
+        //Set up directions and co-ordinates
+        lastDirection = new String[numberOfNPCs];
+         x = new float[numberOfNPCs];
+         y = new float[numberOfNPCs];
 
-        for (int i=0; i<numberOfNpcs; i++) {
-            npcs.put(i, randomCharacter());
+         //Give each NPC a character, co-ordinates, direction
+        for (int i = 0; i< numberOfNPCs; i++) {
+            NPCs.put(i, randomCharacter());
             x[i] = randomXCoordinate();
             y[i] = randomYCoordinate();
             lastDirection[i] = randomDirection();
         }
     }
 
-    public void drawNpcs(float elapsedTime) {
+    /**
+     * Used to draw each of the NPCs in the level.
+     * @param elapsedTime Timer.
+     */
+    public void drawNPCs(float elapsedTime) {
 
-        randomTimer++;
+        int maxStepsBeforeChange = 500;
 
-        if (randomTimer >= 500) {
-            for (int i=0; i<numberOfNpcs; i++) {
+        //Increase timer since last direction change
+        timeSinceLastDirectionChange++;
+
+        //Change direction after max number of cycles
+        if (timeSinceLastDirectionChange >= maxStepsBeforeChange) {
+            for (int i = 0; i< numberOfNPCs; i++) {
                 lastDirection [i] = randomDirection();
             }
-            randomTimer = 0;
+            timeSinceLastDirectionChange = 0;
         }
 
-        for (int i=0; i<numberOfNpcs; i++) {
-
-
+        //Calculate movement and draw each NPC
+        for (int i = 0; i< numberOfNPCs; i++) {
             movement(lastDirection[i], i);
-
-
             game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x[i], y[i]);
         }
     }
 
+    /**
+     * Method used to determine any movement of the NPCs. Moves the characters accordingly.
+     * @param direction The direction each NPC is currently heading in.
+     * @param npc The active NPC.
+     */
     public void movement(String direction, int npc) {
 
+        //Determine any movement by NPC
         if ((direction.equalsIgnoreCase("Up")) && (y[npc] < yMaxPlayer)) {
             moveUp(npc);
             y[npc] += speed * Gdx.graphics.getDeltaTime();
@@ -124,8 +149,13 @@ public class Npc {
         }
     }
 
+    /**
+     * Method to set the animation of the player whilst moving upwards.
+     * @param npc The active NPC.
+     */
     private void moveUp(int npc) {
-        if (npcs.get(npc).equalsIgnoreCase("female")) {
+
+        if (NPCs.get(npc).equalsIgnoreCase("female")) {
             characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/up"));
         }
         else {
@@ -133,9 +163,13 @@ public class Npc {
         }
     }
 
-
+    /**
+     * Method to set the animation of the player whilst moving downwards.
+     * @param npc The active NPC.
+     */
     private void moveDown(int npc) {
-        if (npcs.get(npc).equalsIgnoreCase("female")) {
+
+        if (NPCs.get(npc).equalsIgnoreCase("female")) {
             characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/down"));
         }
         else {
@@ -143,9 +177,13 @@ public class Npc {
         }
     }
 
-
+    /**
+     * Method to set the animation of the player whilst moving left.
+     * @param npc The active NPC.
+     */
     private void moveLeft(int npc) {
-        if (npcs.get(npc).equalsIgnoreCase("female")) {
+
+        if (NPCs.get(npc).equalsIgnoreCase("female")) {
             characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/left"));
         }
         else {
@@ -154,8 +192,13 @@ public class Npc {
 
     }
 
+    /**
+     * Method to set the animation of the player whilst moving right.
+     * @param npc The active NPC.
+     */
     private void moveRight(int npc) {
-        if (npcs.get(npc).equalsIgnoreCase("female")) {
+
+        if (NPCs.get(npc).equalsIgnoreCase("female")) {
             characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/right"));
         }
         else {
@@ -163,8 +206,13 @@ public class Npc {
         }
     }
 
+    /**
+     * Method to set the animation of the player whilst standing still.
+     * @param npc The active NPC.
+     */
     private void standStill(int npc){
-        if (npcs.get(npc).equalsIgnoreCase("female")) {
+
+        if (NPCs.get(npc).equalsIgnoreCase("female")) {
             characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/standing"));
         }
         else {
@@ -172,27 +220,45 @@ public class Npc {
         }
     }
 
+    /**
+     * Method used to give an NPC a random character from a selected list.
+     * @return The random character.
+     */
     private String randomCharacter() {
 
-        String character[] = new String[numberOfCharacters];
+        //Number of NPC character skins
+        int numberOfCharacters = 2;
 
+        //Possible NPC characters
+        String character[] = new String[numberOfCharacters];
         character[0] = "Male";
         character[1] = "Female";
-
 
         return character[random.nextInt(character.length)];
     }
 
+    /**
+     * Method used to give an NPC a random starting X co-ordinate.
+     * @return The random co-ordinate.
+     */
     private int randomXCoordinate() {
 
         return random.nextInt(xMaxPlayer-xMinPlayer + 1) + xMinPlayer;
     }
 
+    /**
+     * Method used to give an NPC a random starting Y co-ordinate.
+     * @return The random co-ordinate.
+     */
     private int randomYCoordinate() {
 
         return random.nextInt(yMaxPlayer-yMinPlayer + 1) + yMinPlayer;
     }
 
+    /**
+     * Method to give a random direction for the NPC to move in
+     * @return The random direction.
+     */
     private String randomDirection() {
         int randomInt = random.nextInt(4);
 
