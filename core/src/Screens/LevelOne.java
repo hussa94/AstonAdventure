@@ -16,6 +16,8 @@ public class LevelOne implements Screen {
     //Game
     private AstonAdventure game;
 
+    private Npc npc;
+
     //Sounds
     private Sounds Sm;
 
@@ -49,6 +51,8 @@ public class LevelOne implements Screen {
 
         //Store game object
         this.game = game;
+
+        npc = new Npc(game, 30);
 
         //Set up map
         map = new Map(1);
@@ -103,6 +107,8 @@ public class LevelOne implements Screen {
 
         //Begin sprite batch
         game.batch.begin();
+
+        npc.drawNpcs(elapsedTime);
 
         items.drawItems();
 

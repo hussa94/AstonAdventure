@@ -93,7 +93,7 @@ public class Player {
     public void movement() {
 
         //Constant delta value
-        float gameDelta = 0.016f;
+        float gameDelta = 0.02f;
 
         //Set frame rate based on player speed
         if (speed == 200) {
@@ -105,22 +105,22 @@ public class Player {
         //Determine any movement indicated by user
         if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && (y < yMaxPlayer))) {
             moveUp();
-            y += speed * gameDelta;
+            y += speed * Gdx.graphics.getDeltaTime();
 
 
         } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) && (y > yMinPlayer)))  {
             moveDown();
-            y -= speed * gameDelta;
+            y -= speed * Gdx.graphics.getDeltaTime();
 
 
         } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && (x < xMaxPlayer))) {
             moveRight();
-            x += speed * gameDelta;
+            x += speed * Gdx.graphics.getDeltaTime();
 
 
         } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && (x > xMinPlayer)))  {
             moveLeft();
-            x -= speed * gameDelta;
+            x -= speed * Gdx.graphics.getDeltaTime();
 
         } else {
             standStill();
