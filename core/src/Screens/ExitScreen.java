@@ -30,15 +30,12 @@ public class ExitScreen implements Screen{
     private static final int MORE_BUTTON_HEIGHT = 120;
     private static final int MORE_BUTTON_WIDTH = 300;
 
-    //Sounds
-    private Sounds Sm;
-
     /**
      * Constructor for ExitScreen. Initialises the background and button textures and sounds.
      * Stores the game object.
      * @param game The Game object.
      */
-    public ExitScreen(AstonAdventure game) {
+    ExitScreen(AstonAdventure game) {
 
         this.game = game;
         background = new Texture("Screens/Exit/AstonExit.png");

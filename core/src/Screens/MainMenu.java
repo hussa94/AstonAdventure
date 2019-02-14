@@ -46,7 +46,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
      * game object.
      * @param game The Game object.
      */
-    public MainMenu(AstonAdventure game) {
+    MainMenu(AstonAdventure game) {
         this.game = game;
         background = new Texture("Screens/MainMenu/MainMenu.png");
         character = new Texture("Screens/MainMenu/FemaleCharacterSelect.png");
@@ -106,7 +106,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
      * and if a button is pressed a sound will play and a function will be performed (Based on which button
      * is pressed).
      */
-    public void mainScreen() {
+    private void mainScreen() {
 
         //Play button
         if ((Gdx.input.getX() > 250) && (Gdx.input.getX() < 414) && ((Gdx.input.getY() > 156) && (Gdx.input.getY() < 203))) {
@@ -186,7 +186,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
      * and if a button is pressed a sound will play and a function will be performed (Based on which button
      * is pressed).
      */
-    public void optionsScreen() {
+    private void optionsScreen() {
 
         //Characters button
         if ((Gdx.input.getX() > 131) && (Gdx.input.getX() < 532) && ((Gdx.input.getY() > 176) && (Gdx.input.getY() < 220))) {
@@ -251,7 +251,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
      * the background and if a button is pressed a sound will play and a function will be performed (Based on
      * which button is pressed).
      */
-    public void charScreen() {
+    private void charScreen() {
 
         //Right arrow button
         if ((Gdx.input.getX() > 517) && (Gdx.input.getX() < 547) && ((Gdx.input.getY() > 194) && (Gdx.input.getY() < 234))) {
@@ -325,7 +325,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
      * the background and if a button is pressed a sound will play and a function will be performed (Based on
      * which button is pressed).
      */
-    public void controlScreen() {
+    private void controlScreen() {
 
         //Standard Background
         background = new Texture("Screens/MainMenu/MainMenuControls.png");

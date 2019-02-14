@@ -1,11 +1,9 @@
 package Entities;
 
 import Game.AstonAdventure;
-import Screens.LevelOne;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -16,18 +14,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Player {
 
     // Textures / Animations
-    Animation<TextureRegion> characterAnimation;
-    TextureAtlas characterAtlas;
+    private Animation<TextureRegion> characterAnimation;
+    private TextureAtlas characterAtlas;
     private float frameDuration;
 
     //Player co-ordinates
     float x, y;
 
     //Character information
-    String selectedCharacter;
+    private String selectedCharacter;
 
     //Game object
-    AstonAdventure game;
+    private AstonAdventure game;
 
     //Player restrictions
     private final float xMinPlayer;
@@ -36,7 +34,7 @@ public class Player {
     private final float yMaxPlayer;
 
     //Player speed.
-    public float speed;
+    private float speed;
 
     /**
      * The constructor is used to set up the player in its starting co-ordinates. It also decides which character
@@ -91,9 +89,6 @@ public class Player {
      * Method used to determine any movement of the character by the player. Moves the character accordingly.
      */
     public void movement() {
-
-        //Constant delta value
-        float gameDelta = 0.02f;
 
         //Set frame rate based on player speed
         if (speed == 200) {
@@ -196,7 +191,7 @@ public class Player {
     /**
      * Method used to increase the speed of the character
      */
-    public void increaseSpeed() {
+    void increaseSpeed() {
 
         speed = 200;
     }

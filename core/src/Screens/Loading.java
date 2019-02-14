@@ -33,7 +33,7 @@ public class Loading implements Screen {
      * the game object.
      * @param game The Game object.
      */
-    public Loading(AstonAdventure game) {
+    Loading(AstonAdventure game) {
 
         this.game = game;
         background = new Texture("Screens/Loading/Level1INTRO.png");

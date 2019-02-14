@@ -1,39 +1,46 @@
 Sylvia.png
-size: 46, 882
+size: 182, 223
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Down
   rotate: false
-  xy: 1, 667
+  xy: 138, 75
   size: 43, 70
   orig: 45, 90
   offset: 0, 10
   index: -1
 Down
   rotate: false
-  xy: 1, 739
+  xy: 92, 147
   size: 43, 70
   orig: 45, 90
   offset: 0, 10
   index: -1
 Down
   rotate: false
-  xy: 1, 224
+  xy: 92, 75
   size: 44, 70
   orig: 45, 90
   offset: 0, 10
   index: -1
+Empty
+  rotate: false
+  xy: 92, 219
+  size: 3, 3
+  orig: 45, 90
+  offset: 0, 87
+  index: -1
 Left
   rotate: false
-  xy: 1, 371
+  xy: 47, 76
   size: 43, 72
   orig: 45, 90
   offset: 0, 8
   index: -1
 Left
   rotate: false
-  xy: 1, 445
+  xy: 47, 150
   size: 43, 72
   orig: 45, 90
   offset: 0, 8
@@ -47,14 +54,14 @@ Left
   index: -1
 Right
   rotate: false
-  xy: 1, 519
+  xy: 92, 1
   size: 43, 72
   orig: 45, 90
   offset: 0, 8
   index: -1
 Right
   rotate: false
-  xy: 1, 593
+  xy: 137, 1
   size: 43, 72
   orig: 45, 90
   offset: 0, 8
@@ -68,21 +75,21 @@ Right
   index: -1
 Stand
   rotate: false
-  xy: 1, 667
+  xy: 138, 75
   size: 43, 70
   orig: 45, 90
   offset: 0, 10
   index: -1
 Up
   rotate: false
-  xy: 1, 811
+  xy: 137, 147
   size: 43, 70
   orig: 45, 90
   offset: 0, 10
   index: -1
 Up
   rotate: false
-  xy: 1, 296
+  xy: 47, 1
   size: 43, 73
   orig: 45, 90
   offset: 0, 7

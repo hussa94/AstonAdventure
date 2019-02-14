@@ -20,14 +20,11 @@ public class Inventory {
     //Backpack check
     private boolean drawInventory;
 
-    //Animation frame duration
-    private float frameDuration = 1 / 50f;
-
     //Timer
     private float elapsedTime = 0;
 
     //Game Object
-    AstonAdventure game;
+    private AstonAdventure game;
 
     //Textures and animations
     private Animation<TextureRegion> HUDAnimated;
@@ -36,7 +33,7 @@ public class Inventory {
 
     /**
      * Constructor used to set up the position of the inventory (Top right corner).
-     * @param game
+     * @param game The game object.
      */
     public Inventory(AstonAdventure game) {
         setInventoryPositiion(240, -60);
@@ -71,7 +68,6 @@ public class Inventory {
         if(items.recentPick && elapsedTime > 2) {
             items.setItemNotRecentlyPicked();
         }
-
     }
 
     /**
@@ -79,7 +75,7 @@ public class Inventory {
      * @param x x co-ordinate
      * @param y y co-ordinate
      */
-    public void setInventoryPositiion(float x, float y) {
+    private void setInventoryPositiion(float x, float y) {
         xHUD = x;
         yHUD = y;
     }
@@ -87,14 +83,14 @@ public class Inventory {
     /**
      * Method used to begin the animation to display the inventory
      */
-    public void beginDrawingInventory() {
+    private void beginDrawingInventory() {
         drawInventory = true;
     }
 
     /**
      * Method used to stop drawing the inventory.
      */
-    public  void endDrawingInventory() {
+    private  void endDrawingInventory() {
         drawInventory = false;
     }
 
@@ -108,7 +104,9 @@ public class Inventory {
         boolean shoesPick = items.shoesPick;
 
 
-            if (!coffeePick && !shoesPick) {
+        //Animation frame duration
+        float frameDuration = 1 / 50f;
+        if (!coffeePick && !shoesPick) {
                 textureAtlasHUD = new TextureAtlas("Sprites/Objects/Inventory/Inventory Animated/Empty Inventory/Inventory Empty.atlas");
                 HUDAnimated = new Animation<TextureRegion>(frameDuration, textureAtlasHUD.getRegions());
                 HUDStill = new Texture("Sprites/Objects/Inventory/Inventory Still/Empty_Inventory.png");

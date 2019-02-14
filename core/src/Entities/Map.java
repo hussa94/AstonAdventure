@@ -17,8 +17,8 @@ public class Map {
     private TiledMapRenderer mapRenderer;
 
     //Dimensions
-    float width;
-    float height;
+    private float width;
+    private float height;
 
     /**
      * Constructor used to set the map for a specific level.

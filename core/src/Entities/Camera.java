@@ -10,10 +10,6 @@ import com.badlogic.gdx.maps.MapRenderer;
  */
 public class Camera {
 
-    //Starting camera co-ordinates
-    float startingX = 400;
-    float startingY = 400;
-
     //Camera
     private OrthographicCamera camera;
 
@@ -24,7 +20,7 @@ public class Camera {
     private final float yMaxCamera;
 
     //Game object
-    AstonAdventure game;
+    private AstonAdventure game;
 
     /**
      * The constructor is used to set the camera up and centralise it on the player in the
@@ -38,6 +34,9 @@ public class Camera {
         //Set up camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
+        //Starting camera co-ordinates
+        float startingX = 400;
+        float startingY = 400;
         camera.position.set(startingX, startingY, 0);
 
         //Update Camera
@@ -87,7 +86,7 @@ public class Camera {
      * Method used to retrieve the x position of the camera.
      * @return X.
      */
-    public float getX() {
+    float getX() {
         return camera.position.x;
     }
 
@@ -95,7 +94,7 @@ public class Camera {
      * Method used to retrieve the y position of the camera.
      * @return Y.
      */
-    public float getY() {
+    float getY() {
         return camera.position.y;
     }
 

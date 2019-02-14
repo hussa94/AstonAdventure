@@ -14,43 +14,57 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Text {
 
     //Textures
-    public Texture sylvia;
-    public float xSylvia, ySylvia;
-    public float xTextBox, yTextBox;
+    private Texture sylvia;
+    private float xSylvia, ySylvia;
+    private float xTextBox, yTextBox;
 
     //Game Object
-    AstonAdventure game;
+    private AstonAdventure game;
+
+    //Tutor character
+    private Tutor tutor;
 
     //Animation frame duration
     private float frameDuration = 1/2f;
 
+    //Timer
     private float elapsedTime;
 
     //Text boxes
-    public Animation<TextureRegion> textBox;
-    public TextureAtlas textureAtlasText;
+    private Animation<TextureRegion> textBox;
+    private TextureAtlas textureAtlasText;
 
     //Progression tracker
     public int currentSpeech = 1;
 
     //Display interrupt
-    public boolean textInterrupt;
+    private boolean textInterrupt;
 
     /**
      * The constructor initialises all of the textures and text box animations used in the game.
      */
     public Text(AstonAdventure game) {
-        this.game = game;
+
+       //Set tutor
+       tutor = new Tutor(game);
+
+       //Set game object
+       this.game = game;
+
+       //Set text boxes textures / animations
        textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Text 1.atlas");
        textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-       textInterrupt = true;
+
+       //Set sylvia texture
        sylvia = new Texture("tiles/sylvia.png");
     }
 
     /**
      * Method used to determine and set the current text box to be displayed.
      */
-    public void setCurrentTextBox() {
+    private void setCurrentTextBox() {
+
+        //Determine which text box to display
         if (currentSpeech == 1) {
             textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Text 1.atlas");
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
@@ -80,28 +94,57 @@ public class Text {
      * @param shoesPick Bool indicating status of the book.
      * @param coffeePick Bool indicating status of the coffee.
      */
-    public void nextTextBox(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
-        if (elapsedTimeText > 3 && currentSpeech == 2) {
+    private void nextTextBox(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
+
+        //Change text box if necessary
+        if (currentSpeech == 1) {
             setTextInterrupt();
         }
-        else if (elapsedTimeText > 3 && currentSpeech == 3 && backpackPick) {
+        else if (elapsedTimeText > 7 && currentSpeech == 2) {
             setTextInterrupt();
         }
-        else if (elapsedTimeText > 3 && currentSpeech == 4 && backpackPick && shoesPick) {
+        else if (elapsedTimeText > 5 && currentSpeech == 3 && backpackPick) {
             setTextInterrupt();
         }
-        else if (elapsedTimeText > 3 && currentSpeech == 5 && backpackPick && shoesPick && coffeePick) {
+        else if (elapsedTimeText > 5 && currentSpeech == 4 && backpackPick && shoesPick) {
+            setTextInterrupt();
+        }
+        else if (elapsedTimeText > 5 && currentSpeech == 5 && backpackPick && shoesPick && coffeePick) {
             setTextInterrupt();
         }
     }
 
-    public void drawTextBox(Items items, Camera camera) {
+    /**
+     * Method to draw the text box on the screen. The tutor character will enter, then stand while the
+     * text box is displayed. On dismissal, the tutor character will leave and the player will be able to resume.
+     * @param items The items in the level.
+     * @param camera The camera in the level.
+     * @param player The player.
+     * @param elapsedTimeLevel Elapsed time in the level.
+     */
+    public void drawTextBox(Items items, Camera camera, Player player, float elapsedTimeLevel) {
 
+        //Update elapsed time for text box
         elapsedTime += Gdx.graphics.getDeltaTime();
 
-        nextTextBox(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
+        //Draw tutor character entering / exiting / standing
+        if (tutor.getEntering()) {
+            tutor.enterTutor(elapsedTimeLevel, player);
+        }
+        else if (tutor.getExiting()) {
+            tutor.exitTutor(elapsedTimeLevel, player);
+        }
+        else if (tutor.getStanding()) {
+            tutor.standTutor(elapsedTimeLevel);
+        }
 
-        if (textInterrupt) {
+        //Get next text box upon completion of last text box
+        if(!textInterrupt) {
+            nextTextBox(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
+        }
+
+        //Draw the current text box
+        if (textInterrupt && (!tutor.getExiting()) && (!tutor.getEntering())) {
             setCurrentTextBox();
             game.batch.draw(sylvia,(camera.getX() - xSylvia), (camera.getY() - ySylvia));
             game.batch.draw(textBox.getKeyFrame(elapsedTime, true), (camera.getX() - xTextBox), (camera.getY() - yTextBox));
@@ -117,26 +160,36 @@ public class Text {
      * Method to return a bool indicating whether or not a text box is on screen
      * @return textInterrupt
      */
-    public boolean getTextInterrupt() {
+    private boolean getTextInterrupt() {
         return textInterrupt;
     }
 
-    public void resetElapsedTime() {
+    void resetElapsedTime() {
         elapsedTime = 0;
     }
 
     /**
      * Sets the interrupt such that the game is interrupted to display a text box.
      */
-    public void setTextInterrupt() {
+    private void setTextInterrupt() {
         textInterrupt = true;
+        tutor.setEntering();
     }
 
     /**
      * Removes the interrupt such that the game stops the interrupt to display a text box.
      */
-    public void removeTextInterrupt() {
+    private void removeTextInterrupt() {
         textInterrupt = false;
+        tutor.setExiting();
+    }
+
+    /**
+     * Method to restric the player from walking if the tutor character is active, or a text box is active.
+     * @return Whether the player can walk or not.
+     */
+    public boolean canPlayerWalk() {
+        return !getTextInterrupt() && !tutor.getStanding() && !tutor.getEntering() && !tutor.getExiting();
     }
 
     /**

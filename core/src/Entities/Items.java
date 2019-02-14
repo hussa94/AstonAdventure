@@ -85,7 +85,7 @@ public class Items {
      * @param yPlayer y co-ordinate of the player.
      * @return True if item is picked.
      */
-    public boolean hasPlayerPickedBackpack(float xPlayer, float yPlayer) {
+    private boolean hasPlayerPickedBackpack(float xPlayer, float yPlayer) {
         if (((xBackpack - 20) < xPlayer && xPlayer < (xBackpack + 20)) && ((yBackpack - 20) < yPlayer && yPlayer < (yBackpack + 20))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 backpackPick = true;
@@ -105,7 +105,7 @@ public class Items {
      * @param yPlayer y co-ordinate of the player.
      * @return True if item is picked.
      */
-    public boolean hasPlayerPickedCoffee(float xPlayer, float yPlayer) {
+    private boolean hasPlayerPickedCoffee(float xPlayer, float yPlayer) {
         if (((xCoffee - 20) < xPlayer && xPlayer < (xCoffee + 20)) && ((yCoffee - 20) < yPlayer && yPlayer < (yCoffee + 20))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 coffeePick = true;
@@ -124,7 +124,7 @@ public class Items {
      * @param yPlayer y co-ordinate of the player.
      * @return True if item is picked.
      */
-    public boolean hasPlayerPickedShoes(float xPlayer, float yPlayer) {
+    private boolean hasPlayerPickedShoes(float xPlayer, float yPlayer) {
         if (((xShoes - 20) < xPlayer && xPlayer < (xShoes + 20)) && ((yShoes - 20) < yPlayer && yPlayer < (yShoes + 20))) {
             if (Gdx.input.isKeyPressed(Input.Keys.E)) {
                 shoesPick = true;
@@ -182,14 +182,14 @@ public class Items {
     /**
      * Method that sets the indicatorfor recently picking an item.
      */
-    public void setItemRecentlyPicked () {
+    private void setItemRecentlyPicked () {
         recentPick = true;
     }
 
     /**
      * Method that removes the indicator for recently picking an item.
      */
-    public void setItemNotRecentlyPicked () {
+    void setItemNotRecentlyPicked () {
         recentPick = false;
     }
 }

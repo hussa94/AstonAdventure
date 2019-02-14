@@ -16,6 +16,7 @@ public class LevelOne implements Screen {
     //Game
     private AstonAdventure game;
 
+    //NPCs
     private Npc npc;
 
     //Sounds
@@ -52,6 +53,7 @@ public class LevelOne implements Screen {
         //Store game object
         this.game = game;
 
+        //Set up NPCs
         npc = new Npc(game, 30);
 
         //Set up map
@@ -113,7 +115,7 @@ public class LevelOne implements Screen {
         items.drawItems();
 
         //Draw character animation and calculate movement
-        if (!text.getTextInterrupt()) {
+        if (text.canPlayerWalk()) {
             player.movement();
             player.drawCharacter(elapsedTime);
         }
@@ -126,7 +128,7 @@ public class LevelOne implements Screen {
         camera.update(player);
 
         //Draw text box relative to player position
-        text.drawTextBox(items, camera);
+        text.drawTextBox(items, camera, player, elapsedTime);
 
         //Draw the inventory in top right corner
         inventory.drawInventory(items, camera);

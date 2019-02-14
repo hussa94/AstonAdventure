@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * The class Npc is used to add random moving non player characters into levels. It is also used to
- * display the tutoe characters.
+ * The class Npc is used to add random moving non player characters into levels.
  */
 public class Npc {
 
     //Textures / Animations
-    com.badlogic.gdx.graphics.g2d.Animation<TextureRegion> characterAnimation;
-    TextureAtlas characterAtlas;
+    private com.badlogic.gdx.graphics.g2d.Animation<TextureRegion> characterAnimation;
+    private TextureAtlas characterAtlas;
     private float frameDuration;
 
     //NPC information
@@ -27,10 +26,10 @@ public class Npc {
     private String lastDirection[];
 
     //Game Object
-    AstonAdventure game;
+    private AstonAdventure game;
 
     //Randomise
-    Random random = new Random();
+    private Random random = new Random();
 
     //NPC timer before changing direction
     private int timeSinceLastDirectionChange = 0;
@@ -121,7 +120,7 @@ public class Npc {
      * @param direction The direction each NPC is currently heading in.
      * @param npc The active NPC.
      */
-    public void movement(String direction, int npc) {
+    private void movement(String direction, int npc) {
 
         //Determine any movement by NPC
         if ((direction.equalsIgnoreCase("Up")) && (y[npc] < yMaxPlayer)) {
