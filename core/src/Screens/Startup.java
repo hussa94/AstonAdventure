@@ -47,7 +47,7 @@ public class Startup implements Screen {
     public void render(float delta) {
 
         //Setup
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
 
@@ -59,7 +59,7 @@ public class Startup implements Screen {
             Sm.startup();
         }
         else if (elapsedTime >= 2) {
-            game.setScreen(new MainMenu(game));
+           game.setScreen(new MainMenu(game));
         }
 
         //Update elapsed time

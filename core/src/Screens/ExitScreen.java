@@ -1,4 +1,5 @@
 package Screens;
+import Entities.Camera;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Screen;
@@ -16,6 +17,9 @@ public class ExitScreen implements Screen{
 
     //Game
     private  AstonAdventure game;
+
+    //Camera
+    Camera camera;
 
     //Background
     private Texture background;
@@ -37,10 +41,16 @@ public class ExitScreen implements Screen{
      */
     ExitScreen(AstonAdventure game) {
 
+        //Set game object
         this.game = game;
+
+        //Set textures
         background = new Texture("Screens/Exit/AstonExit.png");
         exitButton = new Texture("Screens/Exit/ExitButton.png");
         moreButton = new Texture("Screens/Exit/FindOutButton.png");
+
+        //Set camera to look at exit screen
+        camera = new Camera(680, 480, 340, 240, game);
     }
 
 
@@ -56,6 +66,8 @@ public class ExitScreen implements Screen{
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
+
+        camera.updateCameraStationary();
 
         //Display / Draw Background
         game.batch.draw(background, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
@@ -116,6 +128,6 @@ public class ExitScreen implements Screen{
     //Unused
     @Override
     public void dispose() {
-
+        background.dispose();
     }
 }

@@ -42,7 +42,7 @@ public class Player {
      * @param selectedCharacter Character selected by the user.
      * @param game The game object.
      */
-    public Player(String selectedCharacter, AstonAdventure game) {
+    public Player(String selectedCharacter, AstonAdventure game, float startingX, float startingY) {
 
         //Boundaries for the player to walk
         xMinPlayer = 80;
@@ -57,8 +57,8 @@ public class Player {
         this.game = game;
 
         //Starting co-ordinates for the player
-        x = 400;
-        y = 400;
+        x = startingX;
+        y = startingY;
 
         //Sprite sheet for character
         characterAtlas = new TextureAtlas("Sprites/Characters/Players/characters.atlas");

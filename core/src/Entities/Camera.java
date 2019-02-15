@@ -14,10 +14,10 @@ public class Camera {
     private OrthographicCamera camera;
 
     //Camera boundaries
-    private final float xMinCamera;
-    private final float xMaxCamera;
-    private final float yMinCamera;
-    private final float yMaxCamera;
+    private float xMinCamera;
+    private float xMaxCamera;
+    private float yMinCamera;
+    private float yMaxCamera;
 
     //Game object
     private AstonAdventure game;
@@ -27,36 +27,45 @@ public class Camera {
      * starting co-ordinates.
      * @param w Screen Width.
      * @param h Screen Height.
+     * @param startingX X co-ordinate for the starting camera position.
+     * @param startingY Y co-ordinate for the starting camera position.
      * @param game Game Object.
      */
-    public Camera(float w, float h, AstonAdventure game) {
+    public Camera(float w, float h, float startingX, float startingY, AstonAdventure game) {
 
         //Set up camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         //Starting camera co-ordinates
-        float startingX = 400;
-        float startingY = 400;
         camera.position.set(startingX, startingY, 0);
 
         //Update Camera
         camera.update();
-
-        //Set camera boundaries
-        xMinCamera = 400;
-        xMaxCamera = 3700;
-        yMinCamera = 400;
-        yMaxCamera = 1800;
 
         //Set game object
         this.game = game;
     }
 
     /**
+     * Method used to set the boundaries for the camera.
+     * @param xMinCamera Lower boundary for x-axis.
+     * @param xMaxCamera Higher boundary for x-axis.
+     * @param yMinCamera Lower boundary for y-axis.
+     * @param yMaxCamera Higher boundary for y-axis.
+     */
+    public void setCameraBoundaries(float xMinCamera, float xMaxCamera, float yMinCamera, float yMaxCamera) {
+
+        this.xMinCamera = xMinCamera;
+        this.xMaxCamera = xMaxCamera;
+        this.yMinCamera = yMinCamera;
+        this.yMaxCamera = yMaxCamera;
+    }
+
+    /**
      * Update the cameras position.
      * @param player The player / character.
      */
-    public void update(Player player) {
+    public void updateCameraOnPlayer(Player player) {
 
         //Centralise on player if not exceeding limits
         if(!(player.x < xMinCamera || player.x > xMaxCamera)) {
@@ -67,6 +76,14 @@ public class Camera {
         if(!(player.y < yMinCamera || player.y > yMaxCamera)) {
             camera.position.set(camera.position.x, player.getY(), 0);
         }
+
+        //Update
+        camera.update();
+        game.batch.setProjectionMatrix(camera.combined);
+    }
+
+
+    public void updateCameraStationary() {
 
         //Update
         camera.update();

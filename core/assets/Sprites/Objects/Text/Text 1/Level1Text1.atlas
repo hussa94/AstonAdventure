@@ -1,16 +1,16 @@
-
-Text 4.png
+Level1Text1.png
+size: 804, 102
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
-1
+Level1Text1-1
   rotate: false
   xy: 1, 1
   size: 400, 100
   orig: 400, 100
   offset: 0, 0
   index: -1
-2
+Level1Text1-2
   rotate: false
   xy: 403, 1
   size: 400, 100
