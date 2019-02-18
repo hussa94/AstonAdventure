@@ -37,13 +37,18 @@ public class Text {
     //Progression tracker
     public int currentSpeech = 1;
 
+    private int level;
+
     //Display interrupt
     private boolean textInterrupt;
 
     /**
      * The constructor initialises all of the textures and text box animations used in the game.
      */
-    public Text(AstonAdventure game) {
+    public Text(AstonAdventure game, int level) {
+
+       //Set level
+       this.level = level;
 
        //Set tutor
        tutor = new Tutor(game);
@@ -51,9 +56,12 @@ public class Text {
        //Set game object
        this.game = game;
 
-       //Set text boxes textures / animations
-       textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Text 1.atlas");
-       textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+//       //Set text boxes textures / animations
+//        if (level == 1) {
+//            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
+//            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+//        }
+
 
        //Set sylvia texture
        sylvia = new Texture("tiles/sylvia.png");
@@ -66,23 +74,33 @@ public class Text {
 
         //Determine which text box to display
         if (currentSpeech == 1) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Text 1.atlas");
+            if(level == 1) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
+            }
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 2) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 2/Text 2.atlas");
+            if(level == 1) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 2/Level1Text2.atlas");
+            }
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 3) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 3/Text 3.atlas");
+            if(level == 1) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 3/Level1Text3.atlas");
+            }
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 4) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 4/Text 4.atlas");
+            if(level == 1) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 4/Level1Text4.atlas");
+            }
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-        }
+            }
         if (currentSpeech == 5) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 5/Text 5.atlas");
+            if(level == 1) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 5/Level1Text5.atlas");
+            }
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
     }
@@ -94,7 +112,7 @@ public class Text {
      * @param shoesPick Bool indicating status of the book.
      * @param coffeePick Bool indicating status of the coffee.
      */
-    private void nextTextBox(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
+    private void nextTextBoxLevel1(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
 
         //Change text box if necessary
         if (currentSpeech == 1) {
@@ -140,7 +158,9 @@ public class Text {
 
         //Get next text box upon completion of last text box
         if(!textInterrupt) {
-            nextTextBox(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
+            if (level == 1) {
+                nextTextBoxLevel1(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
+            }
         }
 
         //Draw the current text box

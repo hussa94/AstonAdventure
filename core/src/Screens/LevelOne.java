@@ -60,10 +60,11 @@ public class LevelOne implements Screen {
         map = new Map(1);
 
         //Set up camera
-        camera = new Camera(map.getWidth(), map.getHeight(), game);
+        camera = new Camera(map.getWidth(), map.getHeight(), 400, 400, game);
+        camera.setCameraBoundaries(400, 3700, 400, 1800);
 
         //Set player / character
-        player = new Player(game.getSelectedCharacter(), game);
+        player = new Player(game.getSelectedCharacter(), game, 400, 400);
 
         //Set items and their co-ordinates
         items = new Items(game);
@@ -75,7 +76,7 @@ public class LevelOne implements Screen {
         inventory = new Inventory(game);
 
         //Set Text Box and its position
-        text = new Text(game);
+        text = new Text(game, 1);
         text.setTextPositiion(110, 230);
         text.setSylviaPosition(310, 230);
 
@@ -110,8 +111,10 @@ public class LevelOne implements Screen {
         //Begin sprite batch
         game.batch.begin();
 
+        //Draw out all NPC characters
         npc.drawNPCs(elapsedTime);
 
+        //Draw all items in level
         items.drawItems();
 
         //Draw character animation and calculate movement
@@ -125,7 +128,7 @@ public class LevelOne implements Screen {
         }
 
         //Update the camera position relative to player co-ordinates
-        camera.update(player);
+        camera.updateCameraOnPlayer(player);
 
         //Draw text box relative to player position
         text.drawTextBox(items, camera, player, elapsedTime);
