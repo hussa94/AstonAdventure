@@ -155,7 +155,7 @@ public class LevelOne implements Screen {
     private void checkLevelProgress() {
         if(text.currentSpeech == 6) {
             if (checkPlayerExit()) {
-                game.setScreen(new ExitScreen(game));
+                game.setScreen(new LevelTwo(game));
             }
         }
     }

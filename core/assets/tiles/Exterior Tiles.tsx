@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+{/*<?xml version="1.0" encoding="UTF-8"?>*/}
 <tileset version="1.2" tiledversion="1.2.2" name="Exterior Tiles" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
- <image source="../../../../../../Downloads/LPC Submissions/Exterior Tiles.png" width="1024" height="1024"/>
+ <image source="Exterior Tiles.png" width="1024" height="1024"/>
  <tile id="2048">
   <properties>
    <property name="Collision" type="bool" value="true"/>
