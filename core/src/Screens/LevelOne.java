@@ -65,6 +65,7 @@ public class LevelOne implements Screen {
 
         //Set player / character
         player = new Player(game.getSelectedCharacter(), game, 400, 400);
+        player.setPlayerBoundaries(80, 3970, 158, 1960);
 
         //Set items and their co-ordinates
         items = new Items(game);

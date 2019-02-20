@@ -51,11 +51,12 @@ public class LevelTwo implements Screen {
         map = new Map(2);
 
         //Set up camera
-        camera = new Camera(map.getWidth(), map.getHeight(), 400, 400, game);
-        camera.setCameraBoundaries(400, 3700, 400, 1800);
+        camera = new Camera(map.getWidth(), map.getHeight(), 320, 250, game);
+        camera.setCameraBoundaries(320, 3700, 250, 1800);
 
         //Set player / character
-        player = new Player(game.getSelectedCharacter(), game, 400, 400);
+        player = new Player(game.getSelectedCharacter(), game, 250, 250);
+        player.setPlayerBoundaries(0, 1000, 0, 1000);
 
 //        //Set items and their co-ordinates
 //        items = new Items(game);

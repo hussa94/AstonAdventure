@@ -28,10 +28,10 @@ public class Player {
     private AstonAdventure game;
 
     //Player restrictions
-    private final float xMinPlayer;
-    private final float xMaxPlayer;
-    private final float yMinPlayer;
-    private final float yMaxPlayer;
+    private float xMinPlayer;
+    private float xMaxPlayer;
+    private float yMinPlayer;
+    private float yMaxPlayer;
 
     //Player speed.
     private float speed;
@@ -74,6 +74,14 @@ public class Player {
 
         //Set player speed
         speed = 100;
+    }
+
+    public void setPlayerBoundaries(float xMinPlayer, float xMaxPlayer, float yMinPlayer, float yMaxPlayer) {
+
+        this.xMinPlayer = xMinPlayer;
+        this.xMaxPlayer = xMaxPlayer;
+        this.yMinPlayer = yMinPlayer;
+        this.yMaxPlayer = yMaxPlayer;
     }
 
     /**

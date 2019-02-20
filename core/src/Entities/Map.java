@@ -50,7 +50,7 @@ public class Map {
      * Set map to level two.
      */
     private void levelTwo() {
-        tiledMap = new TmxMapLoader().load("tiles/levelTwoMapTest.tmx");
+        tiledMap = new TmxMapLoader().load("tiles/levelTwoMapResized.tmx");
     }
 
     /**
