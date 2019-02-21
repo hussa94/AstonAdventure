@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 
-/**
+/**obs.x -= 400 * deltaTime;
  * The class Items is used to set and display any items to display in-game.
  */
 public class Items {
