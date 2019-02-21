@@ -73,7 +73,7 @@ public class Player {
         standStill();
 
         //Set player speed
-        speed = 100;
+        speed = 150;
     }
 
     public void setPlayerBoundaries(float xMinPlayer, float xMaxPlayer, float yMinPlayer, float yMaxPlayer) {

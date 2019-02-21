@@ -113,7 +113,7 @@ public class LevelOne implements Screen {
         game.batch.begin();
 
         //Draw out all NPC characters
-        npc.drawNPCs(elapsedTime);
+        //npc.drawNPCs(elapsedTime);
 
         //Draw all items in level
         items.drawItems();
