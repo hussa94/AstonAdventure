@@ -52,11 +52,11 @@ public class LevelTwo implements Screen {
 
         //Set up camera
         camera = new Camera(map.getWidth(), map.getHeight(), 320, 250, game);
-        camera.setCameraBoundaries(320, 3700, 250, 1900);
+        camera.setCameraBoundaries(315, 7875, 250, 3858);
 
         //Set player / character
         player = new Player(game.getSelectedCharacter(), game, 250, 250);
-        player.setPlayerBoundaries(0, 3970, 0, 2060);
+        player.setPlayerBoundaries(0, 8140, 5, 4040);
 
 //        //Set items and their co-ordinates
 //        items = new Items(game);
@@ -103,7 +103,7 @@ public class LevelTwo implements Screen {
         //Begin sprite batch
         game.batch.begin();
 
-        player.movement();
+        player.movement(map);
         player.drawCharacter(elapsedTime);
 
 //        //Draw out all NPC characters

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 
 /**
  * The player class is used to display the character in each level. It displays a standing character and can move around
@@ -96,7 +97,7 @@ public class Player {
     /**
      * Method used to determine any movement of the character by the player. Moves the character accordingly.
      */
-    public void movement() {
+    public void movement(Map map) {
 
         //Set frame rate based on player speed
         if (speed == 200) {
@@ -105,9 +106,19 @@ public class Player {
             frameDuration = 1 / 5f;
         }
 
+        float oldx = getX(), oldy = getY();
+
+        MapLayer collisionLayer = map.getCollisionLayer();
+
+        int tileRow = (int) (getX() / map.getTileWidth());
+        int tileCol = (int) Math.abs(getY() / map.getTileHeight() - 64);
+
+        System.out.println(tileRow + " " + tileCol);
+
         //Determine any movement indicated by user
         if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && (y < yMaxPlayer))) {
             moveUp();
+
             y += speed * Gdx.graphics.getDeltaTime();
 
 

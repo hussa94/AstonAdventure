@@ -1,8 +1,10 @@
 package Entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
@@ -19,6 +21,8 @@ public class Map {
     //Dimensions
     private float width;
     private float height;
+    private float tileWidth = 64;
+    private float tileHeight = 64;
 
     /**
      * Constructor used to set the map for a specific level.
@@ -77,10 +81,28 @@ public class Map {
     }
 
     /**
+     * Getter method for the width of the map.
+     * @return Width.
+     */
+    public float getTileWidth() {
+        return tileWidth;
+    }
+
+    /**
+     * Getter method for the height of the map.
+     * @return Weight.
+     */
+    public float getTileHeight() {
+        return tileHeight;
+    }
+
+    /**
      * Getter method for the map renderer.
      * @return mapRenderer.
      */
     public TiledMapRenderer getMapRenderer() {
         return mapRenderer;
     }
+
+    public MapLayer getCollisionLayer(){ return tiledMap.getLayers().get(2); }
 }

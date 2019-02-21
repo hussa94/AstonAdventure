@@ -120,7 +120,7 @@ public class LevelOne implements Screen {
 
         //Draw character animation and calculate movement
         if (text.canPlayerWalk()) {
-            player.movement();
+            player.movement(map);
             player.drawCharacter(elapsedTime);
         }
         else {
