@@ -113,8 +113,6 @@ public class Player {
         int tileRow = (int) (getX() / map.getTileWidth());
         int tileCol = (int) Math.abs(getY() / map.getTileHeight() - 64);
 
-        System.out.println(tileRow + " " + tileCol);
-
         //Determine any movement indicated by user
         if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && (y < yMaxPlayer))) {
             moveUp();
