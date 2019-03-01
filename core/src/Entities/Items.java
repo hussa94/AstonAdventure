@@ -24,10 +24,10 @@ public class Items {
     private float xShoes, yShoes;
 
     //Picking indicators
-    boolean backpackPick;
-    boolean coffeePick;
-    boolean shoesPick;
-    boolean recentPick;
+    public boolean backpackPick;
+    public boolean coffeePick;
+    public boolean shoesPick;
+    public boolean recentPick;
 
     //Picking indicators
     private int displayBackpack;

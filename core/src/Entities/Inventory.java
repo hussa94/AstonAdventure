@@ -18,7 +18,7 @@ public class Inventory {
     private float xHUD, yHUD;
 
     //Backpack check
-    private boolean drawInventory;
+    public boolean drawInventory;
 
     //Timer
     private float elapsedTime = 0;

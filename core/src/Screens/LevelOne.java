@@ -113,7 +113,7 @@ public class LevelOne implements Screen {
         game.batch.begin();
 
         //Draw out all NPC characters
-        //npc.drawNPCs(elapsedTime);
+        npc.drawNPCs(elapsedTime, camera);
 
         //Draw all items in level
         items.drawItems();
@@ -131,20 +131,34 @@ public class LevelOne implements Screen {
         //Update the camera position relative to player co-ordinates
         camera.updateCameraOnPlayer(player);
 
-        //Draw text box relative to player position
-        text.drawTextBox(items, camera, player, elapsedTime);
+        //Get next text box upon completion of last text box
+        if(!text.getTextInterrupt()) {
+            text.nextTextBoxLevel1(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
+        }
+        if (!text.getTutorStatus() || text.getTextInterrupt()){
+            //Draw text box relative to player position
+            text.drawTextBox(items, camera, player, elapsedTime);
+        }
+
 
         //Draw the inventory in top right corner
         inventory.drawInventory(items, camera);
 
-        //Check status of inventory
-        inventory.checkHUDStatus(items);
 
-        //Check which items have been picked
-        items.itemStatus(text, player);
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            //Check which items have been picked
+            items.itemStatus(text, player);
+        }
 
-        //Check if level has ended
-        checkLevelProgress();
+        if (items.recentPick) {
+            //Check status of inventory
+            inventory.checkHUDStatus(items);
+        }
+
+        if(text.currentSpeech == 6) {
+            //Check if level has ended
+            checkLevelProgress();
+        }
 
         //End sprite batch
         game.batch.end();
@@ -154,11 +168,10 @@ public class LevelOne implements Screen {
      * Method used to determine if the level has finished.
      */
     private void checkLevelProgress() {
-        if(text.currentSpeech == 6) {
+
             if (checkPlayerExit()) {
                 game.setScreen(new LevelTwo(game));
             }
-        }
     }
 
     /**

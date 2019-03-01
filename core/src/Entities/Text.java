@@ -30,6 +30,8 @@ public class Text {
     //Timer
     private float elapsedTime;
 
+    public boolean tutorWalk;
+
     //Text boxes
     private Animation<TextureRegion> textBox;
     private TextureAtlas textureAtlasText;
@@ -61,7 +63,6 @@ public class Text {
 //            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
 //            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
 //        }
-
 
        //Set sylvia texture
        sylvia = new Texture("tiles/sylvia.png");
@@ -112,7 +113,7 @@ public class Text {
      * @param shoesPick Bool indicating status of the book.
      * @param coffeePick Bool indicating status of the coffee.
      */
-    private void nextTextBoxLevel1(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
+    public void nextTextBoxLevel1(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
 
         //Change text box if necessary
         if (currentSpeech == 1) {
@@ -156,13 +157,6 @@ public class Text {
             tutor.standTutor(elapsedTimeLevel);
         }
 
-        //Get next text box upon completion of last text box
-        if(!textInterrupt) {
-            if (level == 1) {
-                nextTextBoxLevel1(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
-            }
-        }
-
         //Draw the current text box
         if (textInterrupt && (!tutor.getExiting()) && (!tutor.getEntering())) {
             setCurrentTextBox();
@@ -180,7 +174,7 @@ public class Text {
      * Method to return a bool indicating whether or not a text box is on screen
      * @return textInterrupt
      */
-    private boolean getTextInterrupt() {
+    public boolean getTextInterrupt() {
         return textInterrupt;
     }
 
@@ -202,6 +196,10 @@ public class Text {
     private void removeTextInterrupt() {
         textInterrupt = false;
         tutor.setExiting();
+    }
+
+    public boolean getTutorStatus() {
+        return tutor.getFinished();
     }
 
     /**

@@ -104,5 +104,5 @@ public class Map {
         return mapRenderer;
     }
 
-    public MapLayer getCollisionLayer(){ return tiledMap.getLayers().get(2); }
+    public TiledMapTileLayer getCollisionLayer(){ return (TiledMapTileLayer) tiledMap.getLayers().get(2); }
 }

@@ -93,7 +93,7 @@ public class Npc {
      * Used to draw each of the NPCs in the level.
      * @param elapsedTime Timer.
      */
-    public void drawNPCs(float elapsedTime) {
+    public void drawNPCs(float elapsedTime, Camera camera) {
 
         int maxStepsBeforeChange = 500;
 
@@ -111,7 +111,9 @@ public class Npc {
         //Calculate movement and draw each NPC
         for (int i = 0; i< numberOfNPCs; i++) {
             movement(lastDirection[i], i);
-            game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x[i], y[i]);
+            if ((camera.getX()-370 < x[i] && x[i] < camera.getX()+370) && ((camera.getY()-350 < y[i] && y[i] < camera.getY()+350))) {
+                game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x[i], y[i]);
+            }
         }
     }
 

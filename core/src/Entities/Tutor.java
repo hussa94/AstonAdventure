@@ -118,14 +118,16 @@ class Tutor {
      */
     private void movement(String direction) {
 
+        float gameDelta = 0.016f;
+
         //Determine any movement indicated by user
         if (direction.equalsIgnoreCase("right")) {
             moveRight();
-            x += speed * Gdx.graphics.getDeltaTime();
+            x += speed * gameDelta;
 
         } else if (direction.equalsIgnoreCase("left")) {
             moveLeft();
-            x -= speed * Gdx.graphics.getDeltaTime();
+            x -= speed * gameDelta;
 
         } else {
             standStill();
@@ -197,6 +199,10 @@ class Tutor {
 
         characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("Empty"));
         game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x, y);
+    }
+
+    public boolean getFinished() {
+        return !entering && !standing && !exiting;
     }
 
     /**

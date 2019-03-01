@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 /**
  * The player class is used to display the character in each level. It displays a standing character and can move around
@@ -99,6 +102,8 @@ public class Player {
      */
     public void movement(Map map) {
 
+        float gameDelta = 0.016f;
+
         //Set frame rate based on player speed
         if (speed == 200) {
             frameDuration = 1 / 10f;
@@ -106,33 +111,66 @@ public class Player {
             frameDuration = 1 / 5f;
         }
 
-        float oldx = getX(), oldy = getY();
-
-        MapLayer collisionLayer = map.getCollisionLayer();
-
-        int tileRow = (int) (getX() / map.getTileWidth());
-        int tileCol = (int) Math.abs(getY() / map.getTileHeight() - 64);
+//        float oldX = getX(), oldY = getY();
+//        TiledMapTileLayer.Cell tile;
+//
+//        TiledMapTileLayer collisionLayer = map.getCollisionLayer();
+//
+//        int tileRow = (int) (getX() / map.getTileWidth());
+//        int tileCol = (int) Math.abs(getY() / map.getTileHeight() - 64);
 
         //Determine any movement indicated by user
         if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && (y < yMaxPlayer))) {
             moveUp();
 
-            y += speed * Gdx.graphics.getDeltaTime();
+            y += speed * gameDelta;
+
+//            tile = collisionLayer.getCell(tileRow, tileCol - 1);
+//
+//            if (tile != null) {
+//                if(tile.getTile().getProperties().containsKey("Collision")) {
+//                    y = oldY;
+//                }
+//            }
+
 
 
         } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) && (y > yMinPlayer)))  {
             moveDown();
-            y -= speed * Gdx.graphics.getDeltaTime();
+            y -= speed * gameDelta;
 
+//            tile = collisionLayer.getCell(tileRow, tileCol + 1);
+//
+//            if (tile != null) {
+//                if(tile.getTile().getProperties().containsKey("Collision")) {
+//                    y = oldY;
+//                }
+//            }
 
         } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && (x < xMaxPlayer))) {
             moveRight();
-            x += speed * Gdx.graphics.getDeltaTime();
+            x += speed * gameDelta;
 
+//            tile = collisionLayer.getCell(tileRow + 1, tileCol);
+//
+//            if (tile != null) {
+//                if(tile.getTile().getProperties().containsKey("Collision")) {
+//                    y = oldY;
+//                }
+//            }
 
         } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && (x > xMinPlayer)))  {
             moveLeft();
-            x -= speed * Gdx.graphics.getDeltaTime();
+            x -= speed * gameDelta;
+
+//            tile = collisionLayer.getCell(tileRow - 1, tileCol);
+//
+//            if (tile != null) {
+//                if(tile.getTile().getProperties().containsKey("Collision")) {
+//                    y = oldY;
+//                }
+//            }
+
 
         } else {
             standStill();
