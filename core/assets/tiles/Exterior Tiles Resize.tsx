@@ -3,17 +3,17 @@
  <image source="Exterior Tiles Resize.png" width="2048" height="2048"/>
  <tile id="512">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="513">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="514">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="515">
@@ -63,17 +63,17 @@
  </tile>
  <tile id="544">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="545">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="546">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="547">
@@ -123,17 +123,17 @@
  </tile>
  <tile id="576">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="577">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="578">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="579">
@@ -183,17 +183,17 @@
  </tile>
  <tile id="608">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="609">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="610">
   <properties>
-   <property name="Collison" type="bool" value="true"/>
+   <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="611">

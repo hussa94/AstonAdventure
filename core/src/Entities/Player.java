@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * The player class is used to display the character in each level. It displays a standing character and can move around
@@ -21,6 +22,7 @@ public class Player {
     private Animation<TextureRegion> characterAnimation;
     private TextureAtlas characterAtlas;
     private float frameDuration;
+    private Rectangle playerRectangle;
 
     //Player co-ordinates
     float x, y;
@@ -47,6 +49,14 @@ public class Player {
      * @param game The game object.
      */
     public Player(String selectedCharacter, AstonAdventure game, float startingX, float startingY) {
+
+
+        // rectangle for collisions
+        playerRectangle = new Rectangle();
+        playerRectangle.x = this.x;
+        playerRectangle.y = this.y;
+        playerRectangle.width = 16;
+        playerRectangle.height = 32;
 
         //Boundaries for the player to walk
         xMinPlayer = 80;
@@ -111,69 +121,41 @@ public class Player {
             frameDuration = 1 / 5f;
         }
 
-//        float oldX = getX(), oldY = getY();
-//        TiledMapTileLayer.Cell tile;
-//
-//        TiledMapTileLayer collisionLayer = map.getCollisionLayer();
-//
-//        int tileRow = (int) (getX() / map.getTileWidth());
-//        int tileCol = (int) Math.abs(getY() / map.getTileHeight() - 64);
+        float oldX = getX(), oldY = getY();
 
         //Determine any movement indicated by user
         if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && (y < yMaxPlayer))) {
             moveUp();
-
             y += speed * gameDelta;
-
-//            tile = collisionLayer.getCell(tileRow, tileCol - 1);
-//
-//            if (tile != null) {
-//                if(tile.getTile().getProperties().containsKey("Collision")) {
-//                    y = oldY;
-//                }
-//            }
-
-
 
         } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) && (y > yMinPlayer)))  {
             moveDown();
             y -= speed * gameDelta;
 
-//            tile = collisionLayer.getCell(tileRow, tileCol + 1);
-//
-//            if (tile != null) {
-//                if(tile.getTile().getProperties().containsKey("Collision")) {
-//                    y = oldY;
-//                }
-//            }
-
         } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && (x < xMaxPlayer))) {
             moveRight();
             x += speed * gameDelta;
 
-//            tile = collisionLayer.getCell(tileRow + 1, tileCol);
-//
-//            if (tile != null) {
-//                if(tile.getTile().getProperties().containsKey("Collision")) {
-//                    y = oldY;
-//                }
-//            }
-
-        } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && (x > xMinPlayer)))  {
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && (x > xMinPlayer))) {
             moveLeft();
             x -= speed * gameDelta;
 
-//            tile = collisionLayer.getCell(tileRow - 1, tileCol);
-//
-//            if (tile != null) {
-//                if(tile.getTile().getProperties().containsKey("Collision")) {
-//                    y = oldY;
-//                }
-//            }
-
-
         } else {
             standStill();
+        }
+
+        checkCollision(map, oldX, oldY);
+    }
+
+    private void checkCollision(Map map, float oldX, float oldY) {
+        TiledMapTileLayer.Cell tile;
+        tile = getCurrentTile(map);
+
+        if (tile != null) {
+            if (tile.getTile().getProperties().containsKey("Collision")) {
+                x = oldX;
+                y = oldY;
+            }
         }
     }
 
@@ -267,5 +249,19 @@ public class Player {
     public float getY() {
 
         return y;
+    }
+
+    /**
+     * Method used to retrieve the tile at the current position of the player
+     * @param map The current map being
+     * @return The tile the player is currently on
+     */
+    private TiledMapTileLayer.Cell getCurrentTile(Map map){
+        TiledMapTileLayer collisionLayer = map.getCollisionLayer();
+
+        int tileX = (int) (x / map.getTileWidth());
+        int tileY = (int) (y / map.getTileHeight());
+
+        return collisionLayer.getCell(tileX, tileY);
     }
 }
