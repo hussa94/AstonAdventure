@@ -273,7 +273,12 @@ public class Player {
         int tileY = (int) (y / map.getTileHeight());
 
         for (MapLayer mapLayer : mapLayers) {
-            TiledMapTileLayer tiledMapTileLayer = (TiledMapTileLayer) mapLayer;
+            TiledMapTileLayer tiledMapTileLayer;
+            try {
+                tiledMapTileLayer = (TiledMapTileLayer) mapLayer;
+            } catch (Exception e) {
+                continue;
+            }
             TiledMapTileLayer.Cell tile = tiledMapTileLayer.getCell(tileX, tileY);
             if (tile != null) {
                 tileList.add(tile);
