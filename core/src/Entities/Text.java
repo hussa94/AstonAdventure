@@ -119,7 +119,7 @@ public class Text {
         if (currentSpeech == 1) {
             setTextInterrupt();
         }
-        else if (elapsedTimeText > 7 && currentSpeech == 2) {
+        else if (elapsedTimeText > 8.5 && currentSpeech == 2) {
             setTextInterrupt();
         }
         else if (elapsedTimeText > 5 && currentSpeech == 3 && backpackPick) {
