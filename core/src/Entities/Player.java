@@ -6,7 +6,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The player class is used to display the character in each level. It displays a standing character and can move around
@@ -138,7 +143,8 @@ public class Player {
 
     /**
      * Method to check if the player is colliding with an object, and reposition if they are
-     * @param map The current level map
+     *
+     * @param map  The current level map
      * @param oldX The player's X coordinate before moving into collision range
      * @param oldY The player's Y coordiante before moving into collision range
      */
@@ -148,10 +154,11 @@ public class Player {
         if (x < xMinPlayer || x > xMaxPlayer || y < yMinPlayer || y > yMaxPlayer) {
             colliding = true;
         } else {
-            TiledMapTileLayer.Cell tile = getCurrentTile(map);
-            if (tile != null) {
-                if (tile.getTile().getProperties().containsKey("Collision")) {
+            List<TiledMapTileLayer.Cell> tiles = getCurrentTiles(map);
+            for (TiledMapTileLayer.Cell tile : tiles) {
+                if (tile != null && tile.getTile().getProperties().containsKey("Collision")) {
                     colliding = true;
+                    break;
                 }
             }
         }
@@ -160,6 +167,7 @@ public class Player {
             y = oldY;
         }
     }
+
 
     /**
      * Method to set the animation of the player whilst moving upwards.
@@ -256,12 +264,22 @@ public class Player {
      * @param map The current level map
      * @return The tile the player is currently positioned at
      */
-    private TiledMapTileLayer.Cell getCurrentTile(Map map) {
-        TiledMapTileLayer collisionLayer = map.getCollisionLayer();
+    private List<TiledMapTileLayer.Cell> getCurrentTiles(Map map) {
+
+        List<TiledMapTileLayer.Cell> tileList = new ArrayList<TiledMapTileLayer.Cell>();
+        MapLayers mapLayers = map.getMapLayers();
 
         int tileX = (int) (x / map.getTileWidth());
         int tileY = (int) (y / map.getTileHeight());
 
-        return collisionLayer.getCell(tileX, tileY);
+        for (MapLayer mapLayer : mapLayers) {
+            TiledMapTileLayer tiledMapTileLayer = (TiledMapTileLayer) mapLayer;
+            TiledMapTileLayer.Cell tile = tiledMapTileLayer.getCell(tileX, tileY);
+            if (tile != null) {
+                tileList.add(tile);
+            }
+        }
+
+        return tileList;
     }
 }
