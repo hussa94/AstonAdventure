@@ -105,8 +105,10 @@ public class Map {
         return mapRenderer;
     }
 
-    //public TiledMapTileLayer getCollisionLayer(){ return (TiledMapTileLayer) tiledMap.getLayers().get(2); }
-
+    /**
+     * Returns tiled map layers
+     * @return mapLayers
+     */
     public MapLayers getMapLayers() {
         return tiledMap.getLayers();
     }
