@@ -22,14 +22,14 @@ public class Map {
     //Dimensions
     private float width;
     private float height;
-    private float tileWidth = 64;
-    private float tileHeight = 64;
+    private float tileWidth;
+    private float tileHeight;
 
     /**
      * Constructor used to set the map for a specific level.
       * @param level The level to be played.
      */
-    public Map(int level) {
+    public Map(int level, float tileWidth, float tileHeight) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         if (level == 1) {
@@ -41,6 +41,8 @@ public class Map {
         else if (level == 3) {
             levelThree();
         }
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
 

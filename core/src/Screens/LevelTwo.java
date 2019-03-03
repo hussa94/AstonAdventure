@@ -48,7 +48,7 @@ public class LevelTwo implements Screen {
 //        npc = new Npc(game, 30);
 
         //Set up map
-        map = new Map(2);
+        map = new Map(2, 64, 64);
 
         //Set up camera
         camera = new Camera(map.getWidth(), map.getHeight(), 320, 250, game);
@@ -69,7 +69,7 @@ public class LevelTwo implements Screen {
 
 //        //Set Text Box and its position
 //        text = new Text(game, 1);
-//        text.setTextPositiion(110, 230);
+//        text.setTextPosition(110, 230);
 //        text.setSylviaPosition(310, 230);
 
         //Set up sounds

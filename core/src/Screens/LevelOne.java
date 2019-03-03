@@ -56,8 +56,8 @@ public class LevelOne implements Screen {
         //Set up NPCs
         npc = new Npc(game, 30);
 
-        //Set up map
-        map = new Map(1);
+        //Set up map including tile width and heights
+        map = new Map(1, 16, 16);
 
         //Set up camera
         camera = new Camera(map.getWidth(), map.getHeight(), 400, 400, game);
@@ -78,7 +78,7 @@ public class LevelOne implements Screen {
 
         //Set Text Box and its position
         text = new Text(game, 1);
-        text.setTextPositiion(110, 230);
+        text.setTextPosition(110, 230);
         text.setSylviaPosition(310, 230);
 
         //Set up sounds

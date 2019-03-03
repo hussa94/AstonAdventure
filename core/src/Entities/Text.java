@@ -215,7 +215,7 @@ public class Text {
      * @param x x co-ordinate.
      * @param y y co-ordinate.
      */
-    public void setTextPositiion(float x, float y){
+    public void setTextPosition(float x, float y){
         xTextBox = x;
         yTextBox = y;
     }
