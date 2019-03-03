@@ -6,11 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
 
 /**
  * The player class is used to display the character in each level. It displays a standing character and can move around
@@ -22,7 +18,6 @@ public class Player {
     private Animation<TextureRegion> characterAnimation;
     private TextureAtlas characterAtlas;
     private float frameDuration;
-    private Rectangle playerRectangle;
 
     //Player co-ordinates
     float x, y;
@@ -45,18 +40,11 @@ public class Player {
     /**
      * The constructor is used to set up the player in its starting co-ordinates. It also decides which character
      * has been selected by the user.
+     *
      * @param selectedCharacter Character selected by the user.
-     * @param game The game object.
+     * @param game              The game object.
      */
     public Player(String selectedCharacter, AstonAdventure game, float startingX, float startingY) {
-
-
-        // rectangle for collisions
-        playerRectangle = new Rectangle();
-        playerRectangle.x = this.x;
-        playerRectangle.y = this.y;
-        playerRectangle.width = 16;
-        playerRectangle.height = 32;
 
         //Boundaries for the player to walk
         xMinPlayer = 80;
@@ -100,6 +88,7 @@ public class Player {
 
     /**
      * Method used to draw the character on the game screen.
+     *
      * @param elapsedTime Timer.
      */
     public void drawCharacter(float elapsedTime) {
@@ -124,19 +113,19 @@ public class Player {
         float oldX = getX(), oldY = getY();
 
         //Determine any movement indicated by user
-        if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && (y < yMaxPlayer))) {
+        if (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)))) {
             moveUp();
             y += speed * gameDelta;
 
-        } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) && (y > yMinPlayer)))  {
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)))) {
             moveDown();
             y -= speed * gameDelta;
 
-        } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && (x < xMaxPlayer))) {
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)))) {
             moveRight();
             x += speed * gameDelta;
 
-        } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && (x > xMinPlayer))) {
+        } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)))) {
             moveLeft();
             x -= speed * gameDelta;
 
@@ -147,15 +136,28 @@ public class Player {
         checkCollision(map, oldX, oldY);
     }
 
+    /**
+     * Method to check if the player is colliding with an object, and reposition if they are
+     * @param map The current level map
+     * @param oldX The player's X coordinate before moving into collision range
+     * @param oldY The player's Y coordiante before moving into collision range
+     */
     private void checkCollision(Map map, float oldX, float oldY) {
-        TiledMapTileLayer.Cell tile;
-        tile = getCurrentTile(map);
+        boolean colliding = false;
 
-        if (tile != null) {
-            if (tile.getTile().getProperties().containsKey("Collision")) {
-                x = oldX;
-                y = oldY;
+        if (x < xMinPlayer || x > xMaxPlayer || y < yMinPlayer || y > yMaxPlayer) {
+            colliding = true;
+        } else {
+            TiledMapTileLayer.Cell tile = getCurrentTile(map);
+            if (tile != null) {
+                if (tile.getTile().getProperties().containsKey("Collision")) {
+                    colliding = true;
+                }
             }
+        }
+        if (colliding) {
+            x = oldX;
+            y = oldY;
         }
     }
 
@@ -166,8 +168,7 @@ public class Player {
 
         if (selectedCharacter.equalsIgnoreCase("female")) {
             characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/up"));
-        }
-        else {
+        } else {
             characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/up"));
         }
     }
@@ -179,8 +180,7 @@ public class Player {
 
         if (selectedCharacter.equalsIgnoreCase("female")) {
             characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/down"));
-        }
-        else {
+        } else {
             characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/down"));
         }
     }
@@ -192,8 +192,7 @@ public class Player {
 
         if (selectedCharacter.equalsIgnoreCase("female")) {
             characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/left"));
-        }
-        else {
+        } else {
             characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/left"));
         }
 
@@ -204,25 +203,23 @@ public class Player {
      */
     private void moveRight() {
 
-            if (selectedCharacter.equalsIgnoreCase("female")) {
-                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/right"));
-            }
-            else {
-                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/right"));
-            }
+        if (selectedCharacter.equalsIgnoreCase("female")) {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/right"));
+        } else {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/right"));
+        }
     }
 
     /**
      * Method to set the animation of the player whilst standing still.
      */
-    public void standStill(){
+    public void standStill() {
 
-            if (selectedCharacter.equalsIgnoreCase("female")) {
-                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/standing"));
-            }
-            else {
-                characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/standing"));
-            }
+        if (selectedCharacter.equalsIgnoreCase("female")) {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/standing"));
+        } else {
+            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/standing"));
+        }
     }
 
     /**
@@ -235,6 +232,7 @@ public class Player {
 
     /**
      * Method used to retrieve the x co-ordinate of the player
+     *
      * @return X
      */
     public float getX() {
@@ -244,6 +242,7 @@ public class Player {
 
     /**
      * Method used to retrieve the y co-ordinate of the player
+     *
      * @return Y
      */
     public float getY() {
@@ -253,10 +252,11 @@ public class Player {
 
     /**
      * Method used to retrieve the tile at the current position of the player
-     * @param map The current map being
-     * @return The tile the player is currently on
+     *
+     * @param map The current level map
+     * @return The tile the player is currently positioned at
      */
-    private TiledMapTileLayer.Cell getCurrentTile(Map map){
+    private TiledMapTileLayer.Cell getCurrentTile(Map map) {
         TiledMapTileLayer collisionLayer = map.getCollisionLayer();
 
         int tileX = (int) (x / map.getTileWidth());
