@@ -6,15 +6,6 @@ import java.util.HashMap;
 
 public class Item {
 
-    // For storing file paths of all items needed in the game - Note new item file paths must be added here
-    private static HashMap<ItemType, String> itemFilePaths;
-    static {
-        itemFilePaths = new HashMap<ItemType, String>();
-        itemFilePaths.put(ItemType.SHOES, "Sprites/Objects/Trainers/Trainers_object_spritesheet_resized.png");
-        itemFilePaths.put(ItemType.BACKPACK, "Sprites/Objects/Backpack/Backpack_object_spritesheet_resize.png");
-        itemFilePaths.put(ItemType.COFFEE, "Sprites/Objects/Mug/Mug_object_spritesheet_resized.png");
-    }
-
     //enum itemType of the item
     private ItemType itemType;
 
@@ -31,8 +22,8 @@ public class Item {
         this.itemType = itemName;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        texture = new Texture(itemFilePaths.get(itemName));
-
+        GameItems gameItems = new GameItems();
+        texture = new Texture(gameItems.getTexture(itemName));
     }
 
     public Texture getTexture(){
