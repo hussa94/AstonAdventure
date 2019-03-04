@@ -233,7 +233,7 @@ public class Player {
     /**
      * Method used to increase the speed of the character
      */
-    void increaseSpeed() {
+    public void increaseSpeed() {
 
         speed = 200;
     }

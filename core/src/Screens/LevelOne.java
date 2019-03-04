@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import Entities.*;
 import Game.AstonAdventure;
 
+import java.util.ArrayList;
+
 /**
  * The class LevelOne is used to play the first level (Enrolment) of the video game, with
  * the user learning basic controls and finding the university.
@@ -28,11 +30,13 @@ public class LevelOne implements Screen {
     //Player / Character
     private Player player;
 
-    //Items / Pickups
-    private Items items;
+    // TODO Items for the level
+    private ArrayList<Item> levelOneItems;
 
     //Inventory
     private Inventory inventory;
+    //A counter for the number of frames to display the inventory
+    private int inventoryFrames;
 
     //Text Boxes / Mentor
     private Text text;
@@ -46,6 +50,7 @@ public class LevelOne implements Screen {
     /**
      * The Constructor for LevelOne initialises the map and player textures, camera,
      * items, inventory and sounds. Stores the game object.
+     *
      * @param game The game object.
      */
     LevelOne(AstonAdventure game) {
@@ -67,14 +72,18 @@ public class LevelOne implements Screen {
         player = new Player(game.getSelectedCharacter(), game, 400, 400);
         player.setPlayerBoundaries(80, 3970, 158, 1960);
 
-        //Set items and their co-ordinates
-        items = new Items(game);
-        items.setBackpackCoordinates(500, 550);
-        items.setCoffeeCoordinates(1100, 1100);
-        items.setShoesCoordinates(1000, 1000);
-
         //Set Inventory and its position
         inventory = new Inventory(game);
+        inventoryFrames = 0;
+
+        //TODO initialise items and their coordinates
+        levelOneItems = new ArrayList<Item>();
+        Item backpack = new Item(ItemType.BACKPACK, 500, 550);
+        levelOneItems.add(backpack);
+        Item shoes = new Item(ItemType.SHOES, 1000, 1000);
+        levelOneItems.add(shoes);
+        Item coffee = new Item(ItemType.COFFEE, 1100, 1100);
+        levelOneItems.add(coffee);
 
         //Set Text Box and its position
         text = new Text(game, 1);
@@ -89,6 +98,7 @@ public class LevelOne implements Screen {
     /**
      * The render method is used to display the levels background and player, moving the camera such that
      * the player is centralised. It also allows for items to be displayed, picked up and stored.
+     *
      * @param delta Elapsed Time.
      */
     @Override
@@ -115,15 +125,16 @@ public class LevelOne implements Screen {
         //Draw out all NPC characters
         npc.drawNPCs(elapsedTime, camera);
 
-        //Draw all items in level
-        items.drawItems();
+        //TODO draw all items in level one
+        for (Item item : levelOneItems) {
+            game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
+        }
 
         //Draw character animation and calculate movement
         if (text.canPlayerWalk()) {
             player.movement(map);
             player.drawCharacter(elapsedTime);
-        }
-        else {
+        } else {
             player.standStill();
             player.drawCharacter(elapsedTime);
         }
@@ -133,29 +144,47 @@ public class LevelOne implements Screen {
 
         //Get next text box upon completion of last text box
         if(!text.getTextInterrupt()) {
-            text.nextTextBoxLevel1(elapsedTime, items.backpackPick, items.shoesPick, items.coffeePick);
+            text.nextTextBoxLevel1(elapsedTime, inventory);
         }
         if (!text.getTutorStatus() || text.getTextInterrupt()){
             //Draw text box relative to player position
-            text.drawTextBox(items, camera, player, elapsedTime);
+            text.drawTextBox(camera, player, elapsedTime);
         }
 
 
+        //TODO animation is not working
         //Draw the inventory in top right corner
-        inventory.drawInventory(items, camera);
-
+        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            inventory.drawInventory(camera, false);
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            //Create a copy of the items currently in the level to iterate over
+            ArrayList<Item> levelOneItemsCopy = new ArrayList<Item>(levelOneItems);
             //Check which items have been picked
-            items.itemStatus(text, player);
+            for (Item item : levelOneItemsCopy) {
+                if (item.isBeingPicked(player.getX(), player.getY())) {
+                    inventory.addItem(item);
+                    levelOneItems.remove(item);
+                    //Updates status of inventory
+                    inventory.updateInventoryStatus();
+                    inventory.drawInventory(camera, true);
+                    inventoryFrames = 20;
+                    if(inventory.contains(ItemType.SHOES)){
+                        player.increaseSpeed();
+                    }
+                }
+            }
         }
 
-        if (items.recentPick) {
-            //Check status of inventory
-            inventory.checkHUDStatus(items);
+        //TODO JavaDoc
+        //Displaying inventory
+        if (inventoryFrames > 0){
+            inventory.drawInventory(camera, true);
+            inventoryFrames --;
         }
 
-        if(text.currentSpeech == 6) {
+        if (text.currentSpeech == 6) {
             //Check if level has ended
             checkLevelProgress();
         }
@@ -169,20 +198,21 @@ public class LevelOne implements Screen {
      */
     private void checkLevelProgress() {
 
-            if (checkPlayerExit()) {
-                game.setScreen(new LevelTwo(game));
-            }
+        if (checkPlayerExit()) {
+            game.setScreen(new LevelTwo(game));
+        }
     }
 
     /**
      * Method used to check if the player has exited to the main building.
+     *
      * @return True if the player has exited.
      */
     private boolean checkPlayerExit() {
         float xEntrance = 1369;
         float yEntrance = 1719;
 
-        if (((xEntrance-20) < player.getX() && player.getX() < (xEntrance + 20)) && ((yEntrance-20) < player.getY() && player.getY() < (yEntrance + 20))) {
+        if (((xEntrance - 20) < player.getX() && player.getX() < (xEntrance + 20)) && ((yEntrance - 20) < player.getY() && player.getY() < (yEntrance + 20))) {
             return Gdx.input.isKeyPressed(Input.Keys.E);
         }
 

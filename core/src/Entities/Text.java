@@ -49,24 +49,19 @@ public class Text {
      */
     public Text(AstonAdventure game, int level) {
 
-       //Set level
-       this.level = level;
+        //Set level
+        this.level = level;
 
-       //Set tutor
-       tutor = new Tutor(game);
+        //Set tutor
+        tutor = new Tutor(game);
 
-       //Set game object
-       this.game = game;
+        //Set game object
+        this.game = game;
 
-//       //Set text boxes textures / animations
-//        if (level == 1) {
-//            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
-//            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-//        }
-
-       //Set sylvia texture
-       sylvia = new Texture("tiles/sylvia.png");
+        //Set sylvia texture
+        sylvia = new Texture("tiles/sylvia.png");
     }
+
 
     /**
      * Method used to determine and set the current text box to be displayed.
@@ -97,7 +92,7 @@ public class Text {
                 textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 4/Level1Text4.atlas");
             }
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-            }
+        }
         if (currentSpeech == 5) {
             if(level == 1) {
                 textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 5/Level1Text5.atlas");
@@ -106,14 +101,9 @@ public class Text {
         }
     }
 
-    /**
-     * Method used to determine the next text box in the sequence to be displayed.
-     * @param elapsedTimeText Timer since last text box.
-     * @param backpackPick Bool indicating status of the backpack.
-     * @param shoesPick Bool indicating status of the book.
-     * @param coffeePick Bool indicating status of the coffee.
-     */
-    public void nextTextBoxLevel1(float elapsedTimeText, boolean backpackPick, boolean shoesPick, boolean coffeePick) {
+    // Method used to determine the next text box in the sequence to be displayed.
+    //@param elapsedTimeText Timer since last text box.
+    public void nextTextBoxLevel1(float elapsedTimeText, Inventory inventory) {
 
         //Change text box if necessary
         if (currentSpeech == 1) {
@@ -122,13 +112,13 @@ public class Text {
         else if (elapsedTimeText > 8.5 && currentSpeech == 2) {
             setTextInterrupt();
         }
-        else if (elapsedTimeText > 5 && currentSpeech == 3 && backpackPick) {
+        else if (elapsedTimeText > 5 && currentSpeech == 3 && inventory.contains(ItemType.BACKPACK)) {
             setTextInterrupt();
         }
-        else if (elapsedTimeText > 5 && currentSpeech == 4 && backpackPick && shoesPick) {
+        else if (elapsedTimeText > 5 && currentSpeech == 4 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES)) {
             setTextInterrupt();
         }
-        else if (elapsedTimeText > 5 && currentSpeech == 5 && backpackPick && shoesPick && coffeePick) {
+        else if (elapsedTimeText > 5 && currentSpeech == 5 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES) && inventory.contains(ItemType.COFFEE)) {
             setTextInterrupt();
         }
     }
@@ -136,12 +126,11 @@ public class Text {
     /**
      * Method to draw the text box on the screen. The tutor character will enter, then stand while the
      * text box is displayed. On dismissal, the tutor character will leave and the player will be able to resume.
-     * @param items The items in the level.
      * @param camera The camera in the level.
      * @param player The player.
      * @param elapsedTimeLevel Elapsed time in the level.
      */
-    public void drawTextBox(Items items, Camera camera, Player player, float elapsedTimeLevel) {
+    public void drawTextBox(Camera camera, Player player, float elapsedTimeLevel) {
 
         //Update elapsed time for text box
         elapsedTime += Gdx.graphics.getDeltaTime();
@@ -165,7 +154,6 @@ public class Text {
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 removeTextInterrupt();
                 currentSpeech ++;
-                resetElapsedTime();
             }
         }
     }
@@ -176,10 +164,6 @@ public class Text {
      */
     public boolean getTextInterrupt() {
         return textInterrupt;
-    }
-
-    void resetElapsedTime() {
-        elapsedTime = 0;
     }
 
     /**
@@ -229,4 +213,13 @@ public class Text {
         xSylvia = x;
         ySylvia = y;
     }
+
+    public void getCurrentTextBox(int level){
+
+        if(currentSpeech == 1){
+            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
+        }
+        textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+    }
+
 }

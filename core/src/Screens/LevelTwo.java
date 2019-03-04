@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class LevelTwo implements Screen {
 
+    //TODO add items to level two
+
     //Game
     private AstonAdventure game;
 
@@ -23,9 +25,6 @@ public class LevelTwo implements Screen {
 
     //Player / Character
     private Player player;
-
-    //Items / Pickups
-    private Items items;
 
     //Inventory
     private Inventory inventory;
