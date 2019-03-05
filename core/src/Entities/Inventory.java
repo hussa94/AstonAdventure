@@ -18,7 +18,7 @@ public class Inventory {
     //Co-ordinates
     private float xHUD, yHUD;
 
-    //TODO you inventory should keep track of what's in it?
+    //HashSet of all items that have been added to the inventory
     private HashSet<ItemType> itemSet;
 
     //Timer
@@ -37,16 +37,16 @@ public class Inventory {
      * @param game The game object.
      */
     public Inventory(AstonAdventure game) {
-        setInventoryPositiion(240, -60);
+        setInventoryPosition(240, -60);
         this.game = game;
         itemSet = new HashSet<ItemType>();
     }
 
     /**
-     * Method to draw the animation and still frame of the inventory, either when 'I' is pressed, or an
-     * item is picked.
+     * Method to draw the animation and still frame of the inventory.
      *
      * @param camera The camera used in the game.
+     * @param animated True if you want do draw the inventory animation, false to draw still inventory.
      */
     public void drawInventory(Camera camera, Boolean animated) {
         if(itemSet.contains(ItemType.BACKPACK)) {
@@ -66,7 +66,7 @@ public class Inventory {
      * @param x x co-ordinate
      * @param y y co-ordinate
      */
-    private void setInventoryPositiion(float x, float y) {
+    private void setInventoryPosition(float x, float y) {
         xHUD = x;
         yHUD = y;
     }
@@ -97,12 +97,19 @@ public class Inventory {
         }
     }
 
-    //TODO JavaDoc
+    /**
+     * Adds item to the inventory {@link Inventory#itemSet}
+     * @param item the item to be added to the inventory.
+     */
     public void addItem(Item item) {
         itemSet.add(item.getItemType());
     }
 
-    //TODO JavaDoc
+    /**
+     * Method to check whether or not the inventory {@link Inventory#itemSet} contains a certain item.
+     * @param item the item that you are searching the inventory for.
+     * @return true if inventory contains the item, false if it does not.
+     */
     public boolean contains(ItemType item) {
         return itemSet.contains(item);
     }
