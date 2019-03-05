@@ -2,8 +2,6 @@ package Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.HashMap;
-
 public class Item {
 
     //enum itemType of the item
@@ -18,12 +16,12 @@ public class Item {
     private Sounds Sm = new Sounds();
 
     //TODO JavaDoc Constructor to create a new item
-    public Item(ItemType itemName, int xCoordinate, int yCoordinate){
-        this.itemType = itemName;
+    public Item(ItemType itemType, int xCoordinate, int yCoordinate){
+        this.itemType = itemType;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        GameItems gameItems = new GameItems();
-        texture = new Texture(gameItems.getTexture(itemName));
+        ItemFilePaths itemFilePaths = new ItemFilePaths();
+        texture = new Texture(itemFilePaths.getTexture(itemType));
     }
 
     public Texture getTexture(){
