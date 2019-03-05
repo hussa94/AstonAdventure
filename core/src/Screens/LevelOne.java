@@ -30,7 +30,7 @@ public class LevelOne implements Screen {
     //Player / Character
     private Player player;
 
-    // TODO Items for the level
+    //All items used in level one
     private ArrayList<Item> levelOneItems;
 
     //Inventory
@@ -76,7 +76,7 @@ public class LevelOne implements Screen {
         inventory = new Inventory(game);
         inventoryFrames = 0;
 
-        //TODO initialise items and their coordinates
+        //initialise all items and their coordinates
         levelOneItems = new ArrayList<Item>();
         Item backpack = new Item(ItemType.BACKPACK, 500, 550);
         levelOneItems.add(backpack);
@@ -125,7 +125,7 @@ public class LevelOne implements Screen {
         //Draw out all NPC characters
         npc.drawNPCs(elapsedTime, camera);
 
-        //TODO draw all items in level one
+        //Draw all items in level one
         for (Item item : levelOneItems) {
             game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
         }
@@ -151,13 +151,12 @@ public class LevelOne implements Screen {
             text.drawTextBox(camera, player, elapsedTime);
         }
 
-
-        //TODO animation is not working
         //Draw the inventory in top right corner
         if (Gdx.input.isKeyPressed(Input.Keys.I)) {
             inventory.drawInventory(camera, false);
         }
 
+        //Check if an item is being picked up
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             //Create a copy of the items currently in the level to iterate over
             ArrayList<Item> levelOneItemsCopy = new ArrayList<Item>(levelOneItems);
@@ -177,7 +176,6 @@ public class LevelOne implements Screen {
             }
         }
 
-        //TODO JavaDoc
         //Displaying inventory
         if (inventoryFrames > 0){
             inventory.drawInventory(camera, true);
