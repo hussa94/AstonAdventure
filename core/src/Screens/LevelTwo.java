@@ -7,6 +7,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
+import java.util.ArrayList;
+
 public class LevelTwo implements Screen {
 
     //TODO add items to level two
@@ -28,6 +30,11 @@ public class LevelTwo implements Screen {
 
     //Inventory
     private Inventory inventory;
+    //A counter for the number of frames to display the inventory
+    private int inventoryFrames;
+
+    //All level two items
+    private ArrayList<Item> levelTwoItems;
 
     //Text Boxes / Mentor
     private Text text;
@@ -57,14 +64,15 @@ public class LevelTwo implements Screen {
         player = new Player(game.getSelectedCharacter(), game, 250, 250);
         player.setPlayerBoundaries(0, 8140, 5, 4040);
 
-//        //Set items and their co-ordinates
-//        items = new Items(game);
-//        items.setBackpackCoordinates(500, 550);
-//        items.setCoffeeCoordinates(1100, 1100);
-//        items.setShoesCoordinates(1000, 1000);
+        //Initialise all items and their coordinates
+        levelTwoItems = new ArrayList<Item>();
+        Item backpack = new Item(ItemType.BACKPACK, 250, 340);
+        levelTwoItems.add(backpack);
+        Item shoes = new Item(ItemType.SHOES, 450, 250);
+        levelTwoItems.add(shoes);
 
-//        //Set Inventory and its position
-//        inventory = new Inventory(game);
+        //Set Inventory and its position
+        inventory = new Inventory(game);
 
 //        //Set Text Box and its position
 //        text = new Text(game, 1);
@@ -108,8 +116,10 @@ public class LevelTwo implements Screen {
 //        //Draw out all NPC characters
 //        npc.drawNPCs(elapsedTime);
 
-//        //Draw all items in level
-//        items.drawItems();
+        //Draw all items in level one
+        for (Item item : levelTwoItems) {
+            game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
+        }
 
         //Draw character animation and calculate movement
 //        if (text.canPlayerWalk()) {
@@ -126,14 +136,36 @@ public class LevelTwo implements Screen {
 //        //Draw text box relative to player position
 //        text.drawTextBox(items, camera, player, elapsedTime);
 
-//        //Draw the inventory in top right corner
-//        inventory.drawInventory(items, camera);
-//
-//        //Check status of inventory
-//        inventory.checkHUDStatus(items);
-//
-//        //Check which items have been picked
-//        items.itemStatus(text, player);
+        //Draw the inventory in top right corner
+        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            inventory.drawInventory(camera, false);
+        }
+
+        //Check if an item is being picked up
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            //Create a copy of the items currently in the level to iterate over
+            ArrayList<Item> levelOneItemsCopy = new ArrayList<Item>(levelTwoItems);
+            //Check which items have been picked
+            for (Item item : levelOneItemsCopy) {
+                if (item.isBeingPicked(player.getX(), player.getY())) {
+                    inventory.addItem(item);
+                    levelTwoItems.remove(item);
+                    //Updates status of inventory
+                    inventory.updateInventoryStatus();
+                    inventory.drawInventory(camera, true);
+                    inventoryFrames = 20;
+                    if(inventory.contains(ItemType.SHOES)){
+                        player.increaseSpeed();
+                    }
+                }
+            }
+        }
+
+        //Displaying inventory
+        if (inventoryFrames > 0){
+            inventory.drawInventory(camera, true);
+            inventoryFrames --;
+        }
 
         //End sprite batch
         game.batch.end();

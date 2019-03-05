@@ -215,7 +215,6 @@ public class Text {
     }
 
     public void getCurrentTextBox(int level){
-
         if(currentSpeech == 1){
             textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
         }
