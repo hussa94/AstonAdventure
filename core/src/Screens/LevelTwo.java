@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class LevelTwo implements Screen {
 
-    //TODO add items to level two
-
     //Game
     private AstonAdventure game;
 
@@ -62,7 +60,6 @@ public class LevelTwo implements Screen {
 
         //Set player / character
         player = new Player(game.getSelectedCharacter(), game, 250, 250);
-        player.setPlayerBoundaries(0, 8140, 5, 4040);
 
         //Initialise all items and their coordinates
         levelTwoItems = new ArrayList<Item>();

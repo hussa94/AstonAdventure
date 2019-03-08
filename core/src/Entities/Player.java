@@ -33,12 +33,6 @@ public class Player {
     //Game object
     private AstonAdventure game;
 
-    //Player restrictions
-    private float xMinPlayer;
-    private float xMaxPlayer;
-    private float yMinPlayer;
-    private float yMaxPlayer;
-
     //Player speed.
     private float speed;
 
@@ -50,12 +44,6 @@ public class Player {
      * @param game              The game object.
      */
     public Player(String selectedCharacter, AstonAdventure game, float startingX, float startingY) {
-
-        //Boundaries for the player to walk
-        xMinPlayer = 80;
-        xMaxPlayer = 3970;
-        yMinPlayer = 158;
-        yMaxPlayer = 1960;
 
         //Animation frame rate
         frameDuration = 1 / 5f;
@@ -81,14 +69,6 @@ public class Player {
 
         //Set player speed
         speed = 150;
-    }
-
-    public void setPlayerBoundaries(float xMinPlayer, float xMaxPlayer, float yMinPlayer, float yMaxPlayer) {
-
-        this.xMinPlayer = xMinPlayer;
-        this.xMaxPlayer = xMaxPlayer;
-        this.yMinPlayer = yMinPlayer;
-        this.yMaxPlayer = yMaxPlayer;
     }
 
     /**
@@ -151,9 +131,6 @@ public class Player {
     private void checkCollision(Map map, float oldX, float oldY) {
         boolean colliding = false;
 
-        if (x < xMinPlayer || x > xMaxPlayer || y < yMinPlayer || y > yMaxPlayer) {
-            colliding = true;
-        } else {
             List<TiledMapTileLayer.Cell> tiles = getCurrentTiles(map);
             for (TiledMapTileLayer.Cell tile : tiles) {
                 if (tile != null && tile.getTile().getProperties().containsKey("Collision")) {
@@ -161,7 +138,6 @@ public class Player {
                     break;
                 }
             }
-        }
         if (colliding) {
             x = oldX;
             y = oldY;
