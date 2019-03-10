@@ -59,5 +59,16 @@ public class AstonAdventure extends Game {
 	public void dispose () {
 		batch.dispose();
 	}
+
+
+	/**
+	 * This method is for testing purpose only for JUNIT Testing
+	 * Simulation of Create method
+	 */
+	public void addCharactersToGame(){
+		characters.put(0, "Female");
+		characters.put(1, "Male");
+		selectedCharacter = characters.get(1);
+	}
 }
 
