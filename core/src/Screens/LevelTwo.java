@@ -143,7 +143,7 @@ public class LevelTwo implements Screen {
             }
         }
 
-        player.drawCharacter(elapsedTime);
+        //player.drawCharacter(elapsedTime);
 
 
         //Update the camera position relative to player co-ordinates
