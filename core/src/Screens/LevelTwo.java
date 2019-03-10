@@ -126,7 +126,7 @@ public class LevelTwo implements Screen {
         } else {
             player.standStill();
         }
-        player.drawCharacter(elapsedTime);
+
 
 //        //Draw out all NPC characters
 //        npc.drawNPCs(elapsedTime);
@@ -142,6 +142,9 @@ public class LevelTwo implements Screen {
                 game.batch.draw(character.getTalkIcon(), character.getTalkX(), character.getTalkY());
             }
         }
+
+        player.drawCharacter(elapsedTime);
+
 
         //Update the camera position relative to player co-ordinates
         camera.updateCameraOnPlayer(player);
