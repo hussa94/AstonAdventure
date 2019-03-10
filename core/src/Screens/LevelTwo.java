@@ -183,6 +183,7 @@ public class LevelTwo implements Screen {
     private void talkToCharacter() {
         for (GameCharacter character : levelTwoCharacters) {
             if (character.isTalking(player.getX(), player.getY())) {
+                canPlayerMove = false;
                 currentTextList = character.getText();
             }
         }

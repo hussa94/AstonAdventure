@@ -211,7 +211,7 @@ public class Player {
      */
     public void increaseSpeed() {
 
-        speed = 200;
+        speed += 50;
     }
 
     /**
