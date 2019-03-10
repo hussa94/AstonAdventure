@@ -6,6 +6,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import Entities.*;
 import Game.AstonAdventure;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 
@@ -38,14 +42,29 @@ public class LevelOne implements Screen {
     //A counter for the number of frames to display the inventory
     private int inventoryFrames;
 
-    //Text Boxes / Mentor
-    private Text text;
-
     //Camera
     private Camera camera;
 
     //Character
     private float elapsedTime;
+
+    //Old Text method
+    //Textures
+    private Texture sylvia;
+    private float xSylvia, ySylvia;
+    private float xTextBox, yTextBox;
+
+    //Tutor character
+    private Tutor tutor;
+
+    //Text boxes
+    private Animation<TextureRegion> textBox;
+
+    //Progression tracker
+    private int currentSpeech = 1;
+
+    //Display interrupt
+    private boolean textInterrupt;
 
     /**
      * The Constructor for LevelOne initialises the map and player textures, camera,
@@ -85,9 +104,18 @@ public class LevelOne implements Screen {
         levelOneItems.add(coffee);
 
         //Set Text Box and its position
-        text = new Text(game, 1);
-        text.setTextPosition(110, 230);
-        text.setSylviaPosition(310, 230);
+        setTextPosition(110, 230);
+        setSylviaPosition(310, 230);
+
+        //Set tutor
+        tutor = new Tutor(game);
+
+        //Set game object
+        this.game = game;
+
+        //Set sylvia texture
+        sylvia = new Texture("tiles/sylvia.png");
+
 
         //Set up sounds
         Sm = new Sounds();
@@ -130,7 +158,7 @@ public class LevelOne implements Screen {
         }
 
         //Draw character animation and calculate movement
-        if (text.canPlayerWalk()) {
+        if (canPlayerWalk()) {
             player.movement(map);
             player.drawCharacter(elapsedTime);
         } else {
@@ -142,12 +170,12 @@ public class LevelOne implements Screen {
         camera.updateCameraOnPlayer(player);
 
         //Get next text box upon completion of last text box
-        if(!text.getTextInterrupt()) {
-            text.nextTextBoxLevel1(elapsedTime, inventory);
+        if(!getTextInterrupt()) {
+            nextTextBoxLevel1(elapsedTime, inventory);
         }
-        if (!text.getTutorStatus() || text.getTextInterrupt()){
+        if (!getTutorStatus() || getTextInterrupt()){
             //Draw text box relative to player position
-            text.drawTextBox(camera, player, elapsedTime);
+            drawTextBox(camera, player, elapsedTime);
         }
 
         //Draw the inventory in top right corner
@@ -181,7 +209,7 @@ public class LevelOne implements Screen {
             inventoryFrames --;
         }
 
-        if (text.currentSpeech == 6) {
+        if (currentSpeech == 6) {
             //Check if level has ended
             checkLevelProgress();
         }
@@ -214,6 +242,154 @@ public class LevelOne implements Screen {
         }
 
         return false;
+    }
+
+    // Method used to determine the next text box in the sequence to be displayed.
+    //@param elapsedTimeText Timer since last text box.
+    private void nextTextBoxLevel1(float elapsedTimeText, Inventory inventory) {
+
+        //Change text box if necessary
+        if (currentSpeech == 1) {
+            setTextInterrupt();
+        }
+        else if (elapsedTimeText > 8.5 && currentSpeech == 2) {
+            setTextInterrupt();
+        }
+        else if (elapsedTimeText > 5 && currentSpeech == 3 && inventory.contains(ItemType.BACKPACK)) {
+            setTextInterrupt();
+        }
+        else if (elapsedTimeText > 5 && currentSpeech == 4 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES)) {
+            setTextInterrupt();
+        }
+        else if (elapsedTimeText > 5 && currentSpeech == 5 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES) && inventory.contains(ItemType.COFFEE)) {
+            setTextInterrupt();
+        }
+    }
+
+    /**
+     * Method used to determine and set the current text box to be displayed.
+     */
+    private void setCurrentTextBox() {
+
+        //Determine which text box to display
+        //Animation frame duration
+        float frameDuration = 1 / 2f;
+        TextureAtlas textureAtlasText;
+        if (currentSpeech == 1) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
+            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+        }
+        if (currentSpeech == 2) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 2/Level1Text2.atlas");
+
+            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+        }
+        if (currentSpeech == 3) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 3/Level1Text3.atlas");
+
+            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+        }
+        if (currentSpeech == 4) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 4/Level1Text4.atlas");
+
+            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+        }
+        if (currentSpeech == 5) {
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 5/Level1Text5.atlas");
+            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
+        }
+    }
+
+
+    /**
+     * Method to draw the text box on the screen. The tutor character will enter, then stand while the
+     * text box is displayed. On dismissal, the tutor character will leave and the player will be able to resume.
+     * @param camera The camera in the level.
+     * @param player The player.
+     * @param elapsedTimeLevel Elapsed time in the level.
+     */
+    private void drawTextBox(Camera camera, Player player, float elapsedTimeLevel) {
+
+        //Update elapsed time for text box
+        elapsedTime += Gdx.graphics.getDeltaTime();
+
+        //Draw tutor character entering / exiting / standing
+        if (tutor.getEntering()) {
+            tutor.enterTutor(elapsedTimeLevel, player);
+        }
+        else if (tutor.getExiting()) {
+            tutor.exitTutor(elapsedTimeLevel, player);
+        }
+        else if (tutor.getStanding()) {
+            tutor.standTutor(elapsedTimeLevel);
+        }
+
+        //Draw the current text box
+        if (textInterrupt && (!tutor.getExiting()) && (!tutor.getEntering())) {
+            setCurrentTextBox();
+            game.batch.draw(sylvia,(camera.getX() - xSylvia), (camera.getY() - ySylvia));
+            game.batch.draw(textBox.getKeyFrame(elapsedTime, true), (camera.getX() - xTextBox), (camera.getY() - yTextBox));
+            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                removeTextInterrupt();
+                currentSpeech ++;
+            }
+        }
+    }
+
+    /**
+     * Method to return a bool indicating whether or not a text box is on screen
+     * @return textInterrupt
+     */
+    private boolean getTextInterrupt() {
+        return textInterrupt;
+    }
+
+    /**
+     * Sets the interrupt such that the game is interrupted to display a text box.
+     */
+    private void setTextInterrupt() {
+        textInterrupt = true;
+        tutor.setEntering();
+    }
+
+    /**
+     * Removes the interrupt such that the game stops the interrupt to display a text box.
+     */
+    private void removeTextInterrupt() {
+        textInterrupt = false;
+        tutor.setExiting();
+    }
+
+    private boolean getTutorStatus() {
+        return tutor.getFinished();
+    }
+
+    /**
+     * Method to restric the player from walking if the tutor character is active, or a text box is active.
+     * @return Whether the player can walk or not.
+     */
+    private boolean canPlayerWalk() {
+        return !getTextInterrupt() && !tutor.getStanding() && !tutor.getEntering() && !tutor.getExiting();
+    }
+
+    /**
+     * Sets the position of the text boxes to be displayed.
+     * @param x x co-ordinate.
+     * @param y y co-ordinate.
+     */
+    private void setTextPosition(float x, float y){
+        xTextBox = x;
+        yTextBox = y;
+    }
+
+    /**
+     * Sets the position of the lecturer character.
+     * @param x x co-ordinate.
+     * @param y y co-ordinate.
+     */
+    private void setSylviaPosition(float x, float y) {
+        xSylvia = x;
+        ySylvia = y;
     }
 
     //Unused

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * The class tutor is used to display a tutor character who walks in prior to a text box being shown.
  */
-class Tutor {
+public class Tutor {
 
     // Textures / Animations
     private Animation<TextureRegion> characterAnimation;
@@ -38,7 +38,7 @@ class Tutor {
      * The constructor is used to initialise the tutor and store the game object.
      * @param game The game object.
      */
-    Tutor(AstonAdventure game) {
+    public Tutor(AstonAdventure game) {
 
         //Store game object
         this.game = game;
@@ -61,7 +61,7 @@ class Tutor {
      * Method used to draw a moving tutor walking towards the player on the screen.
      * @param elapsedTime Timer.
      */
-    void enterTutor(float elapsedTime, Player player) {
+    public void enterTutor(float elapsedTime, Player player) {
 
         //Set co-ordinates upon start
         if(!starting) {
@@ -90,7 +90,7 @@ class Tutor {
      * Method used to draw a moving tutor walking away from the player on the screen.
      * @param elapsedTime Timer.
      */
-    void exitTutor(float elapsedTime, Player player) {
+    public void exitTutor(float elapsedTime, Player player) {
 
         //Move tutor towards character until correct distance
         if (x < (player.getX() + boundaryX)) {
@@ -107,7 +107,7 @@ class Tutor {
      * Method used to draw a standing tutor next to the player on the screen.
      * @param elapsedTime Timer.
      */
-    void standTutor(float elapsedTime) {
+    public void standTutor(float elapsedTime) {
         movement("stand");
         game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x, y);
 
@@ -161,7 +161,7 @@ class Tutor {
     /**
      * Method to set the status of the tutor while entering the screen.
      */
-    void setEntering() {
+    public void setEntering() {
 
         exiting = false;
         standing = false;
@@ -171,7 +171,7 @@ class Tutor {
     /**
      * Method to set the status of the tutor while exiting the screen.
      */
-    void setExiting() {
+    public void setExiting() {
 
         entering = false;
         standing = false;
@@ -209,7 +209,7 @@ class Tutor {
      * Method used to indicate whether or not the tutor is entering the screen.
      * @return entering
      */
-    boolean getEntering() {
+    public boolean getEntering() {
 
         return  entering;
     }
@@ -218,7 +218,7 @@ class Tutor {
      * Method used to indicate whether or not the tutor is exiting the screen.
      * @return exiting
      */
-    boolean getExiting() {
+    public boolean getExiting() {
 
         return  exiting;
     }
@@ -227,7 +227,7 @@ class Tutor {
      * Method used to indicate whether or not the tutor is standing in the screen.
      * @return standing
      */
-    boolean getStanding() {
+    public boolean getStanding() {
 
         return  standing;
     }

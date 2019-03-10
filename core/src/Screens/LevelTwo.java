@@ -6,6 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 
@@ -33,6 +37,7 @@ public class LevelTwo implements Screen {
 
     //All level two items
     private ArrayList<Item> levelTwoItems;
+    private ArrayList<GameCharacter> levelTwoCharacters;
 
     //Text Boxes / Mentor
     private Text text;
@@ -67,6 +72,11 @@ public class LevelTwo implements Screen {
         levelTwoItems.add(backpack);
         Item shoes = new Item(ItemType.SHOES, 450, 250);
         levelTwoItems.add(shoes);
+
+        levelTwoCharacters = new ArrayList<GameCharacter>();
+        GameCharacter testSprite = new GameCharacter(80, 320, "Sprites/Characters/Down.png", 1, 2);
+        testSprite.setTalk();
+        levelTwoCharacters.add(testSprite);
 
         //Set Inventory and its position
         inventory = new Inventory(game);
@@ -118,6 +128,13 @@ public class LevelTwo implements Screen {
             game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
         }
 
+        for(GameCharacter character : levelTwoCharacters){
+            game.batch.draw(character.getTexture(), character.getX(), character.getY());
+            if(character.getTalk()){
+                game.batch.draw(character.getTalkIcon(), character.getTalkX(), character.getTalkY());
+            }
+        }
+
         //Draw character animation and calculate movement
 //        if (text.canPlayerWalk()) {
 //            player.movement();
@@ -138,12 +155,46 @@ public class LevelTwo implements Screen {
             inventory.drawInventory(camera, false);
         }
 
+//        if(Gdx.input.isKeyPressed(Input.Keys.T)){
+//            talkToCharacter();
+//        }
+
         //Check if an item is being picked up
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            pickUpItem();
+            talkToCharacter();
+        }
+
+        //Displaying inventory
+        if (inventoryFrames > 0){
+            inventory.drawInventory(camera, true);
+            inventoryFrames --;
+        }
+
+        //End sprite batch
+        game.batch.end();
+
+    }
+
+    private void talkToCharacter(){
+        for(GameCharacter character : levelTwoCharacters) {
+            if (character.isTalking(player.getX(), player.getY())) {
+                renderText(character.getText());
+            }
+        }
+    }
+
+    public void renderText(Text text){
+        TextureRegion animationFrame = text.getKeyFrame();
+        //Where to draw the text box
+        game.batch.draw(animationFrame, camera.getX() - 90, camera.getY() - 235);
+    }
+
+    private void pickUpItem() {
             //Create a copy of the items currently in the level to iterate over
-            ArrayList<Item> levelOneItemsCopy = new ArrayList<Item>(levelTwoItems);
+            ArrayList<Item> levelTwoItemsCopy = new ArrayList<Item>(levelTwoItems);
             //Check which items have been picked
-            for (Item item : levelOneItemsCopy) {
+            for (Item item : levelTwoItemsCopy) {
                 if (item.isBeingPicked(player.getX(), player.getY())) {
                     inventory.addItem(item);
                     levelTwoItems.remove(item);
@@ -158,16 +209,7 @@ public class LevelTwo implements Screen {
             }
         }
 
-        //Displaying inventory
-        if (inventoryFrames > 0){
-            inventory.drawInventory(camera, true);
-            inventoryFrames --;
-        }
 
-        //End sprite batch
-        game.batch.end();
-
-    }
 
 
     //Unused

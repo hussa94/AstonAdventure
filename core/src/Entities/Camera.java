@@ -103,7 +103,7 @@ public class Camera {
      * Method used to retrieve the x position of the camera.
      * @return X.
      */
-    float getX() {
+    public float getX() {
         return camera.position.x;
     }
 
@@ -111,7 +111,7 @@ public class Camera {
      * Method used to retrieve the y position of the camera.
      * @return Y.
      */
-    float getY() {
+    public float getY() {
         return camera.position.y;
     }
 
