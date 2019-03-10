@@ -8,20 +8,13 @@ public class Text {
 
     private Animation<TextureRegion> animation;
 
-    private float elapsedTime;
-    private float frameDuration = 1/2f;
-
     public Text(String textureAtlasFilePath){
         TextureAtlas textureAtlas = new TextureAtlas(textureAtlasFilePath);
-        animation = new Animation<TextureRegion>(frameDuration, textureAtlas.getRegions());
-        elapsedTime = 0;
-
+        animation = new Animation<TextureRegion>(1/2f, textureAtlas.getRegions());
     }
 
-    public TextureRegion getKeyFrame(){
-        elapsedTime += frameDuration;
-      return animation.getKeyFrame(elapsedTime - frameDuration, true);
+    public TextureRegion getKeyFrame(float elapsedTime){
+      return animation.getKeyFrame(elapsedTime, true);
     }
-
 
 }

@@ -34,7 +34,7 @@ public class GameCharacter {
         talk = false;
 
         textCounter = 0;
-        textList = getTextList(characterId, level);
+        setTextList(characterId, level);
     }
 
     /**
@@ -53,17 +53,23 @@ public class GameCharacter {
         return false;
     }
 
-    public Text getText(){
-        return textList.get(textCounter);
+    public int numberOfTextBoxes(){
+        return textList.size();
     }
 
-    public List<Text> getTextList(int characterId, int level){
+    public List<Text> getText() {
+
+        return textList;
+
+    }
+
+    private void setTextList(int characterId, int level){
         List<String> textFilePaths = TextFilePaths.getAtlasPaths(characterId, level);
         List<Text> textList = new ArrayList<Text>();
         for(String filePath : textFilePaths){
             textList.add(new Text(filePath));
         }
-        return textList;
+        this.textList = textList;
     }
 
     public Texture getTexture(){
