@@ -29,7 +29,7 @@ public class GameCharacter {
         texture = new Texture(filePath);
         this.characterId = characterId;
         this.level = level;
-        talkIcon = new Texture("Sprites/Icons/talkprompt.png");
+        talkIcon = new Texture("Sprites/Icons/talkpromptindividual.png");
         talk = false;
 
         setTextList(characterId, level);
@@ -78,7 +78,7 @@ public class GameCharacter {
 
     public void setTalk(){
         talk = true;
-        talkX = xCoordinate - 24;
+        talkX = xCoordinate + 8;
         talkY = yCoordinate + 77;
     }
 
