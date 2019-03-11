@@ -15,6 +15,7 @@ public class ItemFilePaths {
         itemFilePaths.put(ItemType.SHOES, "Sprites/Objects/Trainers/Trainers_object_spritesheet_resized.png");
         itemFilePaths.put(ItemType.BACKPACK, "Sprites/Objects/Backpack/Backpack_object_spritesheet_resize.png");
         itemFilePaths.put(ItemType.COFFEE, "Sprites/Objects/Mug/Mug_object_spritesheet_resized.png");
+        itemFilePaths.put(ItemType.GOOSE, "Tiles/geese.png");
     }
 
     public String getTexture(ItemType itemType){

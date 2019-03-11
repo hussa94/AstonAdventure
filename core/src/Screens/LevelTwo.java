@@ -62,41 +62,51 @@ public class LevelTwo extends Level implements Screen {
         levelItems.add(shoes);
         Item coffee = new Item(ItemType.COFFEE, 2770, 187);
         levelItems.add(coffee);
+        Item goose = new Item(ItemType.GOOSE, 1136, 3326);
+        levelItems.add(goose);
 
         //Create characters and add them to the game
         levelTwoCharacters = new ArrayList<GameCharacter>();
         //Character 1
-        GameCharacter testSprite = new GameCharacter(80, 320, "Sprites/Characters/npcFemaleDown.png", 1, 2);
-        testSprite.setTalk();
-        levelTwoCharacters.add(testSprite);
+        GameCharacter firstCharacter = new GameCharacter(80, 320, "Sprites/Characters/npcFemaleDown.png", 1, 2);
+        firstCharacter.setTalk();
+        levelTwoCharacters.add(firstCharacter);
         //Character 2
-        GameCharacter testSprite2 = new GameCharacter(2910, 588, "Sprites/Characters/npcMaleDown.png", 1, 2);
-        testSprite2.setTalk();
-        levelTwoCharacters.add(testSprite2);
+        GameCharacter character2 = new GameCharacter(1848, 304,"Sprites/Characters/npcFemaleGlassesDown.png", 2, 2 );
+        character2.setTalk();
+        levelTwoCharacters.add(character2);
         //Character 3
-        GameCharacter testSprite3 = new GameCharacter(2615, 1003, "Sprites/Characters/npcFemaleGlassesDown.png", 1, 2);
-        testSprite3.setTalk();
-        levelTwoCharacters.add(testSprite3);
+        GameCharacter character3 = new GameCharacter(4334, 669, "Sprites/Characters/npcMohawkDown.png", 3, 2 );
+        character3.setTalk();
+        levelTwoCharacters.add(character3);
         //Character 4
-        GameCharacter testSprite4 = new GameCharacter(834, 1790, "Sprites/Characters/npcMohawkDown.png", 1, 2);
-        testSprite4.setTalk();
-        levelTwoCharacters.add(testSprite4);
+        GameCharacter character4 = new GameCharacter(2910, 588, "Sprites/Characters/npcMaleDown.png", 4, 2);
+        character4.setTalk();
+        levelTwoCharacters.add(character4);
         //Character 5
-        GameCharacter testSprite5 = new GameCharacter(4285, 2558, "Sprites/Characters/npcMaleGlassesDown.png", 1, 2);
-        testSprite5.setTalk();
-        levelTwoCharacters.add(testSprite5);
+        GameCharacter character5 = new GameCharacter(2615, 1003, "Sprites/Characters/npcFemaleGlassesDown.png", 5, 2);
+        character5.setTalk();
+        levelTwoCharacters.add(character5);
         //Character 6
-        GameCharacter testSprite6 = new GameCharacter(2312, 3336, "Sprites/Characters/Down.png", 1, 2);
-        testSprite6.setTalk();
-        levelTwoCharacters.add(testSprite6);
+        GameCharacter character6 = new GameCharacter(834, 1790, "Sprites/Characters/npcMohawkDown.png", 6, 2);
+        character6.setTalk();
+        levelTwoCharacters.add(character6);
         //Character 7
-        GameCharacter testSprite7 = new GameCharacter(3111, 2588, "Sprites/Characters/npcFemaleDown.png", 1, 2);
-        testSprite7.setTalk();
-        levelTwoCharacters.add(testSprite7);
+        GameCharacter character7 = new GameCharacter(4285, 2558, "Sprites/Characters/npcMaleGlassesDown.png", 7, 2);
+        character7.setTalk();
+        levelTwoCharacters.add(character7);
         //Character 8
-        GameCharacter testSprite8 = new GameCharacter(1200, 3318, "Sprites/Characters/npcMaleDown.png", 1,2);
-        testSprite8.setTalk();
-        levelTwoCharacters.add(testSprite8);
+        GameCharacter character8 = new GameCharacter(2312, 3336, "Sprites/Characters/Down.png", 8, 2);
+        character8.setTalk();
+        levelTwoCharacters.add(character8);
+        //Character 9
+        GameCharacter character9 = new GameCharacter(3111, 2588, "Sprites/Characters/npcFemaleDown.png", 9, 2);
+        character9.setTalk();
+        levelTwoCharacters.add(character9);
+        //Character 10
+        GameCharacter character10 = new GameCharacter(1200, 3318, "Sprites/Characters/npcMaleDown.png", 10,2);
+        character10.setTalk();
+        levelTwoCharacters.add(character10);
 
         //Set up sounds
         Sm = new Sounds();
@@ -139,7 +149,7 @@ public class LevelTwo extends Level implements Screen {
 //        //Draw out all NPC characters
 //        npc.drawNPCs(elapsedTime);
 
-        //Draw all items in level one
+        //Draw all items in level two
         for (Item item : levelItems) {
             game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
         }

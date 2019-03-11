@@ -5,6 +5,6 @@ package Entities;
  */
 public enum ItemType {
 
-    SHOES, BACKPACK, COFFEE
+    SHOES, BACKPACK, COFFEE, GOOSE
 
 }
