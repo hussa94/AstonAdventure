@@ -8,8 +8,8 @@ import java.util.List;
 public class GameCharacter {
 
     private Texture texture;
-    private int characterId;
-    private int level;
+    //private int characterId;
+    //private int level;
     private Texture talkIcon;
 
     //Coordinates
@@ -23,12 +23,14 @@ public class GameCharacter {
     private float talkX;
     private float talkY;
 
+    //private Sounds Sm = new Sounds();
+
     public GameCharacter(float xCoordinate, float yCoordinate, String filePath, int characterId, int level){
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         texture = new Texture(filePath);
-        this.characterId = characterId;
-        this.level = level;
+        //this.characterId = characterId;
+        //this.level = level;
         talkIcon = new Texture("Sprites/Icons/talkpromptindividual.png");
         talk = false;
 
@@ -44,7 +46,7 @@ public class GameCharacter {
     public boolean isTalking(float xPlayer, float yPlayer) {
         if (((xCoordinate - 20) < xPlayer && xPlayer < (xCoordinate + 20)) && ((yCoordinate - 20) < yPlayer && yPlayer < (yCoordinate + 20))) {
 //            if (!(Sm.isSoundPlaying())) {
-//                Sm.pickup();
+//                Sm.text();
 //            }
             return true;
         }

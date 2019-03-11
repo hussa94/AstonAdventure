@@ -42,7 +42,7 @@ public class Sounds extends ApplicationAdapter {
     }
 
     /**
-     * Level one background music.
+     * Level two background music.
      */
     public void levelTwo() {
         if (isMusicPlaying()) {
