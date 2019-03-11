@@ -66,23 +66,23 @@ public class LevelTwo extends Level implements Screen {
         //Create characters and add them to the game
         levelTwoCharacters = new ArrayList<GameCharacter>();
         //Character 1
-        GameCharacter testSprite = new GameCharacter(80, 320, "Sprites/Characters/Down.png", 1, 2);
+        GameCharacter testSprite = new GameCharacter(80, 320, "Sprites/Characters/npcFemaleDown.png", 1, 2);
         testSprite.setTalk();
         levelTwoCharacters.add(testSprite);
         //Character 2
-        GameCharacter testSprite2 = new GameCharacter(2910, 588, "Sprites/Characters/Down.png", 1, 2);
+        GameCharacter testSprite2 = new GameCharacter(2910, 588, "Sprites/Characters/npcMaleDown.png", 1, 2);
         testSprite2.setTalk();
         levelTwoCharacters.add(testSprite2);
         //Character 3
-        GameCharacter testSprite3 = new GameCharacter(2615, 1003, "Sprites/Characters/Down.png", 1, 2);
+        GameCharacter testSprite3 = new GameCharacter(2615, 1003, "Sprites/Characters/npcFemaleGlassesDown.png", 1, 2);
         testSprite3.setTalk();
         levelTwoCharacters.add(testSprite3);
         //Character 4
-        GameCharacter testSprite4 = new GameCharacter(834, 1790, "Sprites/Characters/Down.png", 1, 2);
+        GameCharacter testSprite4 = new GameCharacter(834, 1790, "Sprites/Characters/npcMohawkDown.png", 1, 2);
         testSprite4.setTalk();
         levelTwoCharacters.add(testSprite4);
         //Character 5
-        GameCharacter testSprite5 = new GameCharacter(4285, 2558, "Sprites/Characters/Down.png", 1, 2);
+        GameCharacter testSprite5 = new GameCharacter(4285, 2558, "Sprites/Characters/npcMaleGlassesDown.png", 1, 2);
         testSprite5.setTalk();
         levelTwoCharacters.add(testSprite5);
         //Character 6
@@ -90,11 +90,11 @@ public class LevelTwo extends Level implements Screen {
         testSprite6.setTalk();
         levelTwoCharacters.add(testSprite6);
         //Character 7
-        GameCharacter testSprite7 = new GameCharacter(3111, 2588, "Sprites/Characters/Down.png", 1, 2);
+        GameCharacter testSprite7 = new GameCharacter(3111, 2588, "Sprites/Characters/npcFemaleDown.png", 1, 2);
         testSprite7.setTalk();
         levelTwoCharacters.add(testSprite7);
         //Character 8
-        GameCharacter testSprite8 = new GameCharacter(1200, 3318, "Sprites/Characters/Down.png", 1,2);
+        GameCharacter testSprite8 = new GameCharacter(1200, 3318, "Sprites/Characters/npcMaleDown.png", 1,2);
         testSprite8.setTalk();
         levelTwoCharacters.add(testSprite8);
 
