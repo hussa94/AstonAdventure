@@ -1,0 +1,19 @@
+Level1Text3.png
+size: 804, 102
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Level1Text3-1
+  rotate: false
+  xy: 1, 1
+  size: 400, 100
+  orig: 400, 100
+  offset: 0, 0
+  index: -1
+Level1Text3-2
+  rotate: false
+  xy: 403, 1
+  size: 400, 100
+  orig: 400, 100
+  offset: 0, 0
+  index: -1

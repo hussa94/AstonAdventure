@@ -89,7 +89,7 @@ public class Player {
         float gameDelta = 0.016f;
 
         //Set frame rate based on player speed
-        if (speed == 200) {
+        if (speed > 150) {
             frameDuration = 1 / 10f;
         } else {
             frameDuration = 1 / 5f;

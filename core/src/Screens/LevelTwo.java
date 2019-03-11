@@ -56,15 +56,47 @@ public class LevelTwo extends Level implements Screen {
 
         //Initialise all items and their coordinates
         levelItems = new ArrayList<Item>();
-        Item backpack = new Item(ItemType.BACKPACK, 250, 340);
+        Item backpack = new Item(ItemType.BACKPACK, 350, 200);
         levelItems.add(backpack);
-        Item shoes = new Item(ItemType.SHOES, 450, 250);
+        Item shoes = new Item(ItemType.SHOES, 950, 250);
         levelItems.add(shoes);
+        Item coffee = new Item(ItemType.COFFEE, 2770, 187);
+        levelItems.add(coffee);
 
+        //Create characters and add them to the game
         levelTwoCharacters = new ArrayList<GameCharacter>();
-        GameCharacter testSprite = new GameCharacter(80, 320, "Sprites/Characters/Down.png", 1, 2);
+        //Character 1
+        GameCharacter testSprite = new GameCharacter(80, 320, "Sprites/Characters/npcFemaleDown.png", 1, 2);
         testSprite.setTalk();
         levelTwoCharacters.add(testSprite);
+        //Character 2
+        GameCharacter testSprite2 = new GameCharacter(2910, 588, "Sprites/Characters/npcMaleDown.png", 1, 2);
+        testSprite2.setTalk();
+        levelTwoCharacters.add(testSprite2);
+        //Character 3
+        GameCharacter testSprite3 = new GameCharacter(2615, 1003, "Sprites/Characters/npcFemaleGlassesDown.png", 1, 2);
+        testSprite3.setTalk();
+        levelTwoCharacters.add(testSprite3);
+        //Character 4
+        GameCharacter testSprite4 = new GameCharacter(834, 1790, "Sprites/Characters/npcMohawkDown.png", 1, 2);
+        testSprite4.setTalk();
+        levelTwoCharacters.add(testSprite4);
+        //Character 5
+        GameCharacter testSprite5 = new GameCharacter(4285, 2558, "Sprites/Characters/npcMaleGlassesDown.png", 1, 2);
+        testSprite5.setTalk();
+        levelTwoCharacters.add(testSprite5);
+        //Character 6
+        GameCharacter testSprite6 = new GameCharacter(2312, 3336, "Sprites/Characters/Down.png", 1, 2);
+        testSprite6.setTalk();
+        levelTwoCharacters.add(testSprite6);
+        //Character 7
+        GameCharacter testSprite7 = new GameCharacter(3111, 2588, "Sprites/Characters/npcFemaleDown.png", 1, 2);
+        testSprite7.setTalk();
+        levelTwoCharacters.add(testSprite7);
+        //Character 8
+        GameCharacter testSprite8 = new GameCharacter(1200, 3318, "Sprites/Characters/npcMaleDown.png", 1,2);
+        testSprite8.setTalk();
+        levelTwoCharacters.add(testSprite8);
 
         //Set up sounds
         Sm = new Sounds();
@@ -89,7 +121,7 @@ public class LevelTwo extends Level implements Screen {
 
         //Background sounds
         if (!Sm.isMusicPlaying()) {
-            Sm.levelOne();
+            Sm.levelTwo();
         }
 
         //Set view of camera
@@ -146,6 +178,10 @@ public class LevelTwo extends Level implements Screen {
                 isEnterHeld = true;
             }
         } else isEnterHeld = false;
+
+//        if(Gdx.input.isKeyPressed(Input.Keys.C)){
+//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
+//        }
 
         //Displaying inventory
         if (inventoryFrames > 0) {

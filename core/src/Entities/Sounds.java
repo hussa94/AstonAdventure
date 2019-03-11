@@ -33,7 +33,6 @@ public class Sounds extends ApplicationAdapter {
      */
     public void levelOne() {
         if (isMusicPlaying()) {
-
             background.stop();
         }
         background = Gdx.audio.newMusic(Gdx.files.internal("Sounds/garden-summer-afternoon-birds-and-wind.mp3"));
@@ -41,6 +40,20 @@ public class Sounds extends ApplicationAdapter {
         background.setVolume(0.3f);
         background.play();
     }
+
+    /**
+     * Level two background music.
+     */
+    public void levelTwo() {
+        if (isMusicPlaying()) {
+            background.stop();
+        }
+        background = Gdx.audio.newMusic(Gdx.files.internal("Sounds/OneStepAtATime.wav"));
+        background.setLooping(false);
+        background.setVolume(0.3f);
+        background.play();
+    }
+
 
     /**
      * Text sound effect.

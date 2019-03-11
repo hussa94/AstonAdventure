@@ -52,6 +52,9 @@ public abstract class Level {
                 if (inventory.contains(ItemType.SHOES)) {
                     player.increaseSpeed();
                 }
+                if(inventory.contains(ItemType.COFFEE)){
+                    player.increaseSpeed();
+                }
             }
         }
     }
