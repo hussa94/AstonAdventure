@@ -1,11 +1,9 @@
 package Entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
@@ -64,7 +62,7 @@ public class Map {
      * Set map to level three.
      */
     private void levelThree() {
-        tiledMap = new TmxMapLoader().load("tiles/levelonemap.tmx");
+        tiledMap = new TmxMapLoader().load("tiles/LevelThreeMap.tmx");
     }
 
     /**
