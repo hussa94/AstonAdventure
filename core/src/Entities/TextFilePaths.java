@@ -14,20 +14,20 @@ public class TextFilePaths {
         LevelOneTextFilePaths = new HashMap<Integer, List<String>>();
         //Sylvia Text Box file paths
         LevelOneTextFilePaths.put(1, Arrays.asList(
-                "Sprites/Objects/Text/Text 1/Level1Text1.atlas",
-                "Sprites/Objects/Text/Text 2/Level1Text2.atlas",
-                "Sprites/Objects/Text/Text 3/Level1Text3.atlas",
-                "Sprites/Objects/Text/Text 4/Level1Text4.atlas",
-                "Sprites/Objects/Text/Text 5/Level1Text5.atlas"));
+                "Sprites/Objects/Text/Level One Text/Text 1/Level1Text1.atlas",
+                "Sprites/Objects/Text/Level One Text/Text 2/Level1Text2.atlas",
+                "Sprites/Objects/Text/Level One Text/Text 3/Level1Text3.atlas",
+                "Sprites/Objects/Text/Level One Text/Text 4/Level1Text4.atlas",
+                "Sprites/Objects/Text/Level One Text/Text 5/Level1Text5.atlas"));
 
         LevelTwoTextFilePaths = new HashMap<Integer, List<String>>();
         //Level Two Character One Test
         LevelTwoTextFilePaths.put(1, Arrays.asList(
-                "Sprites/Objects/Text/Text 1/Level1Text1.atlas",
-                "Sprites/Objects/Text/Text 2/Level1Text2.atlas",
-                "Sprites/Objects/Text/Text 3/Level1Text3.atlas",
-                "Sprites/Objects/Text/Text 4/Level1Text4.atlas",
-                "Sprites/Objects/Text/Text 5/Level1Text5.atlas"));
+                "Sprites/Objects/Text/Level Two Text/Text 1/Level2Text1.atlas",
+                "Sprites/Objects/Text/Level Two Text/Text 2/Level2Text2.atlas",
+                "Sprites/Objects/Text/Level Two Text/Text 3/Level2Text3.atlas",
+                "Sprites/Objects/Text/Level Two Text/Text 4/Level2Text4.atlas",
+                "Sprites/Objects/Text/Level Two Text/Text 5/Level2Text5.atlas"));
     }
 
     public static List<String> getAtlasPaths(int id, int level){

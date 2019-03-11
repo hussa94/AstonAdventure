@@ -235,26 +235,26 @@ public class LevelOne extends Level implements Screen {
         float frameDuration = 1 / 2f;
         TextureAtlas textureAtlasText;
         if (currentSpeech == 1) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 1/Level1Text1.atlas");
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 1/Level1Text1.atlas");
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 2) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 2/Level1Text2.atlas");
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 2/Level1Text2.atlas");
 
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 3) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 3/Level1Text3.atlas");
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 3/Level1Text3.atlas");
 
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 4) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 4/Level1Text4.atlas");
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 4/Level1Text4.atlas");
 
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 5) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Text 5/Level1Text5.atlas");
+                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 5/Level1Text5.atlas");
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
     }
