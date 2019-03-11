@@ -72,7 +72,7 @@ public class LevelOne extends Level implements Screen {
         levelItems = new ArrayList<Item>();
         Item backpack = new Item(ItemType.BACKPACK, 500, 550);
         levelItems.add(backpack);
-        Item shoes = new Item(ItemType.SHOES, 1000, 1000);
+        Item shoes = new Item(ItemType.SHOES, 900, 1000);
         levelItems.add(shoes);
         Item coffee = new Item(ItemType.COFFEE, 1100, 1100);
         levelItems.add(coffee);
