@@ -121,7 +121,7 @@ public class LevelTwo extends Level implements Screen {
 
         //Background sounds
         if (!Sm.isMusicPlaying()) {
-            Sm.levelOne();
+            Sm.levelTwo();
         }
 
         //Set view of camera
