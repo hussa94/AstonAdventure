@@ -14,35 +14,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelTwo implements Screen {
+public class LevelTwo extends Level implements Screen {
 
-    //Game
-    private AstonAdventure game;
-
-    //NPCs
-    private Npc npc;
-
-    //Sounds
-    private Sounds Sm;
-
-    //Map
-    private Map map;
-
-    //Player / Character
-    private Player player;
     private boolean canPlayerMove;
 
-    //Inventory
-    private Inventory inventory;
-    //A counter for the number of frames to display the inventory
-    private int inventoryFrames;
-
-    //All level two items
-    private ArrayList<Item> levelTwoItems;
     private ArrayList<GameCharacter> levelTwoCharacters;
-
-    //Camera
-    private Camera camera;
 
     //Rendering
     private float elapsedTime;
@@ -74,20 +50,21 @@ public class LevelTwo implements Screen {
         //boolean for input handling
         isEnterHeld = false;
 
+        //Set Inventory and its position
+        inventory = new Inventory(game);
+        inventoryFrames = 0;
+
         //Initialise all items and their coordinates
-        levelTwoItems = new ArrayList<Item>();
+        levelItems = new ArrayList<Item>();
         Item backpack = new Item(ItemType.BACKPACK, 250, 340);
-        levelTwoItems.add(backpack);
+        levelItems.add(backpack);
         Item shoes = new Item(ItemType.SHOES, 450, 250);
-        levelTwoItems.add(shoes);
+        levelItems.add(shoes);
 
         levelTwoCharacters = new ArrayList<GameCharacter>();
         GameCharacter testSprite = new GameCharacter(80, 320, "Sprites/Characters/Down.png", 1, 2);
         testSprite.setTalk();
         levelTwoCharacters.add(testSprite);
-
-        //Set Inventory and its position
-        inventory = new Inventory(game);
 
         //Set up sounds
         Sm = new Sounds();
@@ -127,12 +104,11 @@ public class LevelTwo implements Screen {
             player.standStill();
         }
 
-
 //        //Draw out all NPC characters
 //        npc.drawNPCs(elapsedTime);
 
         //Draw all items in level one
-        for (Item item : levelTwoItems) {
+        for (Item item : levelItems) {
             game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
         }
 
@@ -144,7 +120,6 @@ public class LevelTwo implements Screen {
         }
 
         player.drawCharacter(elapsedTime);
-
 
         //Update the camera position relative to player co-ordinates
         camera.updateCameraOnPlayer(player);
@@ -212,25 +187,6 @@ public class LevelTwo implements Screen {
                 //Reset
                 currentTextIndex = 0;
                 canPlayerMove = true;
-            }
-        }
-    }
-
-    private void pickUpItem() {
-        //Create a copy of the items currently in the level to iterate over
-        ArrayList<Item> levelTwoItemsCopy = new ArrayList<Item>(levelTwoItems);
-        //Check which items have been picked
-        for (Item item : levelTwoItemsCopy) {
-            if (item.isBeingPicked(player.getX(), player.getY())) {
-                inventory.addItem(item);
-                levelTwoItems.remove(item);
-                //Updates status of inventory
-                inventory.updateInventoryStatus();
-                inventory.drawInventory(camera, true);
-                inventoryFrames = 20;
-                if (inventory.contains(ItemType.SHOES)) {
-                    player.increaseSpeed();
-                }
             }
         }
     }

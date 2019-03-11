@@ -18,7 +18,6 @@ public class GameCharacter {
 
     //Text boxes
     private List<Text> textList;
-    private int textCounter;
 
     private boolean talk;
     private float talkX;
@@ -33,7 +32,6 @@ public class GameCharacter {
         talkIcon = new Texture("Sprites/Icons/talkprompt.png");
         talk = false;
 
-        textCounter = 0;
         setTextList(characterId, level);
     }
 
@@ -53,14 +51,8 @@ public class GameCharacter {
         return false;
     }
 
-    public int numberOfTextBoxes(){
-        return textList.size();
-    }
-
     public List<Text> getText() {
-
         return textList;
-
     }
 
     private void setTextList(int characterId, int level){

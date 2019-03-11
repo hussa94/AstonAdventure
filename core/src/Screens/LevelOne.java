@@ -17,33 +17,7 @@ import java.util.ArrayList;
  * The class LevelOne is used to play the first level (Enrolment) of the video game, with
  * the user learning basic controls and finding the university.
  */
-public class LevelOne implements Screen {
-
-    //Game
-    private AstonAdventure game;
-
-    //NPCs
-    private Npc npc;
-
-    //Sounds
-    private Sounds Sm;
-
-    //Map
-    private Map map;
-
-    //Player / Character
-    private Player player;
-
-    //All items used in level one
-    private ArrayList<Item> levelOneItems;
-
-    //Inventory
-    private Inventory inventory;
-    //A counter for the number of frames to display the inventory
-    private int inventoryFrames;
-
-    //Camera
-    private Camera camera;
+public class LevelOne extends Level implements Screen {
 
     //Character
     private float elapsedTime;
@@ -95,13 +69,13 @@ public class LevelOne implements Screen {
         inventoryFrames = 0;
 
         //initialise all items and their coordinates
-        levelOneItems = new ArrayList<Item>();
+        levelItems = new ArrayList<Item>();
         Item backpack = new Item(ItemType.BACKPACK, 500, 550);
-        levelOneItems.add(backpack);
+        levelItems.add(backpack);
         Item shoes = new Item(ItemType.SHOES, 1000, 1000);
-        levelOneItems.add(shoes);
+        levelItems.add(shoes);
         Item coffee = new Item(ItemType.COFFEE, 1100, 1100);
-        levelOneItems.add(coffee);
+        levelItems.add(coffee);
 
         //Set Text Box and its position
         setTextPosition(110, 230);
@@ -153,7 +127,7 @@ public class LevelOne implements Screen {
         npc.drawNPCs(elapsedTime, camera);
 
         //Draw all items in level one
-        for (Item item : levelOneItems) {
+        for (Item item : levelItems) {
             game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
         }
 
@@ -185,22 +159,7 @@ public class LevelOne implements Screen {
 
         //Check if an item is being picked up
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            //Create a copy of the items currently in the level to iterate over
-            ArrayList<Item> levelOneItemsCopy = new ArrayList<Item>(levelOneItems);
-            //Check which items have been picked
-            for (Item item : levelOneItemsCopy) {
-                if (item.isBeingPicked(player.getX(), player.getY())) {
-                    inventory.addItem(item);
-                    levelOneItems.remove(item);
-                    //Updates status of inventory
-                    inventory.updateInventoryStatus();
-                    inventory.drawInventory(camera, true);
-                    inventoryFrames = 20;
-                    if(inventory.contains(ItemType.SHOES)){
-                        player.increaseSpeed();
-                    }
-                }
-            }
+            pickUpItem();
         }
 
         //Displaying inventory
