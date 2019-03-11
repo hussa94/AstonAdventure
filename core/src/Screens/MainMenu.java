@@ -158,6 +158,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
             background = new Texture("Screens/MainMenu/MainMenu.png");
         }
 
+
         //Begin game
         if (select.equalsIgnoreCase("gameSelect")) {
 
