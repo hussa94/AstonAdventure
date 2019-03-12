@@ -49,6 +49,7 @@ public abstract class Level {
     private int currentTextIndex;
     boolean isEnterHeld;
 
+    //The co-ordinates for the end/exit of the level
     float xExit;
     float yExit;
 
@@ -78,6 +79,7 @@ public abstract class Level {
         }
     }
 
+    //Start talking to a character if player is close enough
     void talkToCharacter() {
         for (GameCharacter character : levelCharacters) {
             if (character.isTalking(player.getX(), player.getY())) {
@@ -87,6 +89,7 @@ public abstract class Level {
         }
     }
 
+    //Set the next text box
     private void nextText(){
         if(currentTextList != null){
             currentTextIndex++;
