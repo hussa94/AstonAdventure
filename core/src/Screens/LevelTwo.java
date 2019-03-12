@@ -19,7 +19,7 @@ public class LevelTwo extends Level implements Screen {
 //        //Set up NPCs
 //        npc = new Npc(game, 30);
 
-        //set up exit oo-ordinates
+        //Set exit oo-ordinates
         this.yExit = 930;
         this.xExit = 3920;
 
