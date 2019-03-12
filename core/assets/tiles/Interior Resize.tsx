@@ -351,6 +351,26 @@
    <property name="Collision" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="478">
+  <properties>
+   <property name="Collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="479">
+  <properties>
+   <property name="Collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="510">
+  <properties>
+   <property name="Collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="511">
+  <properties>
+   <property name="Collision" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="690">
   <properties>
    <property name="Collision" type="bool" value="true"/>

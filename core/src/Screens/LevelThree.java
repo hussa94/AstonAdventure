@@ -7,19 +7,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LevelThree extends Level implements com.badlogic.gdx.Screen {
-
-    private boolean canPlayerMove;
-
-    private ArrayList<GameCharacter> levelThreeCharacters;
-
-    //Rendering
-    private float elapsedTime;
-    //Current text box to display
-    private List<Text> currentTextList;
-    private int currentTextIndex;
 
     private boolean isEnterHeld;
 
@@ -41,10 +30,9 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         inventoryFrames = 0;
 
         // TODO: Add all required players
-        levelThreeCharacters = new ArrayList<GameCharacter>();
+        levelCharacters = new ArrayList<GameCharacter>();
         GameCharacter testSprite = new GameCharacter(1797, 1350, "Sprites/Characters/Down.png", 1, 3);
-        testSprite.setTalk();
-        levelThreeCharacters.add(testSprite);
+        levelCharacters.add(testSprite);
 
         //TODO: Change Music to more appropriate music
         //Set up sounds
@@ -84,7 +72,7 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         }
 
         //Draw all items in level three
-        for (GameCharacter character : levelThreeCharacters) {
+        for (GameCharacter character : levelCharacters) {
             game.batch.draw(character.getTexture(), character.getX(), character.getY());
             if (character.getTalk()) {
                 game.batch.draw(character.getTalkIcon(), character.getTalkX(), character.getTalkY());
@@ -98,7 +86,7 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
         //TODO: Sort out text for level three
         //Draw text boxes
-        //renderText();
+        renderText();
 
         //Draw the inventory in top right corner
         if (Gdx.input.isKeyPressed(Input.Keys.I)) {
@@ -107,16 +95,16 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
         //Check if an item is being picked up or a character is being spoken to
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            pickUpItem();
+            //pickUpItem();
             //TODO: Add talk feature
-            //talkToCharacter();
+            talkToCharacter();
         }
 
         //Next text box
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             //if this is the first frame enter is pressed / only go to next text if enter is pressed
             if(!isEnterHeld){
-                //nextText();
+                nextText();
                 isEnterHeld = true;
             }
         } else isEnterHeld = false;

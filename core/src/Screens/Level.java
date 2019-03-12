@@ -2,8 +2,10 @@ package Screens;
 
 import Entities.*;
 import Game.AstonAdventure;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Level {
 
@@ -15,6 +17,7 @@ public abstract class Level {
 
     //Player
     Player player;
+    boolean canPlayerMove;
 
     //Sounds
     Sounds Sm;
@@ -25,6 +28,9 @@ public abstract class Level {
     //Camera
     Camera camera;
 
+    //Rendering
+    float elapsedTime;
+
     //Inventory
     Inventory inventory;
     //A counter for the number of frames to display the inventory
@@ -32,6 +38,13 @@ public abstract class Level {
 
     //All items used in the level
     ArrayList<Item> levelItems;
+
+    //Characters
+    ArrayList<GameCharacter> levelCharacters;
+
+    //Current text box to display
+    private List<Text> currentTextList;
+    private int currentTextIndex;
 
     Level(){
     }
@@ -59,5 +72,37 @@ public abstract class Level {
         }
     }
 
+    void talkToCharacter() {
+        for (GameCharacter character : levelCharacters) {
+            if (character.isTalking(player.getX(), player.getY())) {
+                canPlayerMove = false;
+                currentTextList = character.getText();
+            }
+        }
+    }
+
+    void nextText(){
+        if(currentTextList != null){
+            currentTextIndex++;
+            if(currentTextIndex >= currentTextList.size()){
+                //Stop displaying text
+                currentTextList = null;
+                //Reset
+                currentTextIndex = 0;
+                canPlayerMove = true;
+            }
+        }
+    }
+
+    void renderText() {
+        if (currentTextList != null) {
+            Text currentText = currentTextList.get(currentTextIndex);
+            if (currentText != null) {
+                TextureRegion animationFrame = currentText.getKeyFrame(elapsedTime);
+                //Where to draw the text box
+                game.batch.draw(animationFrame, camera.getX() - 90, camera.getY() - 235);
+            }
+        }
+    }
 
 }

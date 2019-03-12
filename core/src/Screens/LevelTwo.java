@@ -6,25 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LevelTwo extends Level implements Screen {
-
-    private boolean canPlayerMove;
-
-    private ArrayList<GameCharacter> levelTwoCharacters;
-
-    //Rendering
-    private float elapsedTime;
-    //Current text box to display
-    private List<Text> currentTextList;
-    private int currentTextIndex;
 
     private boolean isEnterHeld;
 
@@ -66,47 +51,47 @@ public class LevelTwo extends Level implements Screen {
         levelItems.add(goose);
 
         //Create characters and add them to the game
-        levelTwoCharacters = new ArrayList<GameCharacter>();
+        levelCharacters = new ArrayList<GameCharacter>();
         //Character 1
         GameCharacter firstCharacter = new GameCharacter(80, 320, "Sprites/Characters/npcFemaleDown.png", 1, 2);
         firstCharacter.setTalk();
-        levelTwoCharacters.add(firstCharacter);
+        levelCharacters.add(firstCharacter);
         //Character 2
         GameCharacter character2 = new GameCharacter(1848, 304,"Sprites/Characters/npcFemaleGlassesDown.png", 2, 2 );
         character2.setTalk();
-        levelTwoCharacters.add(character2);
+        levelCharacters.add(character2);
         //Character 3
         GameCharacter character3 = new GameCharacter(4334, 669, "Sprites/Characters/npcMohawkDown.png", 3, 2 );
         character3.setTalk();
-        levelTwoCharacters.add(character3);
+        levelCharacters.add(character3);
         //Character 4
         GameCharacter character4 = new GameCharacter(2910, 588, "Sprites/Characters/npcMaleDown.png", 4, 2);
         character4.setTalk();
-        levelTwoCharacters.add(character4);
+        levelCharacters.add(character4);
         //Character 5
         GameCharacter character5 = new GameCharacter(2615, 1003, "Sprites/Characters/npcFemaleGlassesDown.png", 5, 2);
         character5.setTalk();
-        levelTwoCharacters.add(character5);
+        levelCharacters.add(character5);
         //Character 6
         GameCharacter character6 = new GameCharacter(834, 1790, "Sprites/Characters/npcMohawkDown.png", 6, 2);
         character6.setTalk();
-        levelTwoCharacters.add(character6);
+        levelCharacters.add(character6);
         //Character 7
         GameCharacter character7 = new GameCharacter(4285, 2558, "Sprites/Characters/npcMaleGlassesDown.png", 7, 2);
         character7.setTalk();
-        levelTwoCharacters.add(character7);
+        levelCharacters.add(character7);
         //Character 8
         GameCharacter character8 = new GameCharacter(2312, 3336, "Sprites/Characters/Down.png", 8, 2);
         character8.setTalk();
-        levelTwoCharacters.add(character8);
+        levelCharacters.add(character8);
         //Character 9
         GameCharacter character9 = new GameCharacter(3111, 2588, "Sprites/Characters/npcFemaleDown.png", 9, 2);
         character9.setTalk();
-        levelTwoCharacters.add(character9);
+        levelCharacters.add(character9);
         //Character 10
         GameCharacter character10 = new GameCharacter(1200, 3318, "Sprites/Characters/npcMaleDown.png", 10,2);
         character10.setTalk();
-        levelTwoCharacters.add(character10);
+        levelCharacters.add(character10);
 
         //Set up sounds
         Sm = new Sounds();
@@ -154,7 +139,7 @@ public class LevelTwo extends Level implements Screen {
             game.batch.draw(item.getTexture(), item.getXCoordinate(), item.getYCoordinate());
         }
 
-        for (GameCharacter character : levelTwoCharacters) {
+        for (GameCharacter character : levelCharacters) {
             game.batch.draw(character.getTexture(), character.getX(), character.getY());
             if (character.getTalk()) {
                 game.batch.draw(character.getTalkIcon(), character.getTalkX(), character.getTalkY());
@@ -178,6 +163,7 @@ public class LevelTwo extends Level implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             pickUpItem();
             talkToCharacter();
+            checkLevelProgress();
         }
 
         //Next text box
@@ -189,9 +175,9 @@ public class LevelTwo extends Level implements Screen {
             }
         } else isEnterHeld = false;
 
-//        if(Gdx.input.isKeyPressed(Input.Keys.C)){
-//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
-//        }
+        if(Gdx.input.isKeyPressed(Input.Keys.C)){
+            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
+        }
 
         //Displaying inventory
         if (inventoryFrames > 0) {
@@ -204,39 +190,26 @@ public class LevelTwo extends Level implements Screen {
 
     }
 
-    private void talkToCharacter() {
-        for (GameCharacter character : levelTwoCharacters) {
-            if (character.isTalking(player.getX(), player.getY())) {
-                canPlayerMove = false;
-                currentTextList = character.getText();
-            }
+    private boolean checkPlayerExit() {
+        float xDoor = 930;
+        float yDoor = 3920;
+
+        if (((xDoor - 30) < player.getX() && player.getX() < (xDoor + 30)) && ((yDoor - 30) < player.getY() && player.getY() < (yDoor + 30))) {
+            return Gdx.input.isKeyPressed(Input.Keys.E);
         }
+
+        return false;
     }
 
-    private void renderText() {
-        if (currentTextList != null) {
-            Text currentText = currentTextList.get(currentTextIndex);
-            if (currentText != null) {
-                TextureRegion animationFrame = currentText.getKeyFrame(elapsedTime);
-                //Where to draw the text box
-                game.batch.draw(animationFrame, camera.getX() - 90, camera.getY() - 235);
-            }
+    /**
+     * Method used to determine if the level has finished.
+     */
+    private void checkLevelProgress() {
+
+        if (checkPlayerExit()) {
+            game.setScreen(new LevelThree(game));
         }
     }
-
-    private void nextText(){
-        if(currentTextList != null){
-            currentTextIndex++;
-            if(currentTextIndex >= currentTextList.size()){
-                //Stop displaying text
-                currentTextList = null;
-                //Reset
-                currentTextIndex = 0;
-                canPlayerMove = true;
-            }
-        }
-    }
-
 
     //Unused
     @Override
