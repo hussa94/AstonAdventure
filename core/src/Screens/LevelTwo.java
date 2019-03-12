@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class LevelTwo extends Level implements Screen {
 
-    private boolean isEnterHeld;
-
     LevelTwo(AstonAdventure game) {
 
         //Store game object
@@ -20,6 +18,10 @@ public class LevelTwo extends Level implements Screen {
 
 //        //Set up NPCs
 //        npc = new Npc(game, 30);
+
+        //set up exit oo-ordinates
+        this.yExit = 930;
+        this.xExit = 3920;
 
         //Set up map
         map = new Map(2, 64, 64);
@@ -168,16 +170,13 @@ public class LevelTwo extends Level implements Screen {
 
         //Next text box
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            //if this is the first frame enter is pressed / only go to next text if enter is pressed
-            if(!isEnterHeld){
-                nextText();
-                isEnterHeld = true;
-            }
+            checkNextText();
         } else isEnterHeld = false;
 
-        if(Gdx.input.isKeyPressed(Input.Keys.C)){
-            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
-        }
+        //Print out player co-ordinates
+//        if(Gdx.input.isKeyPressed(Input.Keys.C)){
+//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
+//        }
 
         //Displaying inventory
         if (inventoryFrames > 0) {
@@ -188,17 +187,6 @@ public class LevelTwo extends Level implements Screen {
         //End sprite batch
         game.batch.end();
 
-    }
-
-    private boolean checkPlayerExit() {
-        float xDoor = 930;
-        float yDoor = 3920;
-
-        if (((xDoor - 40) < player.getX() && player.getX() < (xDoor + 40)) && ((yDoor - 40) < player.getY() && player.getY() < (yDoor + 40))) {
-            return Gdx.input.isKeyPressed(Input.Keys.E);
-        }
-
-        return false;
     }
 
     /**

@@ -2,6 +2,8 @@ package Screens;
 
 import Entities.*;
 import Game.AstonAdventure;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
@@ -45,6 +47,10 @@ public abstract class Level {
     //Current text box to display
     private List<Text> currentTextList;
     private int currentTextIndex;
+    boolean isEnterHeld;
+
+    float xExit;
+    float yExit;
 
     Level(){
     }
@@ -81,7 +87,7 @@ public abstract class Level {
         }
     }
 
-    void nextText(){
+    private void nextText(){
         if(currentTextList != null){
             currentTextIndex++;
             if(currentTextIndex >= currentTextList.size()){
@@ -102,6 +108,27 @@ public abstract class Level {
                 //Where to draw the text box
                 game.batch.draw(animationFrame, camera.getX() - 90, camera.getY() - 235);
             }
+        }
+    }
+
+        /**
+     * Method used to check if the player has reached the exit of the level.
+     *
+     * @return True if the player has exited.
+     */
+    boolean checkPlayerExit() {
+        if (((xExit - 40) < player.getX() && player.getX() < (xExit + 40)) && ((yExit - 40) < player.getY() && player.getY() < (yExit + 40))) {
+            return Gdx.input.isKeyPressed(Input.Keys.E);
+        }
+        return false;
+    }
+
+    //Next text box
+    void checkNextText(){
+        //if this is the first frame enter is pressed / only go to next text if enter is pressed
+        if(!isEnterHeld){
+            nextText();
+            isEnterHeld = true;
         }
     }
 

@@ -51,6 +51,10 @@ public class LevelOne extends Level implements Screen {
         //Store game object
         this.game = game;
 
+        //Set up exit co-ordinates
+        this.xExit = 1369;
+        this.yExit = 1719;
+
         //Set up NPCs
         npc = new Npc(game, 30);
 
@@ -185,22 +189,6 @@ public class LevelOne extends Level implements Screen {
         if (checkPlayerExit()) {
             game.setScreen(new LevelTwo(game));
         }
-    }
-
-    /**
-     * Method used to check if the player has exited to the main building.
-     *
-     * @return True if the player has exited.
-     */
-    private boolean checkPlayerExit() {
-        float xEntrance = 1369;
-        float yEntrance = 1719;
-
-        if (((xEntrance - 20) < player.getX() && player.getX() < (xEntrance + 20)) && ((yEntrance - 20) < player.getY() && player.getY() < (yEntrance + 20))) {
-            return Gdx.input.isKeyPressed(Input.Keys.E);
-        }
-
-        return false;
     }
 
     // Method used to determine the next text box in the sequence to be displayed.

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
-    private boolean isEnterHeld;
-
     LevelThree(AstonAdventure game){
         this.game = game;
 
@@ -102,11 +100,7 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
         //Next text box
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            //if this is the first frame enter is pressed / only go to next text if enter is pressed
-            if(!isEnterHeld){
-                nextText();
-                isEnterHeld = true;
-            }
+            checkNextText();
         } else isEnterHeld = false;
 
         //Displaying inventory
