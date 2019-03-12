@@ -194,7 +194,7 @@ public class LevelTwo extends Level implements Screen {
         float xDoor = 930;
         float yDoor = 3920;
 
-        if (((xDoor - 30) < player.getX() && player.getX() < (xDoor + 30)) && ((yDoor - 30) < player.getY() && player.getY() < (yDoor + 30))) {
+        if (((xDoor - 40) < player.getX() && player.getX() < (xDoor + 40)) && ((yDoor - 40) < player.getY() && player.getY() < (yDoor + 40))) {
             return Gdx.input.isKeyPressed(Input.Keys.E);
         }
 
