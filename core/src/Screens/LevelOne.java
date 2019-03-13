@@ -1,11 +1,11 @@
 package Screens;
 
+import Entities.*;
+import Game.AstonAdventure;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import Entities.*;
-import Game.AstonAdventure;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,6 +18,9 @@ import java.util.ArrayList;
  * the user learning basic controls and finding the university.
  */
 public class LevelOne extends Level implements Screen {
+
+    // LevelOne instance
+    private static LevelOne levelOneInstance;
 
     //Character
     private float elapsedTime;
@@ -46,7 +49,7 @@ public class LevelOne extends Level implements Screen {
      *
      * @param game The game object.
      */
-    LevelOne(AstonAdventure game) {
+    private LevelOne(AstonAdventure game) {
 
         //Store game object
         this.game = game;
@@ -101,6 +104,20 @@ public class LevelOne extends Level implements Screen {
     }
 
     /**
+     * This method allows this class to follow the Singleton design pattern to allow only one instance of the LevelOne
+     * class to be produced
+     *
+     * @param game {@Link AstonAdventure} game
+     * @return the single version of a LevelOne instance
+     */
+    static LevelOne getLevelOneInstance(AstonAdventure game) {
+        if (levelOneInstance == null) {
+            levelOneInstance = new LevelOne(game);
+        }
+        return levelOneInstance;
+    }
+
+    /**
      * The render method is used to display the levels background and player, moving the camera such that
      * the player is centralised. It also allows for items to be displayed, picked up and stored.
      *
@@ -148,10 +165,10 @@ public class LevelOne extends Level implements Screen {
         camera.updateCameraOnPlayer(player);
 
         //Get next text box upon completion of last text box
-        if(!getTextInterrupt()) {
+        if (!getTextInterrupt()) {
             nextTextBoxLevel1(elapsedTime, inventory);
         }
-        if (!getTutorStatus() || getTextInterrupt()){
+        if (!getTutorStatus() || getTextInterrupt()) {
             //Draw text box relative to player position
             drawTextBox(camera, player, elapsedTime);
         }
@@ -167,9 +184,9 @@ public class LevelOne extends Level implements Screen {
         }
 
         //Displaying inventory
-        if (inventoryFrames > 0){
+        if (inventoryFrames > 0) {
             inventory.drawInventory(camera, true);
-            inventoryFrames --;
+            inventoryFrames--;
         }
 
         if (currentSpeech == 6) {
@@ -187,7 +204,7 @@ public class LevelOne extends Level implements Screen {
     private void checkLevelProgress() {
 
         if (checkPlayerExit()) {
-            game.setScreen(new LevelTwo(game));
+            game.setScreen(LevelTwo.getLevelTwoInstance(game));
         }
     }
 
@@ -198,17 +215,13 @@ public class LevelOne extends Level implements Screen {
         //Change text box if necessary
         if (currentSpeech == 1) {
             setTextInterrupt();
-        }
-        else if (elapsedTimeText > 8.5 && currentSpeech == 2) {
+        } else if (elapsedTimeText > 8.5 && currentSpeech == 2) {
             setTextInterrupt();
-        }
-        else if (elapsedTimeText > 5 && currentSpeech == 3 && inventory.contains(ItemType.BACKPACK)) {
+        } else if (elapsedTimeText > 5 && currentSpeech == 3 && inventory.contains(ItemType.BACKPACK)) {
             setTextInterrupt();
-        }
-        else if (elapsedTimeText > 5 && currentSpeech == 4 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES)) {
+        } else if (elapsedTimeText > 5 && currentSpeech == 4 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES)) {
             setTextInterrupt();
-        }
-        else if (elapsedTimeText > 5 && currentSpeech == 5 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES) && inventory.contains(ItemType.COFFEE)) {
+        } else if (elapsedTimeText > 5 && currentSpeech == 5 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES) && inventory.contains(ItemType.COFFEE)) {
             setTextInterrupt();
         }
     }
@@ -223,26 +236,26 @@ public class LevelOne extends Level implements Screen {
         float frameDuration = 1 / 2f;
         TextureAtlas textureAtlasText;
         if (currentSpeech == 1) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 1/Level1Text1.atlas");
+            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 1/Level1Text1.atlas");
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 2) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 2/Level1Text2.atlas");
+            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 2/Level1Text2.atlas");
 
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 3) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 3/Level1Text3.atlas");
+            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 3/Level1Text3.atlas");
 
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 4) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 4/Level1Text4.atlas");
+            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 4/Level1Text4.atlas");
 
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
         if (currentSpeech == 5) {
-                textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 5/Level1Text5.atlas");
+            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 5/Level1Text5.atlas");
             textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
         }
     }
@@ -251,8 +264,9 @@ public class LevelOne extends Level implements Screen {
     /**
      * Method to draw the text box on the screen. The tutor character will enter, then stand while the
      * text box is displayed. On dismissal, the tutor character will leave and the player will be able to resume.
-     * @param camera The camera in the level.
-     * @param player The player.
+     *
+     * @param camera           The camera in the level.
+     * @param player           The player.
      * @param elapsedTimeLevel Elapsed time in the level.
      */
     private void drawTextBox(Camera camera, Player player, float elapsedTimeLevel) {
@@ -263,28 +277,27 @@ public class LevelOne extends Level implements Screen {
         //Draw tutor character entering / exiting / standing
         if (tutor.getEntering()) {
             tutor.enterTutor(elapsedTimeLevel, player);
-        }
-        else if (tutor.getExiting()) {
+        } else if (tutor.getExiting()) {
             tutor.exitTutor(elapsedTimeLevel, player);
-        }
-        else if (tutor.getStanding()) {
+        } else if (tutor.getStanding()) {
             tutor.standTutor(elapsedTimeLevel);
         }
 
         //Draw the current text box
         if (textInterrupt && (!tutor.getExiting()) && (!tutor.getEntering())) {
             setCurrentTextBox();
-            game.batch.draw(sylvia,(camera.getX() - xSylvia), (camera.getY() - ySylvia));
+            game.batch.draw(sylvia, (camera.getX() - xSylvia), (camera.getY() - ySylvia));
             game.batch.draw(textBox.getKeyFrame(elapsedTime, true), (camera.getX() - xTextBox), (camera.getY() - yTextBox));
-            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 removeTextInterrupt();
-                currentSpeech ++;
+                currentSpeech++;
             }
         }
     }
 
     /**
      * Method to return a bool indicating whether or not a text box is on screen
+     *
      * @return textInterrupt
      */
     private boolean getTextInterrupt() {
@@ -313,6 +326,7 @@ public class LevelOne extends Level implements Screen {
 
     /**
      * Method to restric the player from walking if the tutor character is active, or a text box is active.
+     *
      * @return Whether the player can walk or not.
      */
     private boolean canPlayerWalk() {
@@ -321,16 +335,18 @@ public class LevelOne extends Level implements Screen {
 
     /**
      * Sets the position of the text boxes to be displayed.
+     *
      * @param x x co-ordinate.
      * @param y y co-ordinate.
      */
-    private void setTextPosition(float x, float y){
+    private void setTextPosition(float x, float y) {
         xTextBox = x;
         yTextBox = y;
     }
 
     /**
      * Sets the position of the lecturer character.
+     *
      * @param x x co-ordinate.
      * @param y y co-ordinate.
      */

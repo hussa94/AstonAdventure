@@ -43,18 +43,13 @@ public abstract class Level {
 
     //Characters
     ArrayList<GameCharacter> levelCharacters;
-
-    //Current text box to display
-    private List<Text> currentTextList;
-    private int currentTextIndex;
     boolean isEnterHeld;
-
     //The co-ordinates for the end/exit of the level
     float xExit;
     float yExit;
-
-    Level(){
-    }
+    //Current text box to display
+    private List<Text> currentTextList;
+    private int currentTextIndex;
 
     //Method to add an item to the players inventory if the item is close enough to be picked
     void pickUpItem() {
@@ -72,7 +67,7 @@ public abstract class Level {
                 if (inventory.contains(ItemType.SHOES)) {
                     player.increaseSpeed();
                 }
-                if(inventory.contains(ItemType.COFFEE)){
+                if (inventory.contains(ItemType.COFFEE)) {
                     player.increaseSpeed();
                 }
             }
@@ -90,10 +85,10 @@ public abstract class Level {
     }
 
     //Set the next text box
-    private void nextText(){
-        if(currentTextList != null){
+    private void nextText() {
+        if (currentTextList != null) {
             currentTextIndex++;
-            if(currentTextIndex >= currentTextList.size()){
+            if (currentTextIndex >= currentTextList.size()) {
                 //Stop displaying text
                 currentTextList = null;
                 //Reset
@@ -114,7 +109,7 @@ public abstract class Level {
         }
     }
 
-        /**
+    /**
      * Method used to check if the player has reached the exit of the level.
      *
      * @return True if the player has exited.
@@ -127,9 +122,9 @@ public abstract class Level {
     }
 
     //Next text box
-    void checkNextText(){
+    void checkNextText() {
         //if this is the first frame enter is pressed / only go to next text if enter is pressed
-        if(!isEnterHeld){
+        if (!isEnterHeld) {
             nextText();
             isEnterHeld = true;
         }

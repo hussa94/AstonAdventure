@@ -33,7 +33,7 @@ public class AstonAdventure extends Game {
 		selectedCharacter = characters.get(1);
 
 		//Startup screen
-		this.setScreen(new Startup(this));
+		this.setScreen(Startup.getStartupScreenInstance(this));
 	}
 
 	/**

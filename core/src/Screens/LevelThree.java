@@ -10,10 +10,13 @@ import java.util.ArrayList;
 
 public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
-    LevelThree(AstonAdventure game){
+    // LevelThree instance
+    private static LevelThree levelThreeInstance;
+
+    private LevelThree(AstonAdventure game) {
         this.game = game;
 
-        map = new Map(3, 32,32);
+        map = new Map(3, 32, 32);
 
         camera = new Camera(map.getWidth(), map.getHeight(), 1150, 1400, game);
         camera.setCameraBoundaries(315, 2750, 241, 1350);
@@ -36,6 +39,20 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         //Set up sounds
         Sm = new Sounds();
         Sm.dispose();
+    }
+
+    /**
+     * This method allows this class to follow the Singleton design pattern to allow only one instance of the LevelThree
+     * class to be produced
+     *
+     * @param game {@link AstonAdventure} game
+     * @return the single version of a LevelThree instance
+     */
+    static LevelThree getLevelThreeInstance(AstonAdventure game) {
+        if (levelThreeInstance == null) {
+            levelThreeInstance = new LevelThree(game);
+        }
+        return levelThreeInstance;
     }
 
     @Override
@@ -99,7 +116,7 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         }
 
         //Next text box
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             checkNextText();
         } else isEnterHeld = false;
 

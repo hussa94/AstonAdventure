@@ -1,11 +1,11 @@
 package Screens;
 
 import Entities.Sounds;
+import Game.AstonAdventure;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import Game.AstonAdventure;
 
 /**
  * The class Startup is a screen shown at the launch of the game. It displays the team information / logo
@@ -13,14 +13,18 @@ import Game.AstonAdventure;
  */
 public class Startup implements Screen {
 
+    private static final int BACKGROUND_WIDTH = 650;
+    private static final int BACKGROUND_HEIGHT = 480;
+
+    //StartUp screen instance
+    private static Startup startupScreenInstance;
+
     //Game
     private AstonAdventure game;
 
     //Background Texture
     private Texture background;
-    private static final int BACKGROUND_WIDTH = 650;
-    private static final int BACKGROUND_HEIGHT = 480;
-
+    
     //Sounds
     private Sounds Sm;
 
@@ -30,17 +34,32 @@ public class Startup implements Screen {
     /**
      * Constructor for the Startup Screen. Initialises the background textures and sounds. Stores the
      * game object.
+     *
      * @param game The game object used for save data.
      */
-    public Startup(AstonAdventure game) {
+    private Startup(AstonAdventure game) {
         this.game = game;
         background = new Texture("Screens/Startup/INTRO.png");
         Sm = new Sounds();
     }
 
     /**
+     * This method allows this class to follow the Singleton design pattern to allow only one instance of the LevelOne
+     * class to be produced
+     * @param game {@link AstonAdventure} game
+     * @return the single version of the Startup screen instance
+     */
+    public static Startup getStartupScreenInstance(AstonAdventure game) {
+        if (startupScreenInstance == null) {
+            startupScreenInstance = new Startup(game);
+        }
+        return startupScreenInstance;
+    }
+
+    /**
      * Render method used to display the background for two seconds, as well as play a startup sound.
      * Switches to the main menu of the game upon completion.
+     *
      * @param delta Elapsed time.
      */
     @Override
@@ -57,9 +76,8 @@ public class Startup implements Screen {
         //Play sound / Switch Screen
         if (elapsedTime == 0) {
             Sm.startup();
-        }
-        else if (elapsedTime >= 2) {
-           game.setScreen(new MainMenu(game));
+        } else if (elapsedTime >= 2) {
+            game.setScreen(MainMenu.getMainMenuInstance(game));
         }
 
         //Update elapsed time

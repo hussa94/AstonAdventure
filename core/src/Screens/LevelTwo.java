@@ -11,7 +11,10 @@ import java.util.ArrayList;
 
 public class LevelTwo extends Level implements Screen {
 
-    LevelTwo(AstonAdventure game) {
+    // LevelTwo instance
+    private static LevelTwo levelTwoInstance;
+
+    private LevelTwo(AstonAdventure game) {
 
         //Store game object
         this.game = game;
@@ -59,11 +62,11 @@ public class LevelTwo extends Level implements Screen {
         firstCharacter.setTalk();
         levelCharacters.add(firstCharacter);
         //Character 2
-        GameCharacter character2 = new GameCharacter(1848, 304,"Sprites/Characters/npcFemaleGlassesDown.png", 2, 2 );
+        GameCharacter character2 = new GameCharacter(1848, 304, "Sprites/Characters/npcFemaleGlassesDown.png", 2, 2);
         character2.setTalk();
         levelCharacters.add(character2);
         //Character 3
-        GameCharacter character3 = new GameCharacter(4334, 669, "Sprites/Characters/npcMohawkDown.png", 3, 2 );
+        GameCharacter character3 = new GameCharacter(4334, 669, "Sprites/Characters/npcMohawkDown.png", 3, 2);
         character3.setTalk();
         levelCharacters.add(character3);
         //Character 4
@@ -91,13 +94,26 @@ public class LevelTwo extends Level implements Screen {
         character9.setTalk();
         levelCharacters.add(character9);
         //Character 10
-        GameCharacter character10 = new GameCharacter(1200, 3318, "Sprites/Characters/npcMaleDown.png", 10,2);
+        GameCharacter character10 = new GameCharacter(1200, 3318, "Sprites/Characters/npcMaleDown.png", 10, 2);
         character10.setTalk();
         levelCharacters.add(character10);
 
         //Set up sounds
         Sm = new Sounds();
         Sm.dispose();
+    }
+
+    /**
+     * This method allows this class to follow the Singleton design pattern to allow only one instance of the LevelTwo
+     * class to be produced
+     * @param game {@Link AstonAdventure} game
+     * @return the single version of a LevelTwo instance
+     */
+    static LevelTwo getLevelTwoInstance(AstonAdventure game) {
+        if (levelTwoInstance == null) {
+            levelTwoInstance = new LevelTwo(game);
+        }
+        return levelTwoInstance;
     }
 
     /**
@@ -169,7 +185,7 @@ public class LevelTwo extends Level implements Screen {
         }
 
         //Next text box
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             checkNextText();
         } else isEnterHeld = false;
 
@@ -195,7 +211,7 @@ public class LevelTwo extends Level implements Screen {
     private void checkLevelProgress() {
 
         if (checkPlayerExit()) {
-            game.setScreen(new LevelThree(game));
+            game.setScreen(LevelThree.getLevelThreeInstance(game));
         }
     }
 

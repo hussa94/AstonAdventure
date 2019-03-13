@@ -1,18 +1,8 @@
 package Tests;
 
-import Entities.Inventory;
-import Entities.Item;
-import Entities.ItemType;
-import Game.AstonAdventure;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class InventoryTest {
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
 
     }
@@ -44,5 +34,5 @@ class InventoryTest {
     void tearDown() {
     }
 
-
+*/
 }
