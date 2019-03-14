@@ -57,18 +57,21 @@ public abstract class Level {
         ArrayList<Item> levelItemsCopy = new ArrayList<Item>(levelItems);
         //Check which items have been picked
         for (Item item : levelItemsCopy) {
-            if (item.isBeingPicked(player.getX(), player.getY())) {
-                inventory.addItem(item);
-                levelItems.remove(item);
-                //Updates status of inventory
-                inventory.updateInventoryStatus();
-                inventory.drawInventory(camera, true);
-                inventoryFrames = 20;
-                if (inventory.contains(ItemType.SHOES)) {
-                    player.increaseSpeed();
-                }
-                if (inventory.contains(ItemType.COFFEE)) {
-                    player.increaseSpeed();
+            //Check if the item being picked up is the backpack or the player already has the backpack
+            if(item.getItemType() == ItemType.BACKPACK || inventory.contains(ItemType.BACKPACK)) {
+                if (item.isBeingPicked(player.getX(), player.getY())) {
+                    inventory.addItem(item);
+                    levelItems.remove(item);
+                    //Updates status of inventory
+                    inventory.updateInventoryStatus();
+                    inventory.drawInventory(camera, true);
+                    inventoryFrames = 20;
+                    if (inventory.contains(ItemType.SHOES)) {
+                        player.increaseSpeed();
+                    }
+                    if (inventory.contains(ItemType.COFFEE)) {
+                        player.increaseSpeed();
+                    }
                 }
             }
         }
