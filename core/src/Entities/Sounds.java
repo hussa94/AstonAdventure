@@ -54,6 +54,16 @@ public class Sounds extends ApplicationAdapter {
         background.play();
     }
 
+    public void levelThree(){
+        if(isMusicPlaying()) {
+            background.stop();
+        }
+        background = Gdx.audio.newMusic(Gdx.files.internal("Sounds/Red Curtain.mp3"));
+        background.setLooping(false);
+        background.setVolume(0.3f);
+        background.play();
+    }
+
 
     /**
      * Text sound effect.
