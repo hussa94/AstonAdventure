@@ -66,10 +66,14 @@ public abstract class Level {
                     inventory.updateInventoryStatus();
                     inventory.drawInventory(camera, true);
                     inventoryFrames = 20;
-                    if (inventory.contains(ItemType.SHOES)) {
+                    if (item.getItemType() == ItemType.SHOES) {
                         player.increaseSpeed();
                     }
-                    if (inventory.contains(ItemType.COFFEE)) {
+                    if (item.getItemType() == ItemType.COFFEE) {
+                        player.increaseSpeed();
+                    }
+                    if(item.getItemType() == ItemType.GOOSE){
+                        player.increaseSpeed();
                         player.increaseSpeed();
                     }
                 }
@@ -118,7 +122,7 @@ public abstract class Level {
      * @return True if the player has exited.
      */
     boolean checkPlayerExit() {
-        if (((xExit - 40) < player.getX() && player.getX() < (xExit + 40)) && ((yExit - 40) < player.getY() && player.getY() < (yExit + 40))) {
+        if (((xExit - 50) < player.getX() && player.getX() < (xExit + 50)) && ((yExit - 50) < player.getY() && player.getY() < (yExit + 50))) {
             return Gdx.input.isKeyPressed(Input.Keys.E);
         }
         return false;

@@ -18,7 +18,6 @@ public class TextFilePaths {
                 "Sprites/Objects/Text/Level One Text/Text 3/Level1Text3.atlas",
                 "Sprites/Objects/Text/Level One Text/Text 4/Level1Text4.atlas",
                 "Sprites/Objects/Text/Level One Text/Text 5/Level1Text5.atlas"));
-
         LevelTwoTextFilePaths = new HashMap<Integer, List<String>>();
         //Level Two Character One Test
         LevelTwoTextFilePaths.put(1, Arrays.asList(
@@ -45,16 +44,21 @@ public class TextFilePaths {
         LevelTwoTextFilePaths.put(10, Arrays.asList(
                 "Sprites/Objects/Text/Level Two Text/Text 13/Level2Text13.atlas"));
 
-        // TODO: Add Level Three File Paths for Text
+        // TODO: Test Level Three File Paths for Text
         LevelThreeTextFilePaths = new HashMap<Integer, List<String>>();
         //Level Three Character One Test
         LevelThreeTextFilePaths.put(1, Arrays.asList(
-                "Sprites/Objects/Text/Level Two Text/Text 1/Level2Text1.atlas",
-                "Sprites/Objects/Text/Level Two Text/Text 2/Level2Text2.atlas",
-                "Sprites/Objects/Text/Level Two Text/Text 3/Level2Text3.atlas",
-                "Sprites/Objects/Text/Level Two Text/Text 4/Level2Text4.atlas",
-                "Sprites/Objects/Text/Level Two Text/Text 5/Level2Text5.atlas"
-         ));
+                "Sprites/Objects/Text/Level Three Text/Text 1/Level3Text1.atlas"));
+        LevelThreeTextFilePaths.put(2, Arrays.asList(
+                "Sprites/Objects/Text/Level Three Text/Text 2/Level3Text2.atlas"));
+        LevelThreeTextFilePaths.put(3, Arrays.asList(
+                "Sprites/Objects/Text/Level Three Text/Text 3/Level3Text3.atlas"));
+        LevelThreeTextFilePaths.put(4, Arrays.asList(
+                "Sprites/Objects/Text/Level Three Text/Text 4/Level3Text4.atlas"));
+        LevelThreeTextFilePaths.put(5, Arrays.asList(
+                "Sprites/Objects/Text/Level Three Text/Text 5/Level3Text5.atlas"));
+        LevelThreeTextFilePaths.put(6, Arrays.asList(
+                "Sprites/Objects/Text/Level Three Text/Text 6/Level3Text6.atlas"));
 
     }
 

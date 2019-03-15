@@ -23,8 +23,8 @@ public class LevelTwo extends Level implements Screen {
 //        npc = new Npc(game, 30);
 
         //Set exit oo-ordinates
-        this.yExit = 930;
-        this.xExit = 3920;
+        this.yExit = 3966;
+        this.xExit = 922;
 
         //Set up map
         map = new Map(2, 64, 64);
@@ -106,7 +106,7 @@ public class LevelTwo extends Level implements Screen {
     /**
      * This method allows this class to follow the Singleton design pattern to allow only one instance of the LevelTwo
      * class to be produced
-     * @param game {@Link AstonAdventure} game
+     * @param game {AstonAdventure} game
      * @return the single version of a LevelTwo instance
      */
     static LevelTwo getLevelTwoInstance(AstonAdventure game) {

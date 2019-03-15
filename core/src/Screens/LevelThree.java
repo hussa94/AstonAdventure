@@ -31,9 +31,32 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         inventoryFrames = 0;
 
         // TODO: Add all required players
+        //Create characters and add them to the game
         levelCharacters = new ArrayList<GameCharacter>();
-        GameCharacter testSprite = new GameCharacter(1797, 1350, "Sprites/Characters/Down.png", 1, 3);
-        levelCharacters.add(testSprite);
+        //Character 1
+        GameCharacter character1 = new GameCharacter(1178, 1105, "Sprites/Characters/npcFemaleDown.png", 1, 3);
+        character1.setTalk();
+        levelCharacters.add(character1);
+        //Character 2
+        GameCharacter character2 = new GameCharacter(1943, 1112, "Sprites/Characters/npcFemaleGlassesDown.png", 2, 3);
+        character2.setTalk();
+        levelCharacters.add(character2);
+        //Character 3
+        GameCharacter character3 = new GameCharacter(1951, 736, "Sprites/Characters/npcMohawkDown.png", 3, 3);
+        character3.setTalk();
+        levelCharacters.add(character3);
+        //Character 4
+        GameCharacter character4 = new GameCharacter(1951, 344, "Sprites/Characters/npcMaleDown.png", 4, 3);
+        character4.setTalk();
+        levelCharacters.add(character4);
+        //Character 5
+        GameCharacter character5 = new GameCharacter(1178, 335, "Sprites/Characters/npcFemaleGlassesDown.png", 5, 3);
+        character5.setTalk();
+        levelCharacters.add(character5);
+        //Character 6
+        GameCharacter character6 = new GameCharacter(1173, 724, "Sprites/Characters/npcMohawkDown.png", 6, 3);
+        character6.setTalk();
+        levelCharacters.add(character6);
 
         //TODO: Change Music to more appropriate music
         //Set up sounds
@@ -113,6 +136,11 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
             //pickUpItem();
             //TODO: Add talk feature
             talkToCharacter();
+        }
+
+        //Print out player co-ordinates
+        if(Gdx.input.isKeyPressed(Input.Keys.C)){
+            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
         }
 
         //Next text box
