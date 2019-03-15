@@ -71,7 +71,7 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
         //Background sounds
         if (!Sm.isMusicPlaying()) {
-            Sm.levelOne();
+            Sm.levelThree();
         }
 
         //Set view of camera
