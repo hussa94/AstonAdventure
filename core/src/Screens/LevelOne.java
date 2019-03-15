@@ -81,7 +81,7 @@ public class LevelOne extends Level implements Screen {
         levelItems.add(backpack);
         Item shoes = new Item(ItemType.SHOES, 900, 1000);
         levelItems.add(shoes);
-        Item coffee = new Item(ItemType.COFFEE, 1100, 1100);
+        Item coffee = new Item(ItemType.COFFEE, 2516, 662);
         levelItems.add(coffee);
 
         //Set Text Box and its position
@@ -177,6 +177,11 @@ public class LevelOne extends Level implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.I)) {
             inventory.drawInventory(camera, false);
         }
+
+        //Print out player co-ordinates
+//        if(Gdx.input.isKeyPressed(Input.Keys.C)){
+//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
+//        }
 
         //Check if an item is being picked up
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {

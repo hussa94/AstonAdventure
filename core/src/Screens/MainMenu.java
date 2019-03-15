@@ -180,6 +180,10 @@ public class MainMenu implements Screen, Input.TextInputListener {
 
             if (!Sm.isSoundPlaying()) {
                 game.setScreen(LevelOne.getLevelOneInstance(game));
+                //Start the game at level two
+                //game.setScreen(LevelTwo.getLevelTwoInstance(game));
+                //Start the game at level three
+                //game.setScreen(LevelThree.getLevelThreeInstance(game));
             }
         }
 
