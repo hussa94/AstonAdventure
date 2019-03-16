@@ -5,8 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -51,7 +56,7 @@ public class Npc {
      * @param game The game object.
      * @param numberOfNPCs The number of NPCs to display.
      */
-    public Npc(AstonAdventure game, int numberOfNPCs) {
+    public Npc(AstonAdventure game, int numberOfNPCs, Map map) {
 
         //Boundaries for the NPCs to walk
         xMinPlayer = 80;
@@ -87,13 +92,25 @@ public class Npc {
             y[i] = randomYCoordinate();
             lastDirection[i] = randomDirection();
         }
+
+        //Give each NPC a character, co-ordinates, direction
+        for (int i = 0; i< numberOfNPCs; i++) {
+            boolean setupColliding = false;
+
+            while (setupColliding) {
+                x[i] = randomXCoordinate();
+                y[i] = randomYCoordinate();
+                setupColliding = checkSetupCollision(map, i);
+            }
+
+        }
     }
 
     /**
      * Used to draw each of the NPCs in the level.
      * @param elapsedTime Timer.
      */
-    public void drawNPCs(float elapsedTime, Camera camera) {
+    public void drawNPCs(float elapsedTime, Camera camera, Map map) {
 
         int maxStepsBeforeChange = 500;
 
@@ -110,7 +127,7 @@ public class Npc {
 
         //Calculate movement and draw each NPC
         for (int i = 0; i< numberOfNPCs; i++) {
-            movement(lastDirection[i], i);
+            movement(lastDirection[i], i, map);
             if ((camera.getX()-370 < x[i] && x[i] < camera.getX()+370) && ((camera.getY()-350 < y[i] && y[i] < camera.getY()+350))) {
                 game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x[i], y[i]);
             }
@@ -122,7 +139,9 @@ public class Npc {
      * @param direction The direction each NPC is currently heading in.
      * @param npc The active NPC.
      */
-    private void movement(String direction, int npc) {
+    private void movement(String direction, int npc, Map map) {
+
+        float oldX = getX(npc), oldY = getY(npc);
 
         //Determine any movement by NPC
         if ((direction.equalsIgnoreCase("Up")) && (y[npc] < yMaxPlayer)) {
@@ -148,6 +167,48 @@ public class Npc {
         } else {
             standStill(npc);
         }
+
+        checkCollision(map, oldX, oldY, npc);
+    }
+
+    /**
+     * Method to check if the player is colliding with an object, and reposition if they are
+     *
+     * @param map  The current level map
+     * @param oldX The player's X coordinate before moving into collision range
+     * @param oldY The player's Y coordiante before moving into collision range
+     */
+
+    private void checkCollision(Map map, float oldX, float oldY, int npc) {
+        boolean colliding = false;
+
+        List<TiledMapTileLayer.Cell> tiles = getCurrentTiles(map, npc);
+        for (TiledMapTileLayer.Cell tile : tiles) {
+            if (tile != null && tile.getTile().getProperties().containsKey("Collision")) {
+                colliding = true;
+                break;
+            }
+        }
+        if (colliding) {
+            x[npc] = oldX;
+            y[npc] = oldY;
+            lastDirection[npc] = randomDirection();
+            timeSinceLastDirectionChange = 0;
+        }
+    }
+
+
+    private boolean checkSetupCollision(Map map, int npc) {
+
+
+        List<TiledMapTileLayer.Cell> tiles = getCurrentTiles(map, npc);
+        for (TiledMapTileLayer.Cell tile : tiles) {
+            if (tile != null && tile.getTile().getProperties().containsKey("Collision")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -239,10 +300,41 @@ public class Npc {
     }
 
     /**
+     * Method used to retrieve the tile at the current position of the player
+     *
+     * @param map The current level map
+     * @return The tile the player is currently positioned at
+     */
+    private List<TiledMapTileLayer.Cell> getCurrentTiles(Map map, int npc) {
+
+        List<TiledMapTileLayer.Cell> tileList = new ArrayList<TiledMapTileLayer.Cell>();
+        MapLayers mapLayers = map.getMapLayers();
+
+        int tileX = (int) (x[npc] / map.getTileWidth());
+        int tileY = (int) (y[npc] / map.getTileHeight());
+
+        for (MapLayer mapLayer : mapLayers) {
+            TiledMapTileLayer tiledMapTileLayer;
+            try {
+                tiledMapTileLayer = (TiledMapTileLayer) mapLayer;
+            } catch (Exception e) {
+                continue;
+            }
+            TiledMapTileLayer.Cell tile = tiledMapTileLayer.getCell(tileX, tileY);
+            if (tile != null) {
+                tileList.add(tile);
+            }
+        }
+
+        return tileList;
+    }
+
+    /**
      * Method used to give an NPC a random starting X co-ordinate.
      * @return The random co-ordinate.
      */
     private int randomXCoordinate() {
+
 
         return random.nextInt(xMaxPlayer-xMinPlayer + 1) + xMinPlayer;
     }
@@ -278,5 +370,25 @@ public class Npc {
         else {
             return "Stand";
         }
+    }
+
+    /**
+     * Method used to retrieve the x co-ordinate of the player
+     *
+     * @return X
+     */
+    public float getX(int npc) {
+
+        return x[npc];
+    }
+
+    /**
+     * Method used to retrieve the y co-ordinate of the player
+     *
+     * @return Y
+     */
+    public float getY(int npc) {
+
+        return y[npc];
     }
 }

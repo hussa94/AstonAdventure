@@ -59,7 +59,7 @@ public class LevelOne extends Level implements Screen {
         this.yExit = 1719;
 
         //Set up NPCs
-        npc = new Npc(game, 30);
+        npc = new Npc(game, 40, map);
 
         //Set up map including tile width and heights
         map = new Map(1, 16, 16);
@@ -145,7 +145,7 @@ public class LevelOne extends Level implements Screen {
         game.batch.begin();
 
         //Draw out all NPC characters
-        npc.drawNPCs(elapsedTime, camera);
+        npc.drawNPCs(elapsedTime, camera, map);
 
         //Draw all items in level one
         for (Item item : levelItems) {
