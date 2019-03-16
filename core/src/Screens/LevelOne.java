@@ -58,11 +58,11 @@ public class LevelOne extends Level implements Screen {
         this.xExit = 1369;
         this.yExit = 1719;
 
-        //Set up NPCs
-        npc = new Npc(game, 40, map);
-
         //Set up map including tile width and heights
         map = new Map(1, 16, 16);
+
+        //Set up NPCs
+        npc = new Npc(game, 40, map);
 
         //Set up camera
         camera = new Camera(map.getWidth(), map.getHeight(), 400, 400, game);

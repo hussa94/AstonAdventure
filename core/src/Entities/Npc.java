@@ -88,21 +88,23 @@ public class Npc {
          //Give each NPC a character, co-ordinates, direction
         for (int i = 0; i< numberOfNPCs; i++) {
             NPCs.put(i, randomCharacter());
-            x[i] = randomXCoordinate();
-            y[i] = randomYCoordinate();
             lastDirection[i] = randomDirection();
         }
 
         //Give each NPC a character, co-ordinates, direction
         for (int i = 0; i< numberOfNPCs; i++) {
-            boolean setupColliding = false;
+            boolean setupColliding;
 
-            while (setupColliding) {
+            x[i] = randomXCoordinate();
+            y[i] = randomYCoordinate();
+
+            setupColliding = checkSetupCollision(map, i);
+
+            while(setupColliding){
                 x[i] = randomXCoordinate();
                 y[i] = randomYCoordinate();
                 setupColliding = checkSetupCollision(map, i);
             }
-
         }
     }
 
@@ -328,6 +330,8 @@ public class Npc {
 
         return tileList;
     }
+
+
 
     /**
      * Method used to give an NPC a random starting X co-ordinate.
