@@ -29,6 +29,7 @@ public class Npc {
     private float[] y;
     private String lastDirection[];
 
+    //Hashmaps containing file paths for each direction for all NPCs
     private HashMap<String, String> filePathsStand = new HashMap<String, String>();
     private HashMap<String, String> filePathsUp = new HashMap<String, String>();
     private HashMap<String, String> filePathsLeft = new HashMap<String, String>();
@@ -63,6 +64,7 @@ public class Npc {
      */
     public Npc(AstonAdventure game, int numberOfNPCs, Map map) {
 
+        //Set the file paths for NPC characters
         setFilePaths();
 
         //Boundaries for the NPCs to walk
@@ -206,6 +208,12 @@ public class Npc {
     }
 
 
+    /**
+     * Method to check if the player is colliding with an object upon spawn, and reposition if they are
+     *
+     * @param map  The current level map
+     * @param npc  The active NPC
+     */
     private boolean checkSetupCollision(Map map, int npc) {
 
 
@@ -320,6 +328,9 @@ public class Npc {
         return tileList;
     }
 
+    /**
+     * Method to put all file paths in the corresponding hashmap for each NPC.
+     */
     private void setFilePaths() {
         filePathsDown.put("NPC1", "npc1_down");
         filePathsDown.put("NPC2", "npc2_down");

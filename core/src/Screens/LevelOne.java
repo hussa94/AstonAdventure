@@ -25,7 +25,6 @@ public class LevelOne extends Level implements Screen {
     //Character
     private float elapsedTime;
 
-    //Old Text method
     //Textures
     private Texture sylvia;
     private float xSylvia, ySylvia;
