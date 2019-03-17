@@ -44,9 +44,12 @@ public abstract class Level {
     //Characters
     ArrayList<GameCharacter> levelCharacters;
     boolean isEnterHeld;
+    GameCharacter lastCharacterSpokenTo;
+
     //The co-ordinates for the end/exit of the level
     float xExit;
     float yExit;
+
     //Current text box to display
     private List<Text> currentTextList;
     private int currentTextIndex;
@@ -87,6 +90,7 @@ public abstract class Level {
             if (character.isTalking(player.getX(), player.getY())) {
                 canPlayerMove = false;
                 currentTextList = character.getText();
+                lastCharacterSpokenTo = character;
             }
         }
     }

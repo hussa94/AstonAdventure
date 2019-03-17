@@ -23,6 +23,8 @@ public class GameCharacter {
     private float talkX;
     private float talkY;
 
+    private char answer;
+
     //private Sounds Sm = new Sounds();
 
     public GameCharacter(float xCoordinate, float yCoordinate, String filePath, int characterId, int level){
@@ -99,4 +101,10 @@ public class GameCharacter {
     public Texture getTalkIcon(){
         return this.talkIcon;
     }
+
+    public void setAnswer(char answer){
+        this.answer = answer;
+    }
+
+    public char getAnswer(){return this.answer;}
 }

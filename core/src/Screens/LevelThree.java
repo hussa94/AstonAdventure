@@ -13,6 +13,10 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
     // LevelThree instance
     private static LevelThree levelThreeInstance;
 
+    private char lastKeyPressed;
+
+    private int correctAnswers;
+
     private LevelThree(AstonAdventure game) {
         this.game = game;
 
@@ -34,28 +38,33 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         //Create characters and add them to the game
         levelCharacters = new ArrayList<GameCharacter>();
         //Character 1
-        GameCharacter character1 = new GameCharacter(1178, 1105, "Sprites/Characters/npcFemaleDown.png", 1, 3);
+        GameCharacter character1 = new GameCharacter(1456, 1338, "Sprites/Characters/npcFemaleDown.png", 1, 3);
         character1.setTalk();
         levelCharacters.add(character1);
         //Character 2
         GameCharacter character2 = new GameCharacter(1943, 1112, "Sprites/Characters/npcFemaleGlassesDown.png", 2, 3);
         character2.setTalk();
+        character2.setAnswer('b');
         levelCharacters.add(character2);
         //Character 3
         GameCharacter character3 = new GameCharacter(1951, 736, "Sprites/Characters/npcMohawkDown.png", 3, 3);
         character3.setTalk();
+        character3.setAnswer('c');
         levelCharacters.add(character3);
         //Character 4
         GameCharacter character4 = new GameCharacter(1951, 344, "Sprites/Characters/npcMaleDown.png", 4, 3);
         character4.setTalk();
+        character4.setAnswer('b');
         levelCharacters.add(character4);
         //Character 5
         GameCharacter character5 = new GameCharacter(1178, 335, "Sprites/Characters/npcFemaleGlassesDown.png", 5, 3);
         character5.setTalk();
+        character5.setAnswer('b');
         levelCharacters.add(character5);
         //Character 6
         GameCharacter character6 = new GameCharacter(1173, 724, "Sprites/Characters/npcMohawkDown.png", 6, 3);
         character6.setTalk();
+        character6.setAnswer('c');
         levelCharacters.add(character6);
 
         //TODO: Change Music to more appropriate music
@@ -136,16 +145,21 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
             //pickUpItem();
             //TODO: Add talk feature
             talkToCharacter();
+            lastKeyPressed = 'z';
         }
+        lastKeyPressed();
+        //TODO was int that would increase over time - fix
+        //answerQuestion();
 
         //Print out player co-ordinates
-        if(Gdx.input.isKeyPressed(Input.Keys.C)){
-            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
-        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.Q)){
+//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
+//        }
 
         //Next text box
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             checkNextText();
+            answerQuestion();
         } else isEnterHeld = false;
 
         //Displaying inventory
@@ -158,28 +172,47 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         game.batch.end();
     }
 
-    @Override
-    public void resize(int width, int height) {
-
+    private void lastKeyPressed(){
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            lastKeyPressed = 'a';
+        } if(Gdx.input.isKeyPressed(Input.Keys.B)){
+            lastKeyPressed = 'b';
+        } if(Gdx.input.isKeyPressed(Input.Keys.C)){
+            lastKeyPressed = 'c';
+        }
     }
 
-    @Override
-    public void pause() {
-
+    private void answerQuestion() {
+        if(lastCharacterSpokenTo != null){
+            if(lastKeyPressed == lastCharacterSpokenTo.getAnswer()){
+                correctAnswers++;
+                System.out.println("number of correct answers " + correctAnswers);
+                levelCharacters.remove(lastCharacterSpokenTo);
+                lastKeyPressed = 'z';
+            } else if(lastKeyPressed != lastCharacterSpokenTo.getAnswer()){
+                //System.out.println("number of correct answers " + correctAnswers);
+                levelCharacters.remove(lastCharacterSpokenTo);
+                lastKeyPressed = 'z';
+            }
+        }
     }
 
-    @Override
-    public void resume() {
-
-    }
 
     @Override
-    public void hide() {
+    public void resize(int width, int height) {}
 
-    }
+    @Override
+    public void pause() {}
+
+    @Override
+    public void resume() {}
+
+    @Override
+    public void hide() {}
 
     @Override
     public void dispose() {
         game.batch.dispose();
     }
+
 }
