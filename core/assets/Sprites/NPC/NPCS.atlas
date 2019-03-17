@@ -3,6 +3,13 @@ size: 460, 468
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+npc1_stand
+  rotate: false
+  xy: 138, 385
+  size: 46, 80
+  orig: 46, 80
+  offset: 0, 0
+  index: 1
 npc1_down
   rotate: false
   xy: 138, 385
@@ -87,6 +94,13 @@ npc1_up
   orig: 46, 83
   offset: 0, 0
   index: 3
+npc2_stand
+  rotate: false
+  xy: 0, 0
+  size: 46, 74
+  orig: 46, 74
+  offset: 0, 0
+  index: 1
 npc2_down
   rotate: false
   xy: 0, 0
@@ -171,6 +185,13 @@ npc2_up
   orig: 46, 77
   offset: 0, 0
   index: 3
+npc3_stand
+  rotate: false
+  xy: 184, 0
+  size: 46, 74
+  orig: 46, 74
+  offset: 0, 0
+  index: 1
 npc3_down
   rotate: false
   xy: 184, 0
@@ -255,6 +276,13 @@ npc3_up
   orig: 46, 77
   offset: 0, 0
   index: 3
+npc4_stand
+  rotate: false
+  xy: 230, 0
+  size: 46, 74
+  orig: 46, 74
+  offset: 0, 0
+  index: 1
 npc4_down
   rotate: false
   xy: 230, 0
@@ -339,6 +367,13 @@ npc4_up
   orig: 46, 77
   offset: 0, 0
   index: 3
+npc5_stand
+  rotate: false
+  xy: 184, 74
+  size: 46, 74
+  orig: 46, 74
+  offset: 0, 0
+  index: 1
 npc5_down
   rotate: false
   xy: 184, 74

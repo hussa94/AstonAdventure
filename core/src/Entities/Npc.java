@@ -2,7 +2,6 @@ package Entities;
 
 import Game.AstonAdventure;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -30,6 +29,12 @@ public class Npc {
     private float[] y;
     private String lastDirection[];
 
+    private HashMap<String, String> filePathsStand = new HashMap<String, String>();
+    private HashMap<String, String> filePathsUp = new HashMap<String, String>();
+    private HashMap<String, String> filePathsLeft = new HashMap<String, String>();
+    private HashMap<String, String> filePathsRight = new HashMap<String, String>();
+    private HashMap<String, String> filePathsDown = new HashMap<String, String>();
+
     //Game Object
     private AstonAdventure game;
 
@@ -37,7 +42,7 @@ public class Npc {
     private Random random = new Random();
 
     //NPC timer before changing direction
-    private int timeSinceLastDirectionChange = 0;
+    private int[] timeSinceLastDirectionChange;
 
     //Number of NPCs in the level
     private int numberOfNPCs;
@@ -58,6 +63,8 @@ public class Npc {
      */
     public Npc(AstonAdventure game, int numberOfNPCs, Map map) {
 
+        setFilePaths();
+
         //Boundaries for the NPCs to walk
         xMinPlayer = 80;
         xMaxPlayer = 3970;
@@ -68,13 +75,13 @@ public class Npc {
         this.numberOfNPCs = numberOfNPCs;
 
         //Set frame duration
-        frameDuration = 1 / 5f;
+        frameDuration = 1 / 2f;
 
         //Assign game object
         this.game = game;
 
         //Set textures / animations
-        characterAtlas = new TextureAtlas("Sprites/Characters/Players/characters.atlas");
+        characterAtlas = new TextureAtlas("Sprites/NPC/NPCS.atlas");
         characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration);
 
         //Set player speed
@@ -82,13 +89,16 @@ public class Npc {
 
         //Set up directions and co-ordinates
         lastDirection = new String[numberOfNPCs];
-         x = new float[numberOfNPCs];
-         y = new float[numberOfNPCs];
+        x = new float[numberOfNPCs];
+        y = new float[numberOfNPCs];
+        timeSinceLastDirectionChange = new int[numberOfNPCs];
+
 
          //Give each NPC a character, co-ordinates, direction
         for (int i = 0; i< numberOfNPCs; i++) {
             NPCs.put(i, randomCharacter());
             lastDirection[i] = randomDirection();
+            timeSinceLastDirectionChange[i] = 0;
         }
 
         //Give each NPC a character, co-ordinates, direction
@@ -116,19 +126,15 @@ public class Npc {
 
         int maxStepsBeforeChange = 500;
 
-        //Increase timer since last direction change
-        timeSinceLastDirectionChange++;
-
-        //Change direction after max number of cycles
-        if (timeSinceLastDirectionChange >= maxStepsBeforeChange) {
-            for (int i = 0; i< numberOfNPCs; i++) {
-                lastDirection [i] = randomDirection();
-            }
-            timeSinceLastDirectionChange = 0;
-        }
-
         //Calculate movement and draw each NPC
         for (int i = 0; i< numberOfNPCs; i++) {
+
+            timeSinceLastDirectionChange[i] ++;
+            if (timeSinceLastDirectionChange[i] >= maxStepsBeforeChange) {
+                lastDirection[i] = randomDirection();
+                timeSinceLastDirectionChange[i] = 0;
+            }
+
             movement(lastDirection[i], i, map);
             if ((camera.getX()-370 < x[i] && x[i] < camera.getX()+370) && ((camera.getY()-350 < y[i] && y[i] < camera.getY()+350))) {
                 game.batch.draw(characterAnimation.getKeyFrame(elapsedTime, true), x[i], y[i]);
@@ -195,7 +201,7 @@ public class Npc {
             x[npc] = oldX;
             y[npc] = oldY;
             lastDirection[npc] = randomDirection();
-            timeSinceLastDirectionChange = 0;
+            timeSinceLastDirectionChange[npc] = 0;
         }
     }
 
@@ -219,12 +225,8 @@ public class Npc {
      */
     private void moveUp(int npc) {
 
-        if (NPCs.get(npc).equalsIgnoreCase("female")) {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/up"));
-        }
-        else {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/up"));
-        }
+        characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions(filePathsUp.get(NPCs.get(npc))));
+
     }
 
     /**
@@ -233,12 +235,8 @@ public class Npc {
      */
     private void moveDown(int npc) {
 
-        if (NPCs.get(npc).equalsIgnoreCase("female")) {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/down"));
-        }
-        else {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/down"));
-        }
+        characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions(filePathsDown.get(NPCs.get(npc))));
+
     }
 
     /**
@@ -247,12 +245,8 @@ public class Npc {
      */
     private void moveLeft(int npc) {
 
-        if (NPCs.get(npc).equalsIgnoreCase("female")) {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/left"));
-        }
-        else {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/left"));
-        }
+        characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions(filePathsLeft.get(NPCs.get(npc))));
+
 
     }
 
@@ -262,12 +256,8 @@ public class Npc {
      */
     private void moveRight(int npc) {
 
-        if (NPCs.get(npc).equalsIgnoreCase("female")) {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/right"));
-        }
-        else {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/right"));
-        }
+        characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions(filePathsRight.get(NPCs.get(npc))));
+
     }
 
     /**
@@ -276,12 +266,7 @@ public class Npc {
      */
     private void standStill(int npc){
 
-        if (NPCs.get(npc).equalsIgnoreCase("female")) {
-            characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("female/standing"));
-        }
-        else {
-            characterAnimation = new Animation<TextureRegion>(frameDuration, characterAtlas.findRegions("male/standing"));
-        }
+        characterAnimation = new com.badlogic.gdx.graphics.g2d.Animation<TextureRegion>(frameDuration, characterAtlas.findRegions(filePathsStand.get(NPCs.get(npc))));
     }
 
     /**
@@ -291,12 +276,16 @@ public class Npc {
     private String randomCharacter() {
 
         //Number of NPC character skins
-        int numberOfCharacters = 2;
+        int numberOfCharacters = 5;
 
         //Possible NPC characters
         String character[] = new String[numberOfCharacters];
-        character[0] = "Male";
-        character[1] = "Female";
+        character[0] = "NPC1";
+        character[1] = "NPC2";
+        character[2] = "NPC3";
+        character[3] = "NPC4";
+        character[4] = "NPC5";
+
 
         return character[random.nextInt(character.length)];
     }
@@ -331,7 +320,38 @@ public class Npc {
         return tileList;
     }
 
+    private void setFilePaths() {
+        filePathsDown.put("NPC1", "npc1_down");
+        filePathsDown.put("NPC2", "npc2_down");
+        filePathsDown.put("NPC3", "npc3_down");
+        filePathsDown.put("NPC4", "npc4_down");
+        filePathsDown.put("NPC5", "npc5_down");
 
+        filePathsUp.put("NPC1", "npc1_up");
+        filePathsUp.put("NPC2", "npc2_up");
+        filePathsUp.put("NPC3", "npc3_up");
+        filePathsUp.put("NPC4", "npc4_up");
+        filePathsUp.put("NPC5", "npc5_up");
+
+        filePathsLeft.put("NPC1", "npc1_left");
+        filePathsLeft.put("NPC2", "npc2_left");
+        filePathsLeft.put("NPC3", "npc3_left");
+        filePathsLeft.put("NPC4", "npc4_left");
+        filePathsLeft.put("NPC5", "npc5_left");
+
+        filePathsRight.put("NPC1", "npc1_right");
+        filePathsRight.put("NPC2", "npc2_right");
+        filePathsRight.put("NPC3", "npc3_right");
+        filePathsRight.put("NPC4", "npc4_right");
+        filePathsRight.put("NPC5", "npc5_right");
+
+        filePathsStand.put("NPC1", "npc1_stand");
+        filePathsStand.put("NPC2", "npc2_stand");
+        filePathsStand.put("NPC3", "npc3_stand");
+        filePathsStand.put("NPC4", "npc4_stand");
+        filePathsStand.put("NPC5", "npc5_stand");
+
+    }
 
     /**
      * Method used to give an NPC a random starting X co-ordinate.
