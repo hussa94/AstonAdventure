@@ -15,7 +15,7 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
     private char lastKeyPressed;
 
-    private int correctAnswers;
+    private static int correctAnswers;
 
     private LevelThree(AstonAdventure game) {
         this.game = game;
@@ -34,7 +34,6 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         inventory = new Inventory(game);
         inventoryFrames = 0;
 
-        // TODO: Add all required players
         //Create characters and add them to the game
         levelCharacters = new ArrayList<GameCharacter>();
         //Character 1
@@ -67,7 +66,6 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         character6.setAnswer('c');
         levelCharacters.add(character6);
 
-        //TODO: Change Music to more appropriate music
         //Set up sounds
         Sm = new Sounds();
         Sm.dispose();
@@ -142,8 +140,8 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         //Check if an item is being picked up or a character is being spoken to
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             //pickUpItem();
-            //TODO: Add talk feature
             talkToCharacter();
+            lastKeyPressed = 'z';
         }
         lastKeyPressed();
 
@@ -162,6 +160,11 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         if (inventoryFrames > 0) {
             inventory.drawInventory(camera, true);
             inventoryFrames--;
+        }
+
+        //Checks if player has answered all questions
+        if(hasQuizFinished()){
+            game.setScreen(Graduation.getGraduationScreenInstance(game));
         }
 
         //End sprite batch
@@ -185,13 +188,22 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
                 System.out.println("number of correct answers " + correctAnswers);
                 levelCharacters.remove(lastCharacterSpokenTo);
                 lastKeyPressed = 'z';
-            } else if(lastKeyPressed != lastCharacterSpokenTo.getAnswer() || lastKeyPressed == 0){
+            } else if(lastKeyPressed != lastCharacterSpokenTo.getAnswer()){
                 //System.out.println("number of correct answers " + correctAnswers);
                 levelCharacters.remove(lastCharacterSpokenTo);
                 lastKeyPressed = 'z';
             }
         }
     }
+
+    private boolean hasQuizFinished(){
+        return levelCharacters.size() == 0;
+    }
+
+    static Integer getPlayerScore(){
+        return correctAnswers;
+    }
+
 
     @Override
     public void resize(int width, int height) {}
