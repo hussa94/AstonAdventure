@@ -144,7 +144,6 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
             //pickUpItem();
             //TODO: Add talk feature
             talkToCharacter();
-            lastKeyPressed = 'z';
         }
         lastKeyPressed();
 
@@ -186,14 +185,13 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
                 System.out.println("number of correct answers " + correctAnswers);
                 levelCharacters.remove(lastCharacterSpokenTo);
                 lastKeyPressed = 'z';
-            } else if(lastKeyPressed != lastCharacterSpokenTo.getAnswer()){
+            } else if(lastKeyPressed != lastCharacterSpokenTo.getAnswer() || lastKeyPressed == 0){
                 //System.out.println("number of correct answers " + correctAnswers);
                 levelCharacters.remove(lastCharacterSpokenTo);
                 lastKeyPressed = 'z';
             }
         }
     }
-
 
     @Override
     public void resize(int width, int height) {}
