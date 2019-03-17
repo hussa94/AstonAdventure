@@ -131,7 +131,6 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         //Update the camera position relative to player co-ordinates
         camera.updateCameraOnPlayer(player);
 
-        //TODO: Sort out text for level three
         //Draw text boxes
         renderText();
 
@@ -148,8 +147,6 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
             lastKeyPressed = 'z';
         }
         lastKeyPressed();
-        //TODO was int that would increase over time - fix
-        //answerQuestion();
 
         //Print out player co-ordinates
 //        if(Gdx.input.isKeyPressed(Input.Keys.Q)){
