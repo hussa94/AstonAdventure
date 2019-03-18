@@ -154,7 +154,7 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
         //Next text box
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            checkNextText();
+            nextText();
             answerQuestion();
         } else isEnterHeld = false;
 
@@ -168,6 +168,9 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         game.batch.end();
     }
 
+    /**
+     * Method lastKeyPressed records the last key pressed in response to a 'question' within level three
+     */
     private void lastKeyPressed(){
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
             lastKeyPressed = 'a';

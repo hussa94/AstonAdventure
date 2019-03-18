@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The abstract Level Class is a superclass for all levels.
+ * It contains the generic functionality that all levels require.
+ */
 public abstract class Level {
 
     //Game
@@ -54,7 +58,11 @@ public abstract class Level {
     private List<Text> currentTextList;
     private int currentTextIndex;
 
-    //Method to add an item to the players inventory if the item is close enough to be picked
+    /**
+     * The pickUpItem method checks if the player is close enough to any of them items within the level to pick them up.
+     * If the player is close enough to an item, the player picks it up and the item added to the players {@link Level#inventory },
+     * this item is then also removed from the level map.
+     */
     void pickUpItem() {
         //Create a copy of the items currently in the level to iterate over
         ArrayList<Item> levelItemsCopy = new ArrayList<Item>(levelItems);
@@ -84,7 +92,10 @@ public abstract class Level {
         }
     }
 
-    //Start talking to a character if player is close enough
+    /**
+     * The talkToCharacter method checks if the player is close enough to any of the characters within the level to talk to them.
+     * If the player is close enough to a character that character's text boxes will be made the {@link Level#currentTextList}.
+     */
     void talkToCharacter() {
         for (GameCharacter character : levelCharacters) {
             if (character.isTalking(player.getX(), player.getY())) {
@@ -95,9 +106,13 @@ public abstract class Level {
         }
     }
 
-    //Set the next text box
-    private void nextText() {
-        if (currentTextList != null) {
+    /**
+     * The nextText method checks the {@link Level#currentTextList} for the next text box.
+     * For the character currently 'talking' if there are more text boxes to display this method increases the {@link Level#currentTextIndex},
+     * if there are no text boxes left to display this method sets the {@link Level#currentTextList} to null and allows the player to move again.
+     */
+    void nextText() {
+        if (currentTextList != null && !isEnterHeld) {
             currentTextIndex++;
             if (currentTextIndex >= currentTextList.size()) {
                 //Stop displaying text
@@ -107,8 +122,12 @@ public abstract class Level {
                 canPlayerMove = true;
             }
         }
+        isEnterHeld = true;
     }
 
+    /**
+     * Renders the text in the {@link Level#currentTextList} at the {@link Level#currentTextIndex}
+     */
     void renderText() {
         if (currentTextList != null) {
             Text currentText = currentTextList.get(currentTextIndex);
@@ -121,24 +140,14 @@ public abstract class Level {
     }
 
     /**
-     * Method used to check if the player has reached the exit of the level.
-     *
-     * @return True if the player has exited.
+     * The checkPlayer Exit method checks if the player has reached the exit/end of the level.
+     * @return True if the player has exited and false if the player is not at the exit.
      */
     boolean checkPlayerExit() {
         if (((xExit - 50) < player.getX() && player.getX() < (xExit + 50)) && ((yExit - 50) < player.getY() && player.getY() < (yExit + 50))) {
             return Gdx.input.isKeyPressed(Input.Keys.E);
         }
         return false;
-    }
-
-    //Next text box
-    void checkNextText() {
-        //if this is the first frame enter is pressed / only go to next text if enter is pressed
-        if (!isEnterHeld) {
-            nextText();
-            isEnterHeld = true;
-        }
     }
 
 }

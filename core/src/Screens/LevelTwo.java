@@ -186,7 +186,7 @@ public class LevelTwo extends Level implements Screen {
 
         //Next text box
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            checkNextText();
+            nextText();
         } else isEnterHeld = false;
 
         //Print out player co-ordinates
