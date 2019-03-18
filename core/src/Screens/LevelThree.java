@@ -141,14 +141,10 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             //pickUpItem();
             talkToCharacter();
+            //reset last key pressed
             lastKeyPressed = 'z';
         }
         lastKeyPressed();
-
-        //Print out player co-ordinates
-//        if(Gdx.input.isKeyPressed(Input.Keys.Q)){
-//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
-//        }
 
         //Next text box
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
@@ -184,6 +180,10 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         }
     }
 
+    /**
+     * Method to check the players input 'answer' against the true answer to the question asked
+     * and to remove the character that just asked the question.
+     */
     private void answerQuestion() {
         if(lastCharacterSpokenTo != null){
             if(lastKeyPressed == lastCharacterSpokenTo.getAnswer()){
@@ -199,14 +199,21 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         }
     }
 
+    /**
+     * Method to check if all of the questions in the level have been asked.
+     * @return true if all of the questions have been asked false if not.
+     */
     private boolean hasQuizFinished(){
         return levelCharacters.size() == 0;
     }
 
+    /**
+     * Method to return the total number of correct answers the player achieved.
+     * @return the number of correct answers {@link LevelThree#correctAnswers}
+     */
     static Integer getPlayerScore(){
         return correctAnswers;
     }
-
 
     @Override
     public void resize(int width, int height) {}
