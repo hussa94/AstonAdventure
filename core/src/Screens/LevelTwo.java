@@ -14,11 +14,16 @@ public class LevelTwo extends Level implements Screen {
     // LevelTwo instance
     private static LevelTwo levelTwoInstance;
 
+    /**
+     * Constructor for the LevelTwo class. It creates all character and item instances for level two.
+     * @param game The game object.
+     */
     private LevelTwo(AstonAdventure game) {
 
         //Store game object
         this.game = game;
 
+        //TODO do we want NPCs in level two?
 //        //Set up NPCs
 //        npc = new Npc(game, 30);
 
@@ -149,6 +154,7 @@ public class LevelTwo extends Level implements Screen {
             player.standStill();
         }
 
+        //TODO
 //        //Draw out all NPC characters
 //        npc.drawNPCs(elapsedTime);
 
@@ -189,10 +195,6 @@ public class LevelTwo extends Level implements Screen {
             nextText();
         } else isEnterHeld = false;
 
-        //Print out player co-ordinates
-//        if(Gdx.input.isKeyPressed(Input.Keys.C)){
-//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
-//        }
 
         //Displaying inventory
         if (inventoryFrames > 0) {

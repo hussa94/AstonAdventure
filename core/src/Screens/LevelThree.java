@@ -17,6 +17,10 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
     private static int correctAnswers;
 
+    /**
+     * Constructor for the LevelThree class. It creates all character and item instances for level three.
+     * @param game The game object.
+     */
     private LevelThree(AstonAdventure game) {
         this.game = game;
 
@@ -90,6 +94,12 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
 
     }
 
+    /**
+     * The render method is used to display the levels background and player, moving the camera such that
+     * the player is centralised. It also allows for items to be displayed, picked up and stored.
+     *
+     * @param delta Elapsed time.
+     */
     @Override
     public void render(float delta) {
         //Setup
