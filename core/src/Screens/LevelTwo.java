@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.GL20;
 
 import java.util.ArrayList;
 
+/**
+ * Level two is the second level of Aston Adventure.
+ * It is a maze that the character has to navigate to reach the end.
+ */
 public class LevelTwo extends Level implements Screen {
 
     // LevelTwo instance

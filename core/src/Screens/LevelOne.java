@@ -177,11 +177,6 @@ public class LevelOne extends Level implements Screen {
             inventory.drawInventory(camera, false);
         }
 
-        //Print out player co-ordinates
-//        if(Gdx.input.isKeyPressed(Input.Keys.C)){
-//            System.out.println("player x = " + player.getX() + "player y = " + player.getY());
-//        }
-
         //Check if an item is being picked up
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             pickUpItem();

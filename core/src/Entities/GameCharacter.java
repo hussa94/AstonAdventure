@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class GameCharacter {
 
     private Texture texture;
@@ -25,14 +28,18 @@ public class GameCharacter {
 
     private char answer;
 
-    //private Sounds Sm = new Sounds();
-
+    /**
+     * Constructor for a GameCharacter.
+     * @param xCoordinate x-coordinate of where to place the GameCharacter on the level map.
+     * @param yCoordinate y-coordinate of where to place the GameCharacter on the level map.
+     * @param filePath the texture for the game character.
+     * @param characterId the unique number of the character.
+     * @param level the game level that the character belongs to.
+     */
     public GameCharacter(float xCoordinate, float yCoordinate, String filePath, int characterId, int level){
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         texture = new Texture(filePath);
-        //this.characterId = characterId;
-        //this.level = level;
         talkIcon = new Texture("Sprites/Icons/talkpromptindividual.png");
         talk = false;
 
