@@ -44,7 +44,7 @@ public class Startup implements Screen {
     }
 
     /**
-     * This method allows this class to follow the Singleton design pattern to allow only one instance of the LevelOne
+     * This method allows this class to follow the Singleton design pattern to allow only one instance of the Startup
      * class to be produced
      * @param game {@link AstonAdventure} game
      * @return the single version of the Startup screen instance
@@ -117,7 +117,6 @@ public class Startup implements Screen {
 
     }
 
-    //Unused
     @Override
     public void dispose() {
         background.dispose();
