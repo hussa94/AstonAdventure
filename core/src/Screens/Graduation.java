@@ -44,14 +44,13 @@ public class Graduation implements Screen {
 
     private void setBackground(int playerScore){
         if(playerScore >= 4){
-            //TODO: Set background to first 1st class
-            this.background = new Texture("Screens/Graduation/Congratulations background.png");
+            this.background = new Texture("Screens/Graduation/Congratulations background WITH A 1ST.png");
         } else if(playerScore<4 && playerScore>=2){
             //TODO: Set background to 2.1
-            this.background = new Texture("Screens/Graduation/Congratulations background.png");
+            this.background = new Texture("Screens/Graduation/Congratulations background WITH A 2.1.png");
         } else {
             //TODO: Set background to 2.2
-            this.background = new Texture("Screens/Graduation/Congratulations background.png");
+            this.background = new Texture("Screens/Graduation/Congratulations background WITH A 2.2.png");
         }
     }
 
@@ -81,7 +80,7 @@ public class Graduation implements Screen {
             Sm.menu();
         }
 
-        if(elapsedTimeEsc > 5) {
+        if(elapsedTimeEsc > 10) {
             game.setScreen(ExitScreen.getExitScreenInstance(game));
         }
 
