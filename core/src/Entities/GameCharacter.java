@@ -6,26 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * The GameCharacter class used to create a game character for a level of the game.
  */
 public class GameCharacter {
-
-    private Texture texture;
-    //private int characterId;
-    //private int level;
-    private Texture talkIcon;
 
     //Coordinates
     private float xCoordinate;
     private float yCoordinate;
 
-    //Text boxes
-    private List<Text> textList;
+    //Textures
+    private Texture texture;
+    private Texture talkIcon;
 
+    //Talk icon
     private boolean talk;
     private float talkX;
     private float talkY;
 
+    //Text boxes
+    private List<Text> textList;
+
+    //Answer to multiple choice question
     private char answer;
 
     /**
@@ -33,7 +34,7 @@ public class GameCharacter {
      * @param xCoordinate x-coordinate of where to place the GameCharacter on the level map.
      * @param yCoordinate y-coordinate of where to place the GameCharacter on the level map.
      * @param filePath the texture for the game character.
-     * @param characterId the unique number of the character.
+     * @param characterId the number of the character used to retrieve their text. {@link TextFilePaths}
      * @param level the game level that the character belongs to.
      */
     public GameCharacter(float xCoordinate, float yCoordinate, String filePath, int characterId, int level){
@@ -54,18 +55,16 @@ public class GameCharacter {
      */
     public boolean isTalking(float xPlayer, float yPlayer) {
         if (((xCoordinate - 20) < xPlayer && xPlayer < (xCoordinate + 20)) && ((yCoordinate - 20) < yPlayer && yPlayer < (yCoordinate + 20))) {
-//            if (!(Sm.isSoundPlaying())) {
-//                Sm.text();
-//            }
             return true;
         }
         return false;
     }
 
-    public List<Text> getText() {
-        return textList;
-    }
-
+    /**
+     * Method to set text box(es) for a GameCharacter.
+     * @param characterId the number of the character used to retrieve their text {@link TextFilePaths}
+     * @param level the level that the character belongs to.
+     */
     private void setTextList(int characterId, int level){
         List<String> textFilePaths = TextFilePaths.getAtlasPaths(characterId, level);
         List<Text> textList = new ArrayList<Text>();
@@ -74,6 +73,8 @@ public class GameCharacter {
         }
         this.textList = textList;
     }
+
+    public List<Text> getText() { return textList; }
 
     public Texture getTexture(){
         return this.texture;

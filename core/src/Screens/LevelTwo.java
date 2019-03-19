@@ -27,10 +27,6 @@ public class LevelTwo extends Level implements Screen {
         //Store game object
         this.game = game;
 
-        //TODO do we want NPCs in level two?
-//        //Set up NPCs
-//        npc = new Npc(game, 30);
-
         //Set exit oo-ordinates
         this.yExit = 3966;
         this.xExit = 922;
@@ -157,10 +153,6 @@ public class LevelTwo extends Level implements Screen {
         } else {
             player.standStill();
         }
-
-        //TODO
-//        //Draw out all NPC characters
-//        npc.drawNPCs(elapsedTime);
 
         //Draw all items in level two
         for (Item item : levelItems) {

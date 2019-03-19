@@ -198,11 +198,9 @@ public class LevelThree extends Level implements com.badlogic.gdx.Screen {
         if(lastCharacterSpokenTo != null){
             if(lastKeyPressed == lastCharacterSpokenTo.getAnswer()){
                 correctAnswers++;
-                System.out.println("number of correct answers " + correctAnswers);
                 levelCharacters.remove(lastCharacterSpokenTo);
                 lastKeyPressed = 'z';
             } else if(lastKeyPressed != lastCharacterSpokenTo.getAnswer()){
-                //System.out.println("number of correct answers " + correctAnswers);
                 levelCharacters.remove(lastCharacterSpokenTo);
                 lastKeyPressed = 'z';
             }
