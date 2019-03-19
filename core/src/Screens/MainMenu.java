@@ -56,8 +56,6 @@ public class MainMenu implements Screen, Input.TextInputListener {
         background = new Texture("Screens/MainMenu/MainMenu.png");
         character = new Texture("Screens/MainMenu/FemaleCharacterSelect.png");
         Sm = new Sounds();
-
-
     }
 
     /**
@@ -143,7 +141,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         else if ((Gdx.input.getX() > 190) && (Gdx.input.getX() < 458) && ((Gdx.input.getY() > 229) && (Gdx.input.getY() < 274))) {
 
             //Highlights button when hovered over
-            background = new Texture("Screens/MainMenu/MainMenuOpt.png");
+            background = new Texture("Screens/MainMenu/MainMenuOptions.png");
 
             //Switches to options menu screen upon press
             if (Gdx.input.isTouched()) {
@@ -213,7 +211,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         if ((Gdx.input.getX() > 131) && (Gdx.input.getX() < 532) && ((Gdx.input.getY() > 176) && (Gdx.input.getY() < 220))) {
 
             //Highlights button when hovered over
-            background = new Texture("Screens/MainMenu/MainMenuOptMenuChar.png");
+            background = new Texture("Screens/MainMenu/OptionsMenuCharacters.png");
 
             //Switches to character selection screen
             if (Gdx.input.isTouched()) {
@@ -228,7 +226,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         else if ((Gdx.input.getX() > 170) && (Gdx.input.getX() < 492) && ((Gdx.input.getY() > 274) && (Gdx.input.getY() < 312))) {
 
             //Highlights button when hovered over
-            background = new Texture("Screens/MainMenu/MainMenuOptMenuContr.png");
+            background = new Texture("Screens/MainMenu/OptionsMenuControls.png");
 
             //Switches to controls screen when pressed
             if (Gdx.input.isTouched()) {
@@ -241,7 +239,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
 
         //Standard Background
         else {
-            background = new Texture("Screens/MainMenu/MainMenuOptMenu.png");
+            background = new Texture("Screens/MainMenu/OptionsMenu.png");
         }
 
         //Return 'up' to main screen
@@ -278,7 +276,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         if ((Gdx.input.getX() > 517) && (Gdx.input.getX() < 547) && ((Gdx.input.getY() > 194) && (Gdx.input.getY() < 234))) {
 
             //Highlights button when hovered over
-            background = new Texture("Screens/MainMenu/MainMenuCharactersRight.png");
+            background = new Texture("Screens/MainMenu/CharacterMenuRight.png");
 
             //Switch to next character preview
             if (Gdx.input.isTouched()) {
@@ -294,7 +292,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         } else if ((Gdx.input.getX() > 109) && (Gdx.input.getX() < 137) && ((Gdx.input.getY() > 194) && (Gdx.input.getY() < 234))) {
 
             //Highlights button when hovered over
-            background = new Texture("Screens/MainMenu/MainMenuCharactersLeft.png");
+            background = new Texture("Screens/MainMenu/CharacterMenuLeft.png");
 
             //Switch to last character preview
             if (Gdx.input.isTouched()) {
@@ -311,7 +309,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
 
         //Standard background
         else {
-            background = new Texture("Screens/MainMenu/MainMenuCharacters.png");
+            background = new Texture("Screens/MainMenu/CharacterMenu.png");
         }
 
         //Updates character overlay for display in the character selection screen
@@ -344,7 +342,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
     private void controlScreen() {
 
         //Standard Background
-        background = new Texture("Screens/MainMenu/MainMenuControls.png");
+        background = new Texture("Screens/MainMenu/ControlsMenu.png");
 
         //Returns 'up' to options menu screen
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE) && elapsedTimeEsc > 0.5) {
