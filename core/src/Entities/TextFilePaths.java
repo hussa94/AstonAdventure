@@ -4,12 +4,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class for storing the texture file paths for all character text boxes within the game.
+ */
 public class TextFilePaths {
 
     private static HashMap<Integer, List<String>> LevelOneTextFilePaths;
     private static HashMap<Integer, List<String>> LevelTwoTextFilePaths;
     private static HashMap<Integer, List<String>> LevelThreeTextFilePaths;
     static {
+        //Level One
         LevelOneTextFilePaths = new HashMap<Integer, List<String>>();
         //Sylvia Text Box file paths
         LevelOneTextFilePaths.put(1, Arrays.asList(
@@ -18,8 +22,9 @@ public class TextFilePaths {
                 "Sprites/Objects/Text/Level One Text/Text 3/Level1Text3.atlas",
                 "Sprites/Objects/Text/Level One Text/Text 4/Level1Text4.atlas",
                 "Sprites/Objects/Text/Level One Text/Text 5/Level1Text5.atlas"));
+
+        //Level Two
         LevelTwoTextFilePaths = new HashMap<Integer, List<String>>();
-        //Level Two Character One Test
         LevelTwoTextFilePaths.put(1, Arrays.asList(
                 "Sprites/Objects/Text/Level Two Text/Text 1/Level2Text1.atlas"));
         LevelTwoTextFilePaths.put(2, Arrays.asList(
@@ -44,7 +49,7 @@ public class TextFilePaths {
         LevelTwoTextFilePaths.put(10, Arrays.asList(
                 "Sprites/Objects/Text/Level Two Text/Text 13/Level2Text13.atlas"));
 
-        // TODO: Test Level Three File Paths for Text
+        //Level Three
         LevelThreeTextFilePaths = new HashMap<Integer, List<String>>();
         //Level Three Character One Test
         LevelThreeTextFilePaths.put(1, Arrays.asList(
@@ -62,8 +67,7 @@ public class TextFilePaths {
 
     }
 
-
-    public static List<String> getAtlasPaths(int id, int level){
+    static List<String> getAtlasPaths(int id, int level){
         switch(level){
             case 1: return LevelOneTextFilePaths.get(id);
             case 2: return LevelTwoTextFilePaths.get(id);
