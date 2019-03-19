@@ -123,7 +123,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
     private void mainScreen() {
 
         //Play button
-        if ((Gdx.input.getX() > 250) && (Gdx.input.getX() < 414) && ((Gdx.input.getY() > 156) && (Gdx.input.getY() < 203))) {
+        if ((Gdx.input.getX() > 253) && (Gdx.input.getX() < 423) && ((Gdx.input.getY() > 126) && (Gdx.input.getY() < 172))) {
 
             //Highlights button when hovered over
             background = new Texture("Screens/MainMenu/MainMenuPlay.png");
@@ -138,7 +138,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         }
 
         //Options button
-        else if ((Gdx.input.getX() > 190) && (Gdx.input.getX() < 458) && ((Gdx.input.getY() > 229) && (Gdx.input.getY() < 274))) {
+        else if ((Gdx.input.getX() > 195) && (Gdx.input.getX() < 461) && ((Gdx.input.getY() > 200) && (Gdx.input.getY() < 243))) {
 
             //Highlights button when hovered over
             background = new Texture("Screens/MainMenu/MainMenuOptions.png");
@@ -153,7 +153,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         }
 
         //Exit button
-        else if ((Gdx.input.getX() > 258) && (Gdx.input.getX() < 407) && ((Gdx.input.getY() > 302) && (Gdx.input.getY() < 346))) {
+        else if ((Gdx.input.getX() > 253) && (Gdx.input.getX() < 407) && ((Gdx.input.getY() > 270) && (Gdx.input.getY() < 314))) {
 
             //Highlights button when hovered over
             background = new Texture("Screens/MainMenu/MainMenuExit.png");
@@ -208,7 +208,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
     private void optionsScreen() {
 
         //Characters button
-        if ((Gdx.input.getX() > 131) && (Gdx.input.getX() < 532) && ((Gdx.input.getY() > 176) && (Gdx.input.getY() < 220))) {
+        if ((Gdx.input.getX() > 134) && (Gdx.input.getX() < 536) && ((Gdx.input.getY() > 241) && (Gdx.input.getY() < 285))) {
 
             //Highlights button when hovered over
             background = new Texture("Screens/MainMenu/OptionsMenuCharacters.png");
@@ -223,7 +223,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
         }
 
         //Controls button
-        else if ((Gdx.input.getX() > 170) && (Gdx.input.getX() < 492) && ((Gdx.input.getY() > 274) && (Gdx.input.getY() < 312))) {
+        else if ((Gdx.input.getX() > 178) && (Gdx.input.getX() < 500) && ((Gdx.input.getY() > 155) && (Gdx.input.getY() < 202))) {
 
             //Highlights button when hovered over
             background = new Texture("Screens/MainMenu/OptionsMenuControls.png");
@@ -273,7 +273,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
     private void charScreen() {
 
         //Right arrow button
-        if ((Gdx.input.getX() > 517) && (Gdx.input.getX() < 547) && ((Gdx.input.getY() > 194) && (Gdx.input.getY() < 234))) {
+        if ((Gdx.input.getX() > 576) && (Gdx.input.getX() < 611) && ((Gdx.input.getY() > 222) && (Gdx.input.getY() < 266))) {
 
             //Highlights button when hovered over
             background = new Texture("Screens/MainMenu/CharacterMenuRight.png");
@@ -289,7 +289,7 @@ public class MainMenu implements Screen, Input.TextInputListener {
                     }
                 }
             }
-        } else if ((Gdx.input.getX() > 109) && (Gdx.input.getX() < 137) && ((Gdx.input.getY() > 194) && (Gdx.input.getY() < 234))) {
+        } else if ((Gdx.input.getX() > 31) && (Gdx.input.getX() < 66) && ((Gdx.input.getY() > 222) && (Gdx.input.getY() < 266))) {
 
             //Highlights button when hovered over
             background = new Texture("Screens/MainMenu/CharacterMenuLeft.png");
