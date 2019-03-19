@@ -54,7 +54,6 @@ public class ExitScreen implements Screen {
         this.game = game;
 
         sm = new Sounds();
-        sm.dispose();
 
         //Set textures
         background = new Texture("Screens/Exit/FinalExit.png");
