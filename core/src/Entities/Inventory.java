@@ -53,11 +53,19 @@ public class Inventory {
             if(!animated) {
                 game.batch.draw(HUDStill, (camera.getX() + xHUD), (camera.getY() + yHUD));
             } else {
+                if(!HUDAnimated.isAnimationFinished(elapsedTime)) {
+                    game.batch.draw(HUDAnimated.getKeyFrame(elapsedTime, true), (camera.getX() + xHUD), (camera.getY() + yHUD));
+                }
+                else {
+                    game.batch.draw(HUDStill, (camera.getX() + xHUD), (camera.getY() + yHUD));
+                }
                 elapsedTime += Gdx.graphics.getDeltaTime();
-                game.batch.draw(HUDStill, (camera.getX() + xHUD), (camera.getY() + yHUD));
-                game.batch.draw(HUDAnimated.getKeyFrame(elapsedTime, true), (camera.getX() + xHUD), (camera.getY() + yHUD));
             }
         }
+    }
+
+    public void resetElapsedTime() {
+        elapsedTime = 0;
     }
 
     /**

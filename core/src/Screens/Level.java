@@ -76,7 +76,7 @@ public abstract class Level {
                     //Updates status of inventory
                     inventory.updateInventoryStatus();
                     inventory.drawInventory(camera, true);
-                    inventoryFrames = 20;
+                    inventoryFrames = 40;
                     if (item.getItemType() == ItemType.SHOES) {
                         player.increaseSpeed();
                     }

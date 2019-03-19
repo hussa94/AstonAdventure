@@ -50,7 +50,7 @@ public class Sounds extends ApplicationAdapter {
         }
         background = Gdx.audio.newMusic(Gdx.files.internal("Sounds/OneStepAtATime.wav"));
         background.setLooping(false);
-        background.setVolume(0.3f);
+        background.setVolume(0.1f);
         background.play();
     }
 

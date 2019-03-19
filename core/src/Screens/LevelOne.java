@@ -25,22 +25,10 @@ public class LevelOne extends Level implements Screen {
     //Character
     private float elapsedTime;
 
-    //Textures
-    private Texture sylvia;
-    private float xSylvia, ySylvia;
-    private float xTextBox, yTextBox;
-
-    //Tutor character
-    private Tutor tutor;
-
-    //Text boxes
-    private Animation<TextureRegion> textBox;
+    private TutorialText tutorialText;
 
     //Progression tracker
     private int currentSpeech = 1;
-
-    //Display interrupt
-    private boolean textInterrupt;
 
     /**
      * The Constructor for LevelOne initialises the map and player textures, camera,
@@ -56,6 +44,8 @@ public class LevelOne extends Level implements Screen {
         //Set up exit co-ordinates
         this.xExit = 1369;
         this.yExit = 1719;
+
+        tutorialText = new TutorialText(game);
 
         //Set up map including tile width and heights
         map = new Map(1, 16, 16);
@@ -83,18 +73,8 @@ public class LevelOne extends Level implements Screen {
         Item coffee = new Item(ItemType.COFFEE, 2516, 662);
         levelItems.add(coffee);
 
-        //Set Text Box and its position
-        setTextPosition(110, 230);
-        setSylviaPosition(310, 230);
-
-        //Set tutor
-        tutor = new Tutor(game);
-
         //Set game object
         this.game = game;
-
-        //Set sylvia texture
-        sylvia = new Texture("tiles/sylvia.png");
 
 
         //Set up sounds
@@ -152,7 +132,7 @@ public class LevelOne extends Level implements Screen {
         }
 
         //Draw character animation and calculate movement
-        if (canPlayerWalk()) {
+        if (tutorialText.canPlayerWalk()) {
             player.movement(map);
             player.drawCharacter(elapsedTime);
         } else {
@@ -164,12 +144,12 @@ public class LevelOne extends Level implements Screen {
         camera.updateCameraOnPlayer(player);
 
         //Get next text box upon completion of last text box
-        if (!getTextInterrupt()) {
-            nextTextBoxLevel1(elapsedTime, inventory);
+        if (!tutorialText.getTextInterrupt()) {
+            tutorialText.nextTextBox(inventory);
         }
-        if (!getTutorStatus() || getTextInterrupt()) {
+        if (!tutorialText.getTutorStatus() || tutorialText.getTextInterrupt()) {
             //Draw text box relative to player position
-            drawTextBox(camera, player, elapsedTime);
+            tutorialText.drawTextBox(camera, player, elapsedTime);
         }
 
         //Draw the inventory in top right corner
@@ -186,6 +166,9 @@ public class LevelOne extends Level implements Screen {
         if (inventoryFrames > 0) {
             inventory.drawInventory(camera, true);
             inventoryFrames--;
+            if (inventoryFrames == 0) {
+                inventory.resetElapsedTime();
+            }
         }
 
         if (currentSpeech == 6) {
@@ -205,153 +188,6 @@ public class LevelOne extends Level implements Screen {
         if (checkPlayerExit()) {
             game.setScreen(LevelTwo.getLevelTwoInstance(game));
         }
-    }
-
-    // Method used to determine the next text box in the sequence to be displayed.
-    //@param elapsedTimeText Timer since last text box.
-    private void nextTextBoxLevel1(float elapsedTimeText, Inventory inventory) {
-
-        //Change text box if necessary
-        if (currentSpeech == 1) {
-            setTextInterrupt();
-        } else if (elapsedTimeText > 8.5 && currentSpeech == 2) {
-            setTextInterrupt();
-        } else if (elapsedTimeText > 5 && currentSpeech == 3 && inventory.contains(ItemType.BACKPACK)) {
-            setTextInterrupt();
-        } else if (elapsedTimeText > 5 && currentSpeech == 4 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES)) {
-            setTextInterrupt();
-        } else if (elapsedTimeText > 5 && currentSpeech == 5 && inventory.contains(ItemType.BACKPACK) && inventory.contains(ItemType.SHOES) && inventory.contains(ItemType.COFFEE)) {
-            setTextInterrupt();
-        }
-    }
-
-    /**
-     * Method used to determine and set the current text box to be displayed.
-     */
-    private void setCurrentTextBox() {
-
-        //Determine which text box to display
-        //Animation frame duration
-        float frameDuration = 1 / 2f;
-        TextureAtlas textureAtlasText;
-        if (currentSpeech == 1) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 1/Level1Text1.atlas");
-            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-        }
-        if (currentSpeech == 2) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 2/Level1Text2.atlas");
-
-            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-        }
-        if (currentSpeech == 3) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 3/Level1Text3.atlas");
-
-            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-        }
-        if (currentSpeech == 4) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 4/Level1Text4.atlas");
-
-            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-        }
-        if (currentSpeech == 5) {
-            textureAtlasText = new TextureAtlas("Sprites/Objects/Text/Level One Text/Text 5/Level1Text5.atlas");
-            textBox = new Animation<TextureRegion>(frameDuration, textureAtlasText.getRegions());
-        }
-    }
-
-
-    /**
-     * Method to draw the text box on the screen. The tutor character will enter, then stand while the
-     * text box is displayed. On dismissal, the tutor character will leave and the player will be able to resume.
-     *
-     * @param camera           The camera in the level.
-     * @param player           The player.
-     * @param elapsedTimeLevel Elapsed time in the level.
-     */
-    private void drawTextBox(Camera camera, Player player, float elapsedTimeLevel) {
-
-        //Update elapsed time for text box
-        elapsedTime += Gdx.graphics.getDeltaTime();
-
-        //Draw tutor character entering / exiting / standing
-        if (tutor.getEntering()) {
-            tutor.enterTutor(elapsedTimeLevel, player);
-        } else if (tutor.getExiting()) {
-            tutor.exitTutor(elapsedTimeLevel, player);
-        } else if (tutor.getStanding()) {
-            tutor.standTutor(elapsedTimeLevel);
-        }
-
-        //Draw the current text box
-        if (textInterrupt && (!tutor.getExiting()) && (!tutor.getEntering())) {
-            setCurrentTextBox();
-            game.batch.draw(sylvia, (camera.getX() - xSylvia), (camera.getY() - ySylvia));
-            game.batch.draw(textBox.getKeyFrame(elapsedTime, true), (camera.getX() - xTextBox), (camera.getY() - yTextBox));
-            if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-                removeTextInterrupt();
-                currentSpeech++;
-            }
-        }
-    }
-
-    /**
-     * Method to return a bool indicating whether or not a text box is on screen
-     *
-     * @return textInterrupt
-     */
-    private boolean getTextInterrupt() {
-        return textInterrupt;
-    }
-
-    /**
-     * Sets the interrupt such that the game is interrupted to display a text box.
-     */
-    private void setTextInterrupt() {
-        textInterrupt = true;
-        tutor.setEntering();
-    }
-
-    /**
-     * Removes the interrupt such that the game stops the interrupt to display a text box.
-     */
-    private void removeTextInterrupt() {
-        textInterrupt = false;
-        tutor.setExiting();
-    }
-
-    private boolean getTutorStatus() {
-        return tutor.getFinished();
-    }
-
-    /**
-     * Method to restric the player from walking if the tutor character is active, or a text box is active.
-     *
-     * @return Whether the player can walk or not.
-     */
-    private boolean canPlayerWalk() {
-        return !getTextInterrupt() && !tutor.getStanding() && !tutor.getEntering() && !tutor.getExiting();
-    }
-
-    /**
-     * Sets the position of the text boxes to be displayed.
-     *
-     * @param x x co-ordinate.
-     * @param y y co-ordinate.
-     */
-    private void setTextPosition(float x, float y) {
-        xTextBox = x;
-        yTextBox = y;
-    }
-
-    /**
-     * Sets the position of the lecturer character.
-     *
-     * @param x x co-ordinate.
-     * @param y y co-ordinate.
-     */
-    private void setSylviaPosition(float x, float y) {
-        xSylvia = x;
-        ySylvia = y;
     }
 
     //Unused

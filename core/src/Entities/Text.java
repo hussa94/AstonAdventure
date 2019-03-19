@@ -14,7 +14,7 @@ public class Text {
     }
 
     public TextureRegion getKeyFrame(float elapsedTime){
-      return animation.getKeyFrame(elapsedTime, true);
+        return animation.getKeyFrame(elapsedTime, true);
     }
 
 }
