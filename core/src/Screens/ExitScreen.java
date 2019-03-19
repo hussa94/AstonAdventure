@@ -1,11 +1,15 @@
 package Screens;
 
 import Entities.Camera;
+import Entities.Sounds;
 import Game.AstonAdventure;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * The class ExitScreen is used to display the final scoreboard/end game screens when the
@@ -13,13 +17,6 @@ import com.badlogic.gdx.graphics.Texture;
  * on to Aston's website.
  */
 public class ExitScreen implements Screen {
-
-    private static final int BACKGROUND_WIDTH = 680;
-    private static final int BACKGROUND_HEIGHT = 480;
-    private static final int EXIT_BUTTON_HEIGHT = 80;
-    private static final int EXIT_BUTTON_WIDTH = 180;
-    private static final int MORE_BUTTON_HEIGHT = 120;
-    private static final int MORE_BUTTON_WIDTH = 300;
 
     //ExitScreen Instance
     private static ExitScreen exitScreenInstance;
@@ -30,12 +27,20 @@ public class ExitScreen implements Screen {
     //Game
     private AstonAdventure game;
 
+    private Sounds sm;
+
     //Background
     private Texture background;
+    private Animation<TextureRegion> credits;
+    TextureAtlas textureAtlas;
 
-    //Buttons
-    private Texture exitButton;
-    private Texture moreButton;
+    private float frameDuration = 3f;
+
+    private boolean animationFinished = false;
+
+    private float elapsedTime;
+    private float elapsedTimeClick;
+
 
     /**
      * Constructor for ExitScreen. Initialises the background and button textures and sounds.
@@ -48,16 +53,20 @@ public class ExitScreen implements Screen {
         //Set game object
         this.game = game;
 
+        sm = new Sounds();
+        sm.dispose();
+
         //Set textures
-        background = new Texture("Screens/Exit/AstonExit.png");
-        exitButton = new Texture("Screens/Exit/ExitButton.png");
-        moreButton = new Texture("Screens/Exit/FindOutButton.png");
+        background = new Texture("Screens/Exit/FinalExit.png");
+
+        textureAtlas = new TextureAtlas("Screens/Exit/Exit.atlas");
+        credits = new Animation<TextureRegion>(frameDuration, textureAtlas.findRegions("Exit"));
 
         //Set camera to look at exit screen
-        camera = new Camera(680, 480, 340, 240, game);
+        camera = new Camera(650, 480, 325, 240, game);
     }
 
-    static ExitScreen getExitScreenInstance(AstonAdventure game) {
+    public static ExitScreen getExitScreenInstance(AstonAdventure game) {
         if (exitScreenInstance == null) {
             exitScreenInstance = new ExitScreen(game);
         }
@@ -79,32 +88,88 @@ public class ExitScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
 
+        elapsedTime += Gdx.graphics.getDeltaTime();
+        elapsedTimeClick += Gdx.graphics.getDeltaTime();
+
         camera.updateCameraStationary();
 
-        //Display / Draw Background
-        game.batch.draw(background, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+        resetCameraOnExitScreen();
 
-        //Display / Draw Buttons
-        game.batch.draw(exitButton, 240, 20, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-        game.batch.draw(moreButton, 180, 150, MORE_BUTTON_WIDTH, MORE_BUTTON_HEIGHT);
-
-        if (Gdx.input.isTouched()) {
-
-            //Exits game if button is clicked
-            if ((Gdx.input.getX() > 240) && (Gdx.input.getX() < 420) && ((Gdx.input.getY() > 380) && (Gdx.input.getY() < 500))) {
-
-                Gdx.app.exit();
-            }
-
-            //Directs to website if button is clicked
-            else if ((Gdx.input.getX() > 180) && (Gdx.input.getX() < 480) && (Gdx.input.getY() > 210) && ((Gdx.input.getY() < 325))) {
-
-                Gdx.net.openURI("https://www2.aston.ac.uk/");
-            }
+        if (!sm.isMusicPlaying() && (!sm.isSoundPlaying())) {
+            sm.menu();
         }
+
+        if (!animationFinished) {
+            game.batch.draw(credits.getKeyFrame(elapsedTime, true), 0, 0);
+        }
+        else {
+            game.batch.draw(background,0, 0);
+        }
+
+        isAnimationFinished();
+
+        buttons();
 
         //End
         game.batch.end();
+    }
+
+    public void buttons() {
+        if (animationFinished) {
+            if ((Gdx.input.getX() > 142) && (Gdx.input.getX() < 504) && ((Gdx.input.getY() > 89) && (Gdx.input.getY() < 178))) {
+                background = new Texture("Screens/Exit/FinalExitAstonAdventure.png");
+                if(Gdx.input.isTouched()) {
+                    if (!sm.isSoundPlaying()) {
+                        sm.menuSelect();
+                    }
+                    if(elapsedTimeClick > 0.5) {
+                        Gdx.net.openURI("https://bit.ly/AstonAdventureGame");
+                        elapsedTimeClick = 0;
+                    }
+                }
+            }
+            else if ((Gdx.input.getX() > 142) && (Gdx.input.getX() < 504) && ((Gdx.input.getY() > 192) && (Gdx.input.getY() < 281))) {
+                background = new Texture("Screens/Exit/FinalExitAstonUniversity.png");
+                if(Gdx.input.isTouched()) {
+                    if (!sm.isSoundPlaying()) {
+                        sm.menuSelect();
+                    }
+                    if(elapsedTimeClick > 0.5) {
+                    Gdx.net.openURI("https://www2.aston.ac.uk/");
+                    elapsedTimeClick = 0;
+                }
+                }
+            }
+            else if ((Gdx.input.getX() > 142) && (Gdx.input.getX() < 504) && ((Gdx.input.getY() > 295) && (Gdx.input.getY() < 388))) {
+                background = new Texture("Screens/Exit/FinalExitExit.png");
+                if(Gdx.input.isTouched()) {
+                    if (!sm.isSoundPlaying()) {
+                        sm.menuSelect();
+                    }
+                    if(elapsedTimeClick > 0.5) {
+                    Gdx.app.exit();
+                    elapsedTimeClick = 0;
+                }
+                }
+            }
+            else {
+                background = new Texture("Screens/Exit/FinalExit.png");
+            }
+        }
+    }
+
+    public void isAnimationFinished() {
+        if (credits.isAnimationFinished(elapsedTime)) {
+            animationFinished = true;
+        }
+    }
+
+
+    public void resetCameraOnExitScreen() {
+        if ((camera.getX() != 325) || (camera.getY() != 240)) {
+            camera.setCameraToSpecificPoint(325, 240);
+        }
+
     }
 
     //Unused

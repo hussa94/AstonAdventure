@@ -2,6 +2,7 @@ package Screens.MainMenu;
 
 import Entities.Sounds;
 import Game.AstonAdventure;
+import Screens.ExitScreen;
 import Screens.LevelOne;
 import Screens.Loading;
 import com.badlogic.gdx.Gdx;
@@ -28,9 +29,6 @@ public class MainMenu implements Screen, Input.TextInputListener {
     //Background Texture
     private Texture background;
 
-    //Character Selection Overlay
-    private Texture character;
-
     //Sounds
     private Sounds Sm;
 
@@ -43,7 +41,6 @@ public class MainMenu implements Screen, Input.TextInputListener {
     private MainMenu(AstonAdventure game) {
         this.game = game;
         background = new Texture("Screens/MainMenu/MainMenu.png");
-        character = new Texture("Screens/MainMenu/FemaleCharacterSelect.png");
         Sm = new Sounds();
     }
 
@@ -105,8 +102,10 @@ public class MainMenu implements Screen, Input.TextInputListener {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
 
-                    game.setLevel(1);
-                    game.setScreen(Loading.getLoadingScreenInstance(game));
+                    game.setScreen(ExitScreen.getExitScreenInstance(game));
+
+//                    game.setLevel(1);
+//                    game.setScreen(Loading.getLoadingScreenInstance(game));
                     //Start the game at level two
                     //game.setScreen(LevelTwo.getLevelTwoInstance(game));
                     //Start the game at level three

@@ -1,0 +1,33 @@
+Exit.png
+size: 2600, 480
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Exit
+  rotate: false
+  xy: 0, 0
+  size: 650, 480
+  orig: 650, 480
+  offset: 0, 0
+  index: -1
+Exit
+  rotate: false
+  xy: 650, 0
+  size: 650, 480
+  orig: 650, 480
+  offset: 0, 0
+  index: -1
+Exit
+  rotate: false
+  xy: 1300, 0
+  size: 650, 480
+  orig: 650, 480
+  offset: 0, 0
+  index: -1
+Exit
+  rotate: false
+  xy: 1950, 0
+  size: 650, 480
+  orig: 650, 480
+  offset: 0, 0
+  index: -1
