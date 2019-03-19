@@ -106,12 +106,13 @@ public class CharactersMenu implements Screen, Input.TextInputListener {
             if (Gdx.input.isTouched()) {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
+                }
                     if (currentCharacter < NUMBER_OF_CHARACTERS - 1) {
                         currentCharacter++;
                     } else {
                         currentCharacter = 0;
                     }
-                }
+
             }
         } else if ((Gdx.input.getX() > 31) && (Gdx.input.getX() < 66) && ((Gdx.input.getY() > 222) && (Gdx.input.getY() < 266))) {
 
@@ -122,12 +123,13 @@ public class CharactersMenu implements Screen, Input.TextInputListener {
             if (Gdx.input.isTouched()) {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
+                }
                     if (currentCharacter > 0) {
                         currentCharacter--;
                     } else {
                         currentCharacter = NUMBER_OF_CHARACTERS - 1;
                     }
-                }
+
             }
         }
 

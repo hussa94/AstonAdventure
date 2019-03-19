@@ -93,9 +93,10 @@ public class OptionsMenu implements Screen, Input.TextInputListener {
             if (Gdx.input.isTouched()) {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
+                }
                     elapsedTime = 0;
                     game.setScreen(CharactersMenu.getCharactersMenuInstance(game));
-                }
+
             }
         }
 
@@ -109,9 +110,11 @@ public class OptionsMenu implements Screen, Input.TextInputListener {
             if (Gdx.input.isTouched()) {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
-                    elapsedTime = 0;
-                    game.setScreen(ControlsMenu.getControlsMenuInstance(game));
+
                 }
+                    game.setScreen(ControlsMenu.getControlsMenuInstance(game));
+                    elapsedTime = 0;
+
             }
         }
 

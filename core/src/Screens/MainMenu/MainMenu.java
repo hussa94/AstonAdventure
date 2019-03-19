@@ -2,9 +2,6 @@ package Screens.MainMenu;
 
 import Entities.Sounds;
 import Game.AstonAdventure;
-import Screens.ExitScreen;
-import Screens.LevelOne;
-import Screens.LevelTwo;
 import Screens.Loading;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -102,11 +99,12 @@ public class MainMenu implements Screen, Input.TextInputListener {
             if (Gdx.input.isTouched()) {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
+                }
 
                     //Start the game at level one
                     game.setLevel(1);
                     game.setScreen(Loading.getLoadingScreenInstance(game));
-                }
+
             }
         }
 
@@ -120,8 +118,9 @@ public class MainMenu implements Screen, Input.TextInputListener {
             if (Gdx.input.isTouched()) {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
-                    game.setScreen(OptionsMenu.getOptionsMenuInstance(game));
                 }
+                    game.setScreen(OptionsMenu.getOptionsMenuInstance(game));
+
             }
         }
 
@@ -135,8 +134,9 @@ public class MainMenu implements Screen, Input.TextInputListener {
             if (Gdx.input.isTouched()) {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
-                    Gdx.app.exit();
                 }
+                    Gdx.app.exit();
+
             }
         }
 
