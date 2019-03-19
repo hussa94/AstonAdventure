@@ -3,6 +3,7 @@ package Screens.MainMenu;
 import Entities.Sounds;
 import Game.AstonAdventure;
 import Screens.LevelOne;
+import Screens.Loading;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -104,7 +105,8 @@ public class MainMenu implements Screen, Input.TextInputListener {
                 if (!Sm.isSoundPlaying()) {
                     Sm.menuSelect();
 
-                    game.setScreen(LevelOne.getLevelOneInstance(game));
+                    game.setLevel(1);
+                    game.setScreen(Loading.getLoadingScreenInstance(game));
                     //Start the game at level two
                     //game.setScreen(LevelTwo.getLevelTwoInstance(game));
                     //Start the game at level three

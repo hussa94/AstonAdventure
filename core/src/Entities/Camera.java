@@ -115,6 +115,12 @@ public class Camera {
         return camera.position.y;
     }
 
+    public void setCameraToSpecificPoint(float x, float y) {
+
+        camera.position.set(x, y, 0);
+    }
+
+
 
 
 }

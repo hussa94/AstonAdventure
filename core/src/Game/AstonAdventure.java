@@ -17,6 +17,7 @@ public class AstonAdventure extends Game {
 	//Character Data
 	private String selectedCharacter;
 	public HashMap<Integer, String> characters = new HashMap<Integer, String>();
+	private int level;
 
 
 	/**
@@ -69,6 +70,14 @@ public class AstonAdventure extends Game {
 		characters.put(0, "Female");
 		characters.put(1, "Male");
 		selectedCharacter = characters.get(1);
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getLevel() {
+		return level;
 	}
 }
 

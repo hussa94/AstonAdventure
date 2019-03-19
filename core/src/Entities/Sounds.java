@@ -50,7 +50,7 @@ public class Sounds extends ApplicationAdapter {
         }
         background = Gdx.audio.newMusic(Gdx.files.internal("Sounds/OneStepAtATime.wav"));
         background.setLooping(false);
-        background.setVolume(0.1f);
+        background.setVolume(0.05f);
         background.play();
     }
 
@@ -60,7 +60,7 @@ public class Sounds extends ApplicationAdapter {
         }
         background = Gdx.audio.newMusic(Gdx.files.internal("Sounds/Red Curtain.mp3"));
         background.setLooping(false);
-        background.setVolume(0.3f);
+        background.setVolume(0.05f);
         background.play();
     }
 

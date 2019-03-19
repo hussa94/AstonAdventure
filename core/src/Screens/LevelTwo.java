@@ -217,7 +217,8 @@ public class LevelTwo extends Level implements Screen {
     private void checkLevelProgress() {
 
         if (checkPlayerExit()) {
-            game.setScreen(LevelThree.getLevelThreeInstance(game));
+            game.setLevel(3);
+            game.setScreen(Loading.getLoadingScreenInstance(game));
         }
     }
 

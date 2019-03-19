@@ -1,5 +1,6 @@
 package Screens;
 
+import Entities.Camera;
 import Entities.Sounds;
 import Game.AstonAdventure;
 import com.badlogic.gdx.Gdx;
@@ -19,11 +20,15 @@ public class Loading implements Screen {
     //Loading screen instance
     private static Loading loadingScreenInstance;
 
+    private Camera camera;
+
     //Game
     private AstonAdventure game;
 
     //Background Texture
     private Texture background;
+
+    private int level;
 
     //Sounds
     private Sounds Sm;
@@ -39,8 +44,8 @@ public class Loading implements Screen {
      */
     private Loading(AstonAdventure game) {
 
+        camera = new Camera(650, 480, 325, 240, game);
         this.game = game;
-        background = new Texture("Screens/Loading/Level1INTRO.png");
         Sm = new Sounds();
     }
 
@@ -50,7 +55,7 @@ public class Loading implements Screen {
      * @param game {@link AstonAdventure} game
      * @return the single version of a Loading screen instance
      */
-    static Loading getLoadingScreenInstance(AstonAdventure game) {
+    public static Loading getLoadingScreenInstance(AstonAdventure game) {
         if (loadingScreenInstance == null) {
             loadingScreenInstance = new Loading(game);
         }
@@ -71,20 +76,64 @@ public class Loading implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
 
-        //Draw Background
-        game.batch.draw(background, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+        resetCameraOnLoadingScreen();
+
+        camera.updateCameraStationary();
+
+        level = game.getLevel();
+
+        elapsedTime += Gdx.graphics.getDeltaTime();
 
         //Sounds
         Sm.dispose();
 
-        //Begins level after elapsed time.
-        if (elapsedTime >= 2) {
-            game.setScreen(LevelOne.getLevelOneInstance(game));
-        }
-        elapsedTime += Gdx.graphics.getDeltaTime();
+        updateLoadingScreen();
+
+        exitLoadingScreen();
+
+        //Draw Background
+        game.batch.draw(background, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
 
         //End
         game.batch.end();
+    }
+
+    public void resetCameraOnLoadingScreen() {
+        if ((camera.getX() != 325) || (camera.getY() != 240)) {
+            camera.setCameraToSpecificPoint(325, 240);
+        }
+
+    }
+
+    public void updateLoadingScreen() {
+        if (level == 1) {
+            background = new Texture("Screens/Loading/Level1Load.png");
+        }
+        else if (level == 2) {
+            background = new Texture("Screens/Loading/Level2Load.png");
+        }
+        else {
+            background = new Texture("Screens/Loading/Level3Load.png");
+        }
+    }
+
+    public void exitLoadingScreen() {
+        //Begins level after elapsed time.
+        if (elapsedTime >= 2) {
+            if (level == 1) {
+                elapsedTime = 0;
+                game.setScreen(LevelOne.getLevelOneInstance(game));
+            }
+            else if (level ==2) {
+                elapsedTime = 0;
+                game.setScreen(LevelTwo.getLevelTwoInstance(game));
+            }
+            else {
+                elapsedTime = 0;
+                game.setScreen(LevelThree.getLevelThreeInstance(game));
+            }
+
+        }
     }
 
     //Unused

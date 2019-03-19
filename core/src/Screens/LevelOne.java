@@ -27,8 +27,6 @@ public class LevelOne extends Level implements Screen {
 
     private TutorialText tutorialText;
 
-    //Progression tracker
-    private int currentSpeech = 1;
 
     /**
      * The Constructor for LevelOne initialises the map and player textures, camera,
@@ -171,7 +169,7 @@ public class LevelOne extends Level implements Screen {
             }
         }
 
-        if (currentSpeech == 6) {
+        if (tutorialText.getCurrentSpeech() == 6) {
             //Check if level has ended
             checkLevelProgress();
         }
@@ -186,7 +184,8 @@ public class LevelOne extends Level implements Screen {
     private void checkLevelProgress() {
 
         if (checkPlayerExit()) {
-            game.setScreen(LevelTwo.getLevelTwoInstance(game));
+            game.setLevel(2);
+            game.setScreen(Loading.getLoadingScreenInstance(game));
         }
     }
 

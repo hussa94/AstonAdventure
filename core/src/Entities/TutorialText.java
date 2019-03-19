@@ -35,7 +35,7 @@ public class TutorialText {
     private TextureAtlas textureAtlasText;
 
     //Progression tracker
-    public int currentSpeech = 1;;
+    public int currentSpeech = 1;
 
     //Display interrupt
     private boolean textInterrupt;
@@ -215,5 +215,9 @@ public class TutorialText {
     public void setSylviaPosition(float x, float y) {
         xSylvia = x;
         ySylvia = y;
+    }
+
+    public int getCurrentSpeech() {
+        return currentSpeech;
     }
 }
