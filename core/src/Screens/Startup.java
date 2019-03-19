@@ -2,6 +2,7 @@ package Screens;
 
 import Entities.Sounds;
 import Game.AstonAdventure;
+import Screens.MainMenu.MainMenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;

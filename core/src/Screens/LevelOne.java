@@ -89,7 +89,7 @@ public class LevelOne extends Level implements Screen {
      * @param game {@Link AstonAdventure} game
      * @return the single version of a LevelOne instance
      */
-    static LevelOne getLevelOneInstance(AstonAdventure game) {
+    public static LevelOne getLevelOneInstance(AstonAdventure game) {
         if (levelOneInstance == null) {
             levelOneInstance = new LevelOne(game);
         }
